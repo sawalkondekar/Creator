@@ -1,0 +1,24 @@
+if(Customer_Portal_Users[Email == input.email].count() > 0)
+{
+	info "Test 1";
+	info "User has already shared the Invitaion mail, Now we have send out forgot password email for this user" ;
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :input.email
+		subject :"Reset Password"
+		message :"<p>Hi, Click on below link to reset password  -  <a href='https://user1demo1831.zohocreatorportal.com/reset'>Please click here</a></p>"
+	]
+	info "Email Sent reset password";
+}
+else
+{
+	info "Test 2";
+	newuser = thisapp.permissions.assignUserInProfile(email, "Customer");
+	insert_new_user = insert into Customer_Portal_Users
+	[
+		Added_User = zoho.loginuser
+		Email = input.email
+	];
+	
+}
