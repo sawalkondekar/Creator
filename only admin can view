@@ -1,0 +1,23 @@
+// customer portal can't see this fields condition
+//Customer is profile name (on create or edit and load of the form this condition)
+if(thisapp.portal.loginUserProfile() == "Customer")
+{
+	//checking profile name of the portal user
+	//disable Copy_of;
+	disable Company;
+	disable Email;
+	hide WEEK;
+	hide Entry_date;
+	//new requirement fields - date 3 March 2022
+	hide ship_out ;
+	hide ship_out_date ;
+	hide number_of_boxes1 ;
+	hide To_Do ;
+	hide Cost ;
+	hide Units ;
+	hide Extra_charge ;
+	hide Box_Charge ;
+	hide Total_Service ;
+	hide remark ;
+	hide Boxes_left_for_storage ;
+}
