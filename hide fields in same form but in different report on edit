@@ -1,0 +1,21 @@
+//How to hide fields in same form but in different report on edit
+
+We cannot pass report_names to edit form scripts.
+But you know the criteria for report 1 and report 2.
+You have to do the same checks on Load script.
+Example:
+I have Status ( dropdown ) field in Task Form.
+Report 1 - Open Tasks - Criteria => Status = Open
+Report 2 - Closed Tasks - Criteria => Status = Closed
+Assume Task form has field "Closed Comments", this should show only when edit button clicked from Closed Tasks.
+You have to add script like this in "On Load - Edited" Script
+if(Status == "Closed")
+{
+show Closed_Comments;
+}
+else
+{
+hide Closed_Comments;
+}
+
+Hope this helps :)
