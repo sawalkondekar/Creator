@@ -1,0 +1,21 @@
+//form 1- smd , fields = product, IN_field
+//form 2 - smd_2,... fields = product_2, IN_2
+
+
+fet= SMD_2[Product_2==input.Product];
+if(fet.count()>0)
+{
+//update
+	 fet= SMD_2[Product_2==input.Product];
+ var= smd[Product==input.Product];
+ fet.IN_2= var.sum(IN_field);
+}
+else{
+//insert record task
+	fet = insert into SMD_2
+[
+	Added_User=zoho.loginuser
+	IN_2=input.IN_field
+	Product_2=input.Product
+];
+}
