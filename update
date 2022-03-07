@@ -1,7 +1,34 @@
 //form 1- smd , fields = product, IN_field
 //form 2 - smd_2,... fields = product_2, IN_2
 
-
+////////////////////////////
+1. Case 1 function for for each collection
+void defaultFunction(smd id)
+{
+	for each  rec in id
+	{
+		fet = SMD_2[Product_2 == rec.Product];
+		if(fet.count() > 0)
+		{
+			//update
+			//fet1 = SMD_2[Product_2 == rec.Product];
+			var = smd[ID == rec.ID];
+			fet.IN_2=var.sum(IN_field) + fet.sum(IN_2);
+		}
+		else
+		{
+			//insert record task
+			fet2 = insert into SMD_2
+			[
+				Added_User=zoho.loginuser
+				IN_2=rec.IN_field
+				Product_2=rec.Product
+			];
+		}
+	}
+}
+///////////////////////////////////////////////////////
+2.Case 2 
 fet= SMD_2[Product_2==input.Product];
 if(fet.count()>0)
 {
