@@ -1,0 +1,8 @@
+if(product_val.Boxes_left_for_storage == null || product_val.Boxes_left_for_storage == "")
+						{
+							total_box_formatted = total_box_arrived;
+						}
+						else
+						{
+							total_box_formatted = product_val.Boxes_left_for_storage;
+						}
