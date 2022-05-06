@@ -1,0 +1,68 @@
+// change width of record template
+// like spaces off of column
+<div style='width: 5%; border: 1px solid rgb(17, 17, 17)'> ${Name / Company Label element}</div>
+
+
+//whole code of Shipping Details also text size changed
+<div style='undefined'>
+  <div style='width: 50%'>
+    <div style='text-align: left; text-decoration: underline; font-size: 12px'>
+    ${Label element} </div>
+  </div>
+  <div style='width: 50%'>
+    <div style='font-size: 8px'>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Date Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Date Value element}</div>
+      <div style='width: 5%; border: 1px solid rgb(17, 17, 17)'> ${Name / Company Label element}</div>
+      <div style='width: 5%; border: 1px solid rgb(17, 17, 17)'>${Name / Company Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Product Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Product Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Quantity Sold / Out Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Quantity Sold / Out Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Customer Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Customer Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Order # Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Order # Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Weight Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Weight Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${State Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${State Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Postage Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Postage Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${POSTAGE + 8% Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${POSTAGE + 8% Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Postage Service Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Postage Service Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Shipping Service Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Shipping Service Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Envelope / Box Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Envelope / Box Value element}</div>
+      <div style='width: 5%; border: 1px solid rgb(17, 17, 17)'> ${Marketing Material Label element}</div>
+      <div style='width: 5%; border: 1px solid rgb(17, 17, 17)'>${Marketing Material Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Bubble Wrap Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Bubble Wrap Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Insurance Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Insurance Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${Other Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${Other Value element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>
+      ${TOTAL Label element}</div>
+      <div style='width: 1%; text-align: left; border: 1px solid rgb(17, 17, 17)'>${TOTAL Value element}</div>
+    </div>
+  </div>
+</div>
