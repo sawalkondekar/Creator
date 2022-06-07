@@ -1,3 +1,5 @@
+// send mail with name / subject
+
 a = "\"ship my deal\"<" + zoho.adminuserid + ">";
 sendmail
 [
