@@ -1,0 +1,8 @@
+a = "\"ship my deal\"<" + zoho.adminuserid + ">";
+sendmail
+[
+	from :a
+	to :"asidhant@gkblabs.com"
+	subject :"Registration"
+	message :"Thank you for your Registration"
+]
