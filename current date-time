@@ -1,0 +1,3 @@
+On the form add a date time field, then just use input.field=zoho.currenttime;
+
+The zoho.currenttime includes the date as well as the time
