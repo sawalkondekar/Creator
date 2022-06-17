@@ -1,0 +1,11 @@
+
+if(row.Unit_Price!=null)
+{
+	row.Extended_Price=row.Quantity * row.Unit_Price;
+input.Sub_Total1 = 0;
+for each rec in Item_Details
+  {
+  input.Sub_Total1 = input.Sub_Total1 + rec.Extended_Price;
+  }
+	
+}
