@@ -1,0 +1,14 @@
+if(row.Unit_Price != null)
+{
+row.Extended_Price=ifnull(row.Quantity , 0) * ifnull( row.Unit_Price , 0); // ifnull statement used
+input.Sub_Total = 0;
+input.Sub_Total1 = 0;
+input.Sub_Total2 = 0;
+for each rec in Item_Details
+{
+input.Sub_Total = input.Sub_Total + rec.Extended_Price;
+input.Sub_Total1 = input.Sub_Total1 + rec.Extended_Price;
+input.Sub_Total2 = input.Sub_Total2 + rec.Extended_Price;
+}
+}
+///wil not gives any error, if click on somewhere after zero value
