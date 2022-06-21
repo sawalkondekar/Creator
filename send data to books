@@ -1,0 +1,23 @@
+void Zoho_books.Create_Items_In_Books(int itm_id)
+{
+	Item_detailes = Add_Items[ID = itm_id];
+	product_map = Map();
+	product_map.put("name",Item_detailes.Name);
+	product_map.put("sku",Item_detailes.Part_Number);
+	product_map.put("unit",Item_detailes.Unit);
+	product_map.put("description",Item_detailes.Description);
+	wh_list = List();
+	wh_map = Map();
+	wh_map.put("warehouse_id",2071513000020066611);
+	wh_map.put("warehouse_name","VSI IN Estore");
+	Create_item = zoho.books.createRecord("items","699857540",product_map,"Zbooks");
+	info Create_item;
+	if(Create_item.get("code") == 0)
+	{
+		Item_detailes.ZB_Item_ID=Create_item.get("item").getJSON("item_id");
+		Item_detailes.API_Message=Create_item.get("message");
+	}
+	else
+	{
+		Item_detailes.API_Message=Create_item.get("message");
+	}
