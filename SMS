@@ -1,0 +1,13 @@
+	myMap = Map();
+		msg = "Terminbestätigung: \n" + cltx.Kunden + "\n" + daterrs + "." + grm_mth1 + "." + yrr + " um " + tim_str + " Uhr \n" + cltx.Kunden_Address.address_line_1 + ", " + cltx.Kunden_Address.postal_Code + ", " + cltx.Kunden_Address.district_city + "\n" + "Bei Fragen: " + cltx.Phone_Number;
+		 		myMap.put("p","jLEQgsC8RI5xC15LW3sIsxTmDfZHSgtRZ6uGaukEUVFMjWMi9coDoWgZR1artX2t");
+		 		myMap.put("from","persowave");
+		 		myMap.put("to",cand_detx.Phone_Number);
+		 		myMap.put("text",msg);
+		 		myMap.put("return_msg_id",1);
+		 		response = invokeurl
+		 		[
+		 			url :"https://gateway.sms77.io/api/sms"
+		 			type :POST
+		 			parameters:myMap
+		 		];
