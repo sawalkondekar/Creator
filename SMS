@@ -11,3 +11,24 @@
 		 			type :POST
 		 			parameters:myMap
 		 		];
+	//////////////////////////
+	// OR Function
+	
+	void sms77.sms77()
+{
+	myMap = Map();
+	myMap.put("p","jLEQgsC8RI5xC15LW3sIsxTmDfZHSgtRZ6uGaukEUVFMjWMi9coDoWgZR1artX2t");
+	myMap.put("from","persowave");
+	myMap.put("to","01728952740");
+	myMap.put("text","Hello");
+	myMap.put("return_msg_id",1);
+	response = invokeurl
+	[
+		url :"https://gateway.sms77.io/api/sms"
+		type :POST
+		parameters:myMap
+	];
+	// info myMap;
+	info response;
+}
+				
