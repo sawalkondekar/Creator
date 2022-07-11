@@ -1,0 +1,16 @@
+for each  rec in Interviews[Status == "Candidate Selected"]
+{
+	// 	for each  rec in Interviews[Status == "Scheduled" || Status == "Rescheduled" && hr_email == false]
+	inv_detx = Interviews[ID == rec.ID];
+	// info inv_detx;
+	st_dt = inv_detx.Contract_Sign_Date;
+	info st_dt;
+	if(st_dt != null)
+	{
+		ct_dt = zoho.currentdate;
+		info ct_dt;
+		 days = daysBetween(ct_dt,st_dt); info days;
+			if(days == 3)
+			{
+				///
+        }}}
