@@ -1,0 +1,3 @@
+// Type Here
+dummy_date = zoho.currentdate; info dummy_date;
+a =dummy_date.subday(1); info a;
