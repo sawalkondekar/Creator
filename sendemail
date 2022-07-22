@@ -1,0 +1,11 @@
+	sendmail
+		[
+			from :zoho.loginuserid
+			to :client_email
+			subject :subject
+			message : "<p><a href=\"https://www.w3schools.com\">Visit W3Schools.com!</a></p>"
+		]
+    
+    // or 
+    //You can also use single quote inside double quotes like:
+    //"<p><a href='https://www.w3schools.com'>Visit W3Schools.com!</a></p>"
