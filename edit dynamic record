@@ -1,0 +1,12 @@
+
+
+
+for each  rec in Interviews[Status == "Selection Pending"]
+{
+	// 	for each  rec in Interviews[Status == "Scheduled" || Status == "Rescheduled" && hr_email == false]
+	inv_detx = Interviews[ID == rec.ID];
+	// info inv_detx;
+  }
+  
+  
+  <a href='https://creatorapp.zoho.eu/jobs_persowave/persowave-recruiment-agency-copy/Interviews/record-edit/Copy_of_All_Interviews_Admin/"+rec.ID+" '>Link</a>
