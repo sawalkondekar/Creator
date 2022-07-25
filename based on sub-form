@@ -1,0 +1,11 @@
+//Based on subform field update in main form , with condition
+a = 365 / input.No_of_Days_Expired;
+calculation = 0;
+for each rec in input.Client_Claim_Subform
+{
+if(rec.Year_field=="2021 - 2022")
+{
+calculation =calculation + ( a * rec.Claim_Amount);
+}
+}
+input.Adjusted_Claim=calculation;
