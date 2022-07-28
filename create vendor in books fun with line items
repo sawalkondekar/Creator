@@ -45,3 +45,7 @@ void Books.TocreateVendor(int vid)
 	response = zoho.books.createRecord("contacts","654878468",mp,"zohobooks");
 	info response;
 }
+
+
+// after form submission can use this line  in wf
+thisapp.Books.tovendor(input.ID);
