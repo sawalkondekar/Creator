@@ -1,0 +1,47 @@
+void Books.TocreateVendor(int vid)
+{
+	resp = Vendor_Form[ID == vid];
+	FetchCP = Contact_Persons[Vendor_Form == vid];
+	// 	info resp
+	mp = Map();
+	mp.put("first_name",resp.Primary_Contact);
+	mp.put("company_name",resp.Company_Name);
+	mp.put("contact_name",resp.Vendor_Display_Name);
+	mp.put("email",resp.Vendor_Email);
+	mp.put("phone",resp.Vendor_Phone);
+	mp.put("skype",resp.Skype_name_number);
+	mp.put("designation",resp.Designation);
+	mp.put("department",resp.Department);
+	mp.put("pan_no",resp.PAN);
+	mp.put("currency_code",resp.Currency);
+	mp.put("opening_balance_amount",resp.Opening_Balance);
+	mp.put("payment_terms_label",resp.Payment_Terms);
+	mp.put("tds_tax_id",resp.TDS);
+	mp.put("language_code_formatted",resp.Portal_Language);
+	mp.put("billing_address.country",resp.Country);
+	mp.put("billing_address.address",resp.Street);
+	mp.put("billing_address.city",resp.City);
+	mp.put("billing_address.state",resp.State);
+	mp.put("billing_address.zip",resp.Zip_code);
+	mp.put("billing_address.phone",resp.Phone_Number);
+	mp.put("shipping_address.country",resp.Country1);
+	mp.put("shipping_address.address",resp.Street1);
+	mp.put("shipping_address.city",resp.City1);
+	mp.put("shipping_address.state",resp.State1);
+	mp.put("shipping_address.zip",resp.Zip_code1);
+	mp.put("contact_type","vendor");
+	// 	info mp;
+	cntlist = List();
+	for each  rec in FetchCP
+	{
+		mp1 = Map();
+		mp1.put("first_name",rec.Name);
+		mp1.put("email",rec.Email);
+		mp1.put("mobile",rec.Mobile);
+		cntlist.add(mp1);
+	}
+	info cntlist;
+	mp.put("contact_persons",cntlist);
+	response = zoho.books.createRecord("contacts","654878468",mp,"zohobooks");
+	info response;
+}
