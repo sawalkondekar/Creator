@@ -1,0 +1,16 @@
+void Books.TocreateExpense(int eid)
+{
+	resp = Expense[ID == eid];
+	mp = Map();
+	mp.put("distance",resp.Distance_Travelled);
+	mp.put("mileage_rate",resp.Mileage_Rate);
+	mp.put("paid_through_account_name",resp.Paid_through1);
+	mp.put("date",resp.Date_field);
+	mp.put("account_name",resp.Expence_Account);
+	mp.put("paid_through_account_name",resp.Paid_through);
+	mp.put("vendor_name",resp.Vendor);
+	mp.put("reference_number",resp.Invoice);
+	mp.put("description",resp.Notes);
+	resp1 = zoho.books.createRecord("expenses","654878468",mp,"zohoall");
+	info resp1;
+}
