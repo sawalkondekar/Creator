@@ -1,0 +1,18 @@
+listVar = List();
+
+​//iterating each row in the subform
+for each line in Products
+{
+  mapVar = map();
+  mapVar.put("item_id", line.item_id);
+  mapVar.put("name", line.name);
+  mapVar.put("rate", line.rate);
+  mapVar.put("quantity", line.quantity);
+  listVar.add(mapVar);
+}
+
+values = map();
+values.put("customer_id", input.Customer_ID);
+values.put("line_items", listVar);
+
+response = zoho.books.createRecord("Invoices", "66XXXXX66", values, "books_connection");
