@@ -7,7 +7,14 @@ void Books.To_Create_Items(int id)
 	mp.put("rate",resp.Landing_Cost); // selling price in books
 	 mp.put("purchase_rate",resp.Customer_Rate); //cost price in books
 	resp1 = zoho.books.createRecord("items","654878468",mp,"zohoall"); // create Hardware working item in books
-	books_id = resp1.get("item").getJSON("item_id"); // get created item id from books
+	////////////
+		messages = resp1.get("message");
+		if(messages == "The item has been added.")
+		{
+			books_id = resp1.get("item").getJSON("item_id");// info books_id;
+		}
+	////////
+	//books_id = resp1.get("item").getJSON("item_id"); // get created item id from books
 	resp.Books_ID = books_id;  // update created books id in creator field(Books ID which is hidden)
 }
 
