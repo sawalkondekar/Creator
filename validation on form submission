@@ -1,0 +1,11 @@
+//Validation of form submission
+start = input.Odometer_Starting_Read;
+end = input.Odometer_Ending_Read;
+if(start != null)
+{
+	if(end < start)
+	{
+		alert "Odometer Ending Read Should be Greater than Odometer Starting Read";
+		cancel submit;
+	}
+}
