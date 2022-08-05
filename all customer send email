@@ -1,0 +1,33 @@
+A new reply received for your ticket [##80716415##] -
+how to send email or sms for all customers ? from Sidhant.
+The content of the reply is as follows:
+You can fetch the customer records and create a list of the emails to send to, it would look something like:
+//
+crRecord = Customer[ID in input.Customer_Lookup];
+//
+crEmailList = crRecord.Email_Field.getall();
+crEmailString = crEmailList.tostring();
+//
+sendmail
+[
+      from: zoho.adminuserid
+      to: zoho.adminuserid
+      cc: crEmailString
+      subject: "Some Subject"
+      message: input.Message_Field
+]
+If you want to send to each customer individually you will need to iterate over the customer records, like:
+//
+for each crr in crRecord
+{
+      //
+      sendmail
+      [      
+            from: zoho.adminuserid
+            to: crRecord.Email_Field
+            subject: "Some Subject"
+            message: input.Message_Field    
+      ]
+}
+Which SMS provider you use will determine how to send the SMS, if using Twilio there is the deluge integration function, see: https://www.zoho.com/deluge/help/twilio/send-sms.html
+If some other provider you will need to send an API call using invokeUrl, see: https://www.zoho.com/deluge/help/webhook/invokeurl-api-task.html
