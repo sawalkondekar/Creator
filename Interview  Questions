@@ -1,0 +1,5 @@
+Stateless form - the only way to create stateless form is to duplicate form
+                using stateless form, we dont need to store the data
+                We can use Submit button, like when click on submit button action in stateless form
+               - we can store or not store the data in stateless form, we will get option while creating this form
+           
