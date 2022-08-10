@@ -1,0 +1,15 @@
+void Creator.service_to_Accural_revenue(int serv_ID)
+{
+	//service revenue module to Accural revenue module 
+	fetch_service_revenue = Timesheets[ID == serv_ID];
+  
+  		expense = insert into Accrual
+			[
+				Added_User=zoho.loginuser
+				Submittal_Name=fetch_service_revenue.Submittal_Name
+				Type="Expense"
+				For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date
+				Source="Service Revenue"
+			];
+      
+   }
