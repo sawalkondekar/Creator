@@ -1,0 +1,16 @@
+void Creator.service_to_Accural_revenue(int serv_ID)
+{
+	//service revenue module to Accural revenue module 
+	fetch_service_revenue = Timesheets[ID == serv_ID];
+	// 	create_map = Map();
+	// 	create_map1=Map();
+	// 	//Type is Expense
+	// 	if ( fetch_service_revenue.Type == "Timesheet" ) 
+	//     {
+	// 		create_map.put("Submittal_Name", fetch_service_revenue.Submittal_Name);
+	// 		create_map.put("Type", "Expense");
+	// 		//create_map.put("Type", "Revenue");
+	// 		create_map.put("For_Srvc_W_E_Date", fetch_service_revenue.Srvc_W_E_Date);
+	// 		create_rec = zoho.crm.createRecord("staffdocs", "xpense-management", "Accrual", create_map,create_map1,"z_creator_connection");
+  // change the module this is for creator ,, make changes accourding to that
+	//     }
