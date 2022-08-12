@@ -1,0 +1,174 @@
+void Creator.service_to_Accural_revenue(int serv_ID)
+{
+	//service revenue module to Accural revenue module 
+	fetch_service_revenue = Timesheets[ID == serv_ID];
+	// 	create_map = Map();
+	// 	create_map1=Map();
+	// 	//Type is Expense
+	// 	if ( fetch_service_revenue.Type == "Timesheet" ) 
+	//     {
+	// 		create_map.put("Submittal_Name", fetch_service_revenue.Submittal_Name);
+	// 		create_map.put("Type", "Expense");
+	// 		//create_map.put("Type", "Revenue");
+	// 		create_map.put("For_Srvc_W_E_Date", fetch_service_revenue.Srvc_W_E_Date);
+	// 		create_rec = zoho.creator.createRecord("staffdocs", "xpense-management", "Accrual", create_map,create_map1,"z_creator_connection");
+	//     }
+	fetc_accural = Accrual[Timesheet_ID == fetch_service_revenue.ID];
+	//	info "fetc_accural =" + fetc_accural;
+	//	info "fetch_service_revenue.ID =" + fetch_service_revenue.ID;
+	//	info "fetc_accural.Timesheet_ID =" + fetc_accural.Timesheet_ID;
+	if(fetc_accural.count() == 0)
+	{
+		//	info "HI";
+		if(fetch_service_revenue.Type == "Timesheet")
+		{
+			expense = insert into Accrual
+			[
+				Added_User=zoho.loginuser
+				Submittal_Name=fetch_service_revenue.Submittal_Name
+				Type="Expense"
+				For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date
+				Source="Service Revenue"
+				Account_Type1=fetch_service_revenue.QB_Expense_Account
+				Expense_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date
+				Amount=fetch_service_revenue.IC_Service_Expense
+				Invoiced_Expense=fetch_service_revenue.IC_Paid
+				PI_Invoice_Number=fetch_service_revenue.Provider_Bill_No_MG
+				PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Paid_by_SD_to_Provide
+				Timesheet_ID=fetch_service_revenue.ID
+				For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date
+				Off_Cycle=fetch_service_revenue.Off_Cycle
+				Delinquent_TS=fetch_service_revenue.Delinquent_TS
+				TS_Signed_by_Client=fetch_service_revenue.TS_Signed_by_Client
+				TS_Received=fetch_service_revenue.TS_Submitted_by_Provider
+			];
+			revenue = insert into Accrual
+			[
+				Added_User=zoho.loginuser
+				Submittal_Name=fetch_service_revenue.Submittal_Name
+				Type="Revenue"
+				For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date
+				Source="Service Revenue"
+				Account_Type1=fetch_service_revenue.QB_Revenue_Account
+				Revenue_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date
+				Amount=fetch_service_revenue.IC_Service_Revenue1
+				Invoiced_Expense=fetch_service_revenue.Client_Invoiced
+				PI_Invoice_Number=fetch_service_revenue.Client_Invoice_No_SD
+				PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Client_Invoiced
+				Timesheet_ID=fetch_service_revenue.ID
+				For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date
+				Off_Cycle=fetch_service_revenue.Off_Cycle
+				Delinquent_TS=fetch_service_revenue.Delinquent_TS
+				TS_Signed_by_Client=fetch_service_revenue.TS_Signed_by_Client
+				TS_Received=fetch_service_revenue.TS_Submitted_by_Provider
+				Administrative_Fee_Revenue=fetch_service_revenue.Administrative_Fee_Revenue
+			];
+		}
+		if(fetch_service_revenue.Type == "Permanent Placement")
+		{
+			revenue = insert into Accrual
+			[
+				Added_User=zoho.loginuser
+				Submittal_Name=fetch_service_revenue.Submittal_Name
+				Type="Revenue"
+				Source="Service Revenue"
+				Added_User=zoho.loginuser
+				Revenue_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date
+				Invoiced_Expense=fetch_service_revenue.Client_Invoiced
+				PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Client_Invoiced
+				PI_Invoice_Number=fetch_service_revenue.Client_Invoice_No_SD
+				Account_Type1=fetch_service_revenue.QB_Revenue_Account
+				Timesheet_ID=fetch_service_revenue.ID
+			];
+		}
+		if(fetch_service_revenue.Type == "Service Deposit")
+		{
+			revenue = insert into Accrual
+			[
+				Added_User=zoho.loginuser
+				Submittal_Name=fetch_service_revenue.Submittal_Name
+				Type="Revenue"
+				Source="Service Revenue"
+				Added_User=zoho.loginuser
+				Submittal_Name=fetch_service_revenue.Submittal_Name
+				Revenue_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date
+				Invoiced_Expense=fetch_service_revenue.Client_Invoiced
+				PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Client_Invoiced
+				PI_Invoice_Number=fetch_service_revenue.Client_Invoice_No_SD
+				Account_Type1=fetch_service_revenue.QB_Revenue_Account
+				Timesheet_ID=fetch_service_revenue.ID
+			];
+		}
+	}
+	////////////////////////////////	//Update record   /////////////////////////////
+	if(fetc_accural.count() > 0)
+	{
+		// 		fetc_accural.Revenue_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date;
+		// 		fetc_accural.Submittal_Name=fetch_service_revenue.Submittal_Name;
+		////////
+		if(fetch_service_revenue.Type == "Timesheet")
+		{
+			Added_User = zoho.loginuser;
+			fetc_accural.Submittal_Name=fetch_service_revenue.Submittal_Name;
+			fetc_accural.Type="Expense";
+			fetc_accural.For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date;
+			fetc_accural.Source="Service Revenue";
+			fetc_accural.Account_Type1=fetch_service_revenue.QB_Expense_Account;
+			fetc_accural.Expense_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date;
+			fetc_accural.Amount=fetch_service_revenue.IC_Service_Expense;
+			fetc_accural.Invoiced_Expense=fetch_service_revenue.IC_Paid;
+			fetc_accural.PI_Invoice_Number=fetch_service_revenue.Provider_Bill_No_MG;
+			fetc_accural.PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Paid_by_SD_to_Provide;
+			fetc_accural.Timesheet_ID=fetch_service_revenue.ID;
+			fetc_accural.For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date;
+			fetc_accural.Off_Cycle=fetch_service_revenue.Off_Cycle;
+			fetc_accural.Delinquent_TS=fetch_service_revenue.Delinquent_TS;
+			fetc_accural.TS_Signed_by_Client=fetch_service_revenue.TS_Signed_by_Client;
+			fetc_accural.TS_Received=fetch_service_revenue.TS_Submitted_by_Provider;
+			////////
+			fetc_accural.Submittal_Name=fetch_service_revenue.Submittal_Name;
+			fetc_accural.Type="Revenue";
+			fetc_accural.For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date;
+			fetc_accural.Source="Service Revenue";
+			fetc_accural.Account_Type1=fetch_service_revenue.QB_Revenue_Account;
+			fetc_accural.Revenue_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date;
+			fetc_accural.Amount=fetch_service_revenue.IC_Service_Revenue1;
+			fetc_accural.Invoiced_Expense=fetch_service_revenue.Client_Invoiced;
+			fetc_accural.PI_Invoice_Number=fetch_service_revenue.Client_Invoice_No_SD;
+			fetc_accural.PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Client_Invoiced;
+			fetc_accural.Timesheet_ID=fetch_service_revenue.ID;
+			fetc_accural.For_Srvc_W_E_Date=fetch_service_revenue.Srvc_W_E_Date;
+			fetc_accural.Off_Cycle=fetch_service_revenue.Off_Cycle;
+			fetc_accural.Delinquent_TS=fetch_service_revenue.Delinquent_TS;
+			fetc_accural.TS_Signed_by_Client=fetch_service_revenue.TS_Signed_by_Client;
+			fetc_accural.TS_Received=fetch_service_revenue.TS_Submitted_by_Provider;
+			fetc_accural.Administrative_Fee_Revenue=fetch_service_revenue.Administrative_Fee_Revenue;
+		}
+		if(fetch_service_revenue.Type == "Permanent Placement")
+		{
+			fetc_accural.Submittal_Name=fetch_service_revenue.Submittal_Name;
+			fetc_accural.Type="Revenue";
+			fetc_accural.Source="Service Revenue";
+			fetc_accural.Revenue_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date;
+			fetc_accural.Invoiced_Expense=fetch_service_revenue.Client_Invoiced;
+			fetc_accural.PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Client_Invoiced;
+			fetc_accural.PI_Invoice_Number=fetch_service_revenue.Client_Invoice_No_SD;
+			fetc_accural.Account_Type1=fetch_service_revenue.QB_Revenue_Account;
+			fetc_accural.Timesheet_ID=fetch_service_revenue.ID;
+		}
+		if(fetch_service_revenue.Type == "Service Deposit")
+		{
+			Submittal_Name = fetch_service_revenue.Submittal_Name;
+			fetc_accural.Type="Revenue";
+			fetc_accural.Source="Service Revenue";
+			fetc_accural.Submittal_Name=fetch_service_revenue.Submittal_Name;
+			fetc_accural.Revenue_Accrual_for_W_E_Date=fetch_service_revenue.Accrual_W_E_Date;
+			fetc_accural.Invoiced_Expense=fetch_service_revenue.Client_Invoiced;
+			fetc_accural.PI_Date_Client_Invoiced_PI=fetch_service_revenue.Date_Client_Invoiced;
+			fetc_accural.PI_Invoice_Number=fetch_service_revenue.Client_Invoice_No_SD;
+			fetc_accural.Account_Type1=fetch_service_revenue.QB_Revenue_Account;
+			fetc_accural.Timesheet_ID=fetch_service_revenue.ID;
+		}
+		/////
+	}
+}
