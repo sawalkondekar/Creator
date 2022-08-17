@@ -1,0 +1,105 @@
+void Import_data_2()
+{
+	// 	fetch_cont = Test_Form[ID == input.];
+	// 	info fetch_cont;
+	//31355000919657548
+	//31355000919687197
+	//31355000919687219
+	//31355000919653560
+	abc = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+	count = 0;
+	idlist = List();
+	//
+	aadhar = "123A45d69780003";
+	aadhar_1 = aadhar.toString() + 1;
+	aadhar_2 = aadhar_1.toString();
+	// info aadhar_1;
+	pan = "ihsd8ifhi32";
+	pan_1 = pan.toString() + 1;
+	pan_2 = pan_1.toString();
+	ID_2 = "86868686";
+	//
+	// 	aad = 123456781337;
+	for each  rec in abc
+	{
+		aadhar_3 = aadhar_1 + rec.toNumber();
+		//info aadhar_3;// info aadhar_3;
+		pan_3 = pan_1 + rec;
+		//info pan_3;
+		pass = "kn9hkjj" + 2.toString() + rec;
+		// info pass;
+		id_5 = ID_2 + rec;
+		nrega = "hsdifhi" + rec.toString();
+		id1 = "nmmmmm" + rec.toString();
+		id2 = "njiiss" + rec.toString();
+		id3 = "kllkj" + rec.toString();
+		info id3;
+		crmmap = Map();
+		crmmap.put("First_Name","test3 aman v-align1");
+		crmmap.put("Name","test aman v-align");
+		crmmap.put("Father_Name_Spouse_Name","");
+		crmmap.put("Gender","F");
+		// 	crmmap.put("Source_of_lead","BR.NET");
+		crmmap.put("Center_No","");
+		crmmap.put("Group_No","");
+		crmmap.put("Customer_Enrollment_Date",zoho.currentdate);
+		crmmap.put("Last_Loan_Sanctioned_Date",zoho.currentdate);
+		crmmap.put("Mobile","8270349781");
+		crmmap.put("Alternate_Mobile_Number","");
+		crmmap.put("District","");
+		crmmap.put("Sub_District1","");
+		crmmap.put("Educational_Qualification","");
+		crmmap.put("ClientTypeID","G");
+		//crmmap.put("Aadhaar_Number","126782013");
+		crmmap.put("Aadhaar_Number",aadhar_3.toString());
+		crmmap.put("ID1",id1.toString());
+		crmmap.put("ID1_Caption","");
+		crmmap.put("ID2",id2.toString());
+		crmmap.put("ID2_Caption","");
+		crmmap.put("ID3",id3.toString());
+		//crmmap.put("Driving_license","Dy123410");
+		crmmap.put("Driving_license",pan_3.toString());
+		//crmmap.put("Passport","PASS9U76A620");
+		crmmap.put("Passport",pass.toString());
+		crmmap.put("NREGA_Card",nrega.toString());
+		crmmap.put("Customer_ID","");
+		crmmap.put("Date_of_Birth","1999-05-19");
+		crmmap.put("Branch_Code","0008");
+		crmmap.put("Address","test1");
+		crmmap.put("Address_21","");
+		crmmap.put("City1","");
+		crmmap.put("Communication_State","");
+		crmmap.put("Pin_Code1","121102");
+		crmmap.put("Pin_Code","121102");
+		crmmap.put("Country1","");
+		crmmap.put("Address_1","");
+		crmmap.put("Address_2","");
+		crmmap.put("City11","");
+		crmmap.put("Permanent_State","");
+		crmmap.put("Country","");
+		crmmap.put("Residental_Status","");
+		crmmap.put("Religion","");
+		crmmap.put("Loan_Purpose","");
+		crmmap.put("Loan_Purpose_Category","");
+		crmmap.put("Nominee_Name","");
+		crmmap.put("Relationship_with_the_Nominee","");
+		crmmap.put("Nominee_Address_Line1","");
+		crmmap.put("Nominee_Address_Line2","");
+		crmmap.put("Nominee_Address_Line3","");
+		crmmap.put("Nominee_Pincode","");
+		crmmap.put("Nominee_City","");
+		crmmap.put("Nominee_State","");
+		crmmap.put("Nominee_Country","");
+		crmmap.put("Nominee_District","");
+		crmmap.put("CRO_ID","");
+		crmmap.put("CRO_Name","");
+		crmmap.put("Product_Category","");
+		crmmap.put("Product_ID","");
+		resp = zoho.crm.createRecord("Update_Contact",crmmap,{"trigger":{"workflow"}});
+		id = resp.get("id");
+		info "id****" + id;
+		// // // 	// 		aad = aad + 1;
+		idlist.add(resp.get("id"));
+		info "idlist ****" + idlist;
+	}
+}
