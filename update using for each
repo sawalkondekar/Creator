@@ -1,0 +1,19 @@
+// 	fet1 = Copy_of_Test_Items[ID != 0];
+	// 	for each  rec in fet1
+	// 	{
+	// 		fet2 = Add_Items[Part_Number == rec.Part_Number];
+	// 		if(fet2.count() > 0)
+	// 		{
+	// 			// 			for each  rec2 in fet2
+	// 			// 			{
+	// 			//	rec2.ZB_Item_ID=rec.ZB_Item_ID;
+	// 			rec.Status="Updated";
+	// 			info rec.Status;
+	// 			//}
+	// 		}
+  ///////////////////////
+  // 	var = Copy_of_Test_Items[ID != 0];
+	//     for each  rec in var
+	//     {
+	//         rec.Internal_Part_No=rec.Part_Number;
+	//     }
