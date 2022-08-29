@@ -1,0 +1,53 @@
+void Books.TocreateExpense(int eid)
+{
+	resp = Expense[ID == eid];
+	vendorid = Vendor_Form[ID == resp.vendor];
+	bookvendorid = vendorid.Vendor_id;
+	//info bookvendorid ;
+	name = resp.Expence_Account;
+	response = zoho.books.getRecords("Contacts","654878468","zcrm_account_id=" + resp.Customer_Name,"zohobooks");
+	custidbooks = response.get("contacts").getJSON("contact_id");
+	response1 = zoho.books.getRecords("chartofaccounts","654878468","zohobooks");
+	chart = response1.getJSON("chartofaccounts");
+	for each  rec in chart
+	{
+		//	info rec.getJSON("account_name");
+		if(rec.getJSON("account_name") == name)
+		{
+			id = rec.getJSON("account_id");
+			//info "id =" + id;
+		}
+	}
+	mp = Map();
+	if(resp.Type == "Expense")
+	{
+		mp.put("paid_through_account_name",resp.Paid_through);
+		mp.put("account_id",id);
+		mp.put("amount",resp.Amount);
+	}
+	else if(resp.Type == "Mileage")
+	{
+		mp.put("account_id",id);
+		mp.put("amount",resp.Amount1);
+		mp.put("distance",resp.Distance_Travelled);
+		mp.put("mileage_rate",resp.Mileage_Rate);
+		mp.put("paid_through_account_name",resp.Paid_through1);
+		mp.put("start_reading",resp.Odometer_Starting_Read);
+		mp.put("end_reading",resp.Odometer_Ending_Read);
+		mp.put("mileage_rate",resp.Mileage_Rate);
+	}
+	mp.put("date",resp.Date_field);
+	mp.put("vendor_id",bookvendorid);
+	mp.put("reference_number",resp.Invoice);
+	mp.put("description",resp.Notes);
+	mp.put("customer_id",custidbooks);
+	mp.put("customer_name",custidbooks);
+	resp1 = zoho.books.createRecord("expenses","654878468",mp,"zohoall");
+	//info resp1;
+	messages = resp1.get("message");
+	if(messages == "The expense has been recorded.")
+	{
+		resp.Expenseid=resp1.get("expense").get("expense_id");
+	}
+	resp.Expense_Book_Status="Pushed";
+}
