@@ -1,0 +1,39 @@
+void Books.TocreateSO(int sid)
+{
+	resp = SO[ID == sid];
+	lineitem = SO_Line_Item[SO_NO == sid];
+	//info resp.Customer_Name;
+	response = zoho.books.getRecords("Contacts","654878468","zcrm_account_id=" + resp.Customer_Name,"zohobooks");
+	// 	info response;
+	custidbooks = response.get("contacts").getJSON("contact_id");
+	createmap = Map();
+	createmap.put("customer_id",custidbooks);
+	createmap.put("customer_name",custidbooks);
+	createmap.put("salesorder_number",resp.Booking_ID);
+	createmap.put("date",resp.So_Date);
+	createmap.put("salesorder_number",resp.Order_No);
+	itemlist = List();
+	for each  rec in lineitem
+	{
+		itemmap = Map();
+		itemmap.put("item_id",rec.Discription_of_goods.Books_ID);
+		itemmap.put("unit",rec.Unit);
+		itemmap.put("quantity",rec.Quantity);
+		itemmap.put("rate",rec.Selling_Price);
+		itemlist.add(itemmap);
+	}
+	// 	info itemlist;
+	createmap.put("line_items",itemlist);
+	dep = zoho.books.createRecord("salesorders","654878468",createmap,"zohoall");
+	messages = dep.get("message");
+	info "messages= " + messages;
+	if(messages == "Sales Order has been created.")
+	{
+		resp.SO_Book_ID=dep.get("salesorder").get("salesorder_id");
+		resp.SO_Status="Pushed";
+	}
+	else
+	{
+		resp.Message=messages;
+	}
+}
