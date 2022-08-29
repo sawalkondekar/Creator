@@ -1,0 +1,25 @@
+void Books.get_tax()
+{
+	// urll = "https://books.zoho.com/api/v3/settings/taxes?organization_id=60001223508";
+	resp = invokeurl
+	[
+		url :"https://books.zoho.com/api/v3/settings/taxes?organization_id=654878468"
+		type :GET
+		connection:"zohobooks"
+	];
+	info resp;
+	txdet = resp.get("taxes");
+	info txdet;
+	for each  rec in txdet
+	{
+		txid = rec.get("tax_id");
+		txnm = rec.get("tax_name");
+		txper = rec.get("tax_percentage");
+		a = insert into Tax_Master
+		[
+			Added_User=zoho.loginuser
+			Tax_Name=txnm
+			Tax_ID=txid
+		];
+	}
+}
