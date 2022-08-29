@@ -1,0 +1,12 @@
+void Books.Create_Customer(int id)
+{
+	cust = Customer_Master[ID = id];
+	mp = Map();
+	mp.put("contact_name",cust.Customer_Name);
+	// 	mp.put("contact_type",cust.Customer_Type);
+	mp.put("company_name",cust.Company_Name);
+	mp.put("customer_display_name",cust.Company_Name);
+	mp.put("email",cust.Primary_Contact_Email);
+	response = zoho.books.createRecord("contacts","60013468017",mp,"zoho_books");
+	info response;
+}
