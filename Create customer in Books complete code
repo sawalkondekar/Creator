@@ -1,0 +1,60 @@
+void Books.tovendor(int vid)
+{
+	//4273708000000515023
+	resp = Vendor_Form[ID == vid];
+	FetchCP = Contact_Persons[Vendor_Form == vid];
+	//----------billing address map--------------//
+	bmap = Map();
+	bmap.put("country",resp.Country.proper());
+	bmap.put("address",resp.Street);
+	bmap.put("city",resp.City);
+	bmap.put("state",resp.State);
+	bmap.put("zip",resp.Zip_code);
+	bmap.put("phone",resp.Phone_Number);
+	//----------Shipping address map---------//
+	smap = Map();
+	smap.put("country",resp.Country1.proper());
+	smap.put("address",resp.Street1);
+	smap.put("city",resp.City1);
+	smap.put("state",resp.State1);
+	smap.put("zip",resp.Zip_code1);
+	smap.put("phone",resp.Phone_Number2);
+	//----------conatct person code-----------//
+	if(FetchCP.count() > 0)
+	{
+		cplist = List();
+		for each  rec in FetchCP
+		{
+			cpmap = Map();
+			cpmap.put("first_name",FetchCP.First_Name);
+			cpmap.put("last_name",FetchCP.Last_Name);
+			cpmap.put("email",FetchCP.Email);
+			cpmap.put("mobile",FetchCP.Mobile);
+			cpmap.put("phone",FetchCP.Phone_Number);
+			cplist.add(cpmap);
+		}
+	}
+	//-----------main map-------------------//
+	cmap = Map();
+	cmap.put("first_name",resp.First_Name);
+	cmap.put("last_name",resp.Last_Name);
+	cmap.put("contact_name",resp.Vendor_Display_Name);
+	cmap.put("company_name",resp.Company_Name);
+	cmap.put("email",resp.Vendor_Email);
+	cmap.put("phone",resp.Vendor_Phone);
+	cmap.put("pan_no",resp.PAN);
+	cmap.put("currency_code",resp.Currency);
+	cmap.put("payment_terms_label",resp.Payment_Terms);
+	cmap.put("opening_balance_amount",resp.Opening_Balance);
+	cmap.put("billing_address",bmap);
+	cmap.put("shipping_address",smap);
+	cmap.put("contact_persons",cplist);
+	cmap.put("contact_type","vendor");
+	response = zoho.books.createRecord("contacts","654878468",cmap,"zohobooks");
+	message = response.get("message");
+	if(message == "The contact has been added.")
+	{
+		resp.Vendor_id=response.get("contact").get("contact_id");
+		resp.Vendor_Status="Pushed";
+	}
+}
