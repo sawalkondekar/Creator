@@ -1,0 +1,46 @@
+void Books.To_Create_PO(int pid)
+{
+	resp = PO[ID == pid];
+	lineitem = PO_Line_Item[PO_NO == pid];
+	vendor = zoho.books.getRecords("Vendors","654878468","vendor_id=" + resp.Vendor_Name,"zohobooks");
+	vendor_name = vendor.get("contacts").getJSON("contact_name");
+	vendor_id = vendor.get("contacts").getJSON("contact_id");
+	createmap = Map();
+	createmap.put("vendor_id",vendor_id);
+	createmap.put("purchaseorder_number",resp.PO_NO);
+	books_id = lineitem.Discription_of_goods;
+	itemlist = List();
+	for each  rec in lineitem
+	{
+		if(rec.Description != null && rec.Discription_of_goods == null)
+		{
+			bookid = rec.Description.Books_ID;
+		}
+		else if(rec.Description == null && rec.Discription_of_goods != null)
+		{
+			bookid = rec.Discription_of_goods.Books_ID;
+		}
+		info bookid;
+		itemmap = Map();
+		itemmap.put("item_id",bookid);
+		itemmap.put("unit",rec.Unit);
+		itemmap.put("quantity",rec.Quantity);
+		itemmap.put("rate",rec.Landing_Price);
+		itemlist.add(itemmap);
+	}
+	createmap.put("line_items",itemlist);
+	dep = zoho.books.createRecord("purchaseorders","654878468",createmap,"zohoall");
+	// 	info dep;
+	messages = dep.get("message");
+	info "messages= " + messages;
+	if(messages == "Purchase Order has been added.")
+	{
+		resp.PO_Status="Pushed";
+		resp.PO_Book_ID=dep.get("purchaseorder").get("purchaseorder_id");
+	}
+	else
+	{
+		resp.Message=messages;
+	}
+	//	info "resp.SO_Book_ID" + resp.PO_Book_ID;
+}
