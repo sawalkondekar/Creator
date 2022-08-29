@@ -1,0 +1,84 @@
+void Books.To_Create_Items(int id, string type)
+{
+	if(type == "SO")
+	{
+		respSO = SO_Item_Master[ID == id];
+		name = respSO.Short_Description;
+		bookid = respSO.Books_ID;
+	}
+	else if(type == "EOM")
+	{
+		respEOM = Internal_EOM_Item_Master[ID == id];
+		name = respEOM.Short_Description;
+		bookid = respEOM.Books_ID;
+	}
+	else if(type == "Hardware")
+	{
+		respHardware = Hardware_Working_Sheet[ID == id];
+		name = respHardware.Short_Description;
+		bookid = respHardware.Books_ID;
+	}
+	mp = Map();
+	mp.put("name",name);
+	mp.put("rate",0);
+	mp.put("purchase_rate",0);
+	mp.put("item_type","sales_and_purchases");
+	resp1 = zoho.books.createRecord("items","654878468",mp,"zohoall");
+	messages = resp1.get("message");
+	info messages;
+	if(messages == "The item has been added.")
+	{
+		books_id = resp1.get("item").getJSON("item_id");
+		if(type == "SO")
+		{
+			respSO.Books_ID=books_id;
+			if(respSO.SAP_Code != "")
+			{
+				FetchHI = Hardware_Working_Sheet[SAP_Code == respSO.SAP_Code];
+				FetchEI = Internal_EOM_Item_Master[SAP_Code == respSO.SAP_Code];
+				if(FetchHI.count() > 0)
+				{
+					FetchHI.Books_ID=books_id;
+				}
+				if(FetchEI.count() > 0)
+				{
+					FetchEI.Books_ID=books_id;
+				}
+			}
+		}
+		else if(type == "EOM")
+		{
+			respEOM.Books_ID=books_id;
+			if(respEOM.SAP_Code != "")
+			{
+				FetchHI = Hardware_Working_Sheet[SAP_Code == respEOM.SAP_Code];
+				FetchSI = SO_Item_Master[SAP_Code == respEOM.SAP_Code];
+				if(FetchHI.count() > 0)
+				{
+					FetchHI.Books_ID=books_id;
+				}
+				if(FetchSI.count() > 0)
+				{
+					FetchSI.Books_ID=books_id;
+				}
+			}
+		}
+		else if(type == "Hardware")
+		{
+			respHardware.Books_ID=books_id;
+			if(respHardware.SAP_Code != "")
+			{
+				FetchEI = Internal_EOM_Item_Master[SAP_Code == respHardware.SAP_Code];
+				FetchSI = SO_Item_Master[SAP_Code == respHardware.SAP_Code];
+				if(FetchEI.count() > 0)
+				{
+					FetchEI.Books_ID=books_id;
+				}
+				if(FetchSI.count() > 0)
+				{
+					FetchSI.Books_ID=books_id;
+				}
+			}
+		}
+	}
+}
