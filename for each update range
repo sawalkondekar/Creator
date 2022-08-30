@@ -1,0 +1,31 @@
+		
+	for each rec in Update_Specification_Master_Price[Status == "Pending"] range from 0 to 5000
+{
+			specification_master = Specification_Master[Product_Name == rec.Product_Name];
+			if(specification_master.count() > 0)
+			{
+				if(rec.Landing != null)
+				{
+					specification_master.Landing=rec.Landing;
+				}
+				if(rec.Discount_Expected != null)
+				{
+					specification_master.Discount_Expected=rec.Discount_Expected;
+				}
+				if(rec.Discount_Rate != null)
+				{
+					specification_master.Discount_Rate=rec.Discount_Rate;
+				}
+				if(rec.Control_Margin != null)
+				{
+					specification_master.Control_Margin=rec.Control_Margin;
+				}
+				if(rec.Customer_Rate != null)
+				{
+					specification_master.Customer_Rate=rec.Customer_Rate;
+				}
+				rec.Status = "Updated";
+			}
+
+}
+	
