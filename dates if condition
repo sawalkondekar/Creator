@@ -1,0 +1,27 @@
+	dat1 = '08-01-2021';
+	dat = toString(dat1,"dd,MM,yyyy");
+	datfin = toDate(dat,"dd,MM,yyyy");
+	dat2 = zoho.currentdate;
+	info datfin;
+	info dat2;
+	var = days360(datfin,dat2);
+	info var;
+	if(dat1 < zoho.currentdate)
+	{
+		if(var < 30)
+		{
+			info "it is less than 30";
+		}
+				else if(var < 365)
+			{
+				info "it is less than A Year";
+			}
+				else if(var < 2000)
+			{
+				info "it is less before A Year";
+			}
+	}
+	else 
+    {
+		info "Future Date Dates" ;
+    }
