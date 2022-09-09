@@ -1,0 +1,10 @@
+rupee = input.Total_Amount.getPrefix(".");
+	paisa = input.Total_Amount.getSuffix(".");
+	if(paisa.tonumber() > 0)
+	{
+		input.Amount_in_Words = rupee.tonumber().toWords("en-us") + " rupees " + paisa.tonumber().toWords("en-us") + " paisa only";
+	}
+	else
+	{
+		input.Amount_in_Words = rupee.todecimal().toWords("en-us") + " rupees only";
+	}
