@@ -1,0 +1,13 @@
+//1.First create a function
+void test13(Customer id)
+{
+	form = Customer[ID in id];
+	info form;
+	for each  var in form
+	{
+		info var.Email;
+	}
+} 
+/// 2.assign this function
+///3.edit arguments select - customer (form name)
+// so only selected records output will be displayed as per code above in the line no 4 , ID in id
