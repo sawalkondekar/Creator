@@ -1,0 +1,6 @@
+a = Customer[ID != 0];
+	info a;
+	for each var in a
+    {
+		info var.Email ;
+    }
