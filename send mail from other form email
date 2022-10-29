@@ -1,0 +1,9 @@
+//emp_mail = "sidhant@value-score.co.in";
+emp_mail = Employee_Details[ID = input.Employee_Name].Employee_Email_ID;
+sendmail
+[
+	from :zoho.loginuserid
+	to :emp_mail
+	subject :"Subject - Pending"
+	message :"Message will be here"
+]
