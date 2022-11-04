@@ -1,11 +1,12 @@
-fet = Employee_Details[ID==input.Employee_Details1];
+fet = Employee_Details[ID == input.Employee_Details1];
 email = fet.Employee_Email_ID;
 SubFormData = Collection();
-for each i in fet
+for each  i in fet
 {
-rows = Campaign_Infos.Employee_Details();
-rows.Employee_Name=i.Employee_Name;
-rows.Employee_Mobile_Number=i.Employee_Mobile_Number;
-SubFormData.insert(rows);
+	rows = Campaign_Infos.Employee_Details();
+	rows.Employee_Name=i.Employee_Name;
+	rows.Employee_Mobile_Number=i.Employee_Mobile_Number;
+	SubFormData.insert(rows);
 }
+clear Employee_Details;
 input.Employee_Details.insert(SubFormData);
