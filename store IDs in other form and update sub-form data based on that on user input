@@ -1,0 +1,49 @@
+//Button
+fet = Employee_Details[ID != 0];
+fet2 = Campaign_Infos[ID != 0];
+// for each  rec in fet
+// {
+// 	fet2.Store_IDs=rec.ID;
+// 	info fet2.Store_IDs;
+// }
+lis = List();
+lis.add(input.ID);
+openUrl("#Form:Campaign_Infos?Store_IDs=" + lis,"same window");
+------------------------------------
+//step - 2
+// Based on IDs update the sub-form data on user input of ID's .. multiline field
+
+fet = Employee_Details[ID == input.Employee_Details1];
+//fet = Employee_Details[ID == input.Store_IDs];
+email = fet.Employee_Email_ID;
+SubFormData = Collection();
+for each  i in input.Store_IDs.tolist()
+{
+	fet=Employee_Details[ID==i];
+	rows = Campaign_Infos.Employee_Details();
+		rows.Batch_Details=fet.Batch_Details;
+		rows.Employee_ID=fet.Employee_ID;
+		rows.Employee_Name=fet.Employee_Name;
+		rows.Employee_Mobile_Number=fet.Employee_Mobile_Number;
+		rows.Employee_Email_ID=fet.Employee_Email_ID;
+		rows.Employee_Official_Email_ID=fet.Employee_Official_Email_ID;
+		rows.Employee_Company_Name=fet.Employee_Company_Name;
+		rows.Contact_Person_s_Name=fet.Contact_Person_s_Name;
+		rows.Contact_Person_s_Mobile_Number=fet.Contact_Person_s_Mobile_Number;
+		rows.Delivery_Address=fet.Delivery_Address;
+		rows.Remark=fet.Remark;
+		rows.Custom_Field_1=fet.Custom_Field_1;
+		rows.Label_of_Custom_Field_1=fet.Label_of_Custom_Field_1;
+		rows.Custom_Field_2=fet.Custom_Field_2;
+		rows.Label_of_Custom_Field_2=fet.Label_of_Custom_Field_2;
+		rows.Custom_Field_3=fet.Custom_Field_3;
+		rows.Label_of_Custom_Field_3=fet.Label_of_Custom_Field_3;
+		rows.Custom_Field_4=fet.Custom_Field_4;
+		rows.Label_of_Custom_Field_4=fet.Custom_Field_4;
+		rows.Campaign_Details = fet.Campaign_Details;
+		rows.HR_Manager_SPOC_Campaign_Manager = fet.HR_Manager_SPOC_Campaign_Manager;
+	SubFormData.insert(rows);
+}
+clear Employee_Details;
+input.Employee_Details.insert(SubFormData);
+
