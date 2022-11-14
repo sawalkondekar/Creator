@@ -1,0 +1,22 @@
+void API()
+{
+	orderid = "1029156";
+	// 	var = invokeUrl
+	//     [
+	//     	url: "https://asiaparcelservice.com/api/track_order/1029156"
+	//     	type: POST
+	//     ];
+	// 	info var ;
+	//test_url = getUrl("https://ssapi.shipstation.com/orders/" + orderid,map2);
+	//url = getUrl("https://asiaparcelservice.com/api/track_order/1029156");
+	url = getUrl("https://asiaparcelservice.com/api/track_order/" + orderid);
+	info url;
+	awb_no = url.get("awb_no");
+	info "AWB No =" + awb_no;
+	consignee_name = url.get("consignee_name");
+	info "consignee_name =" + consignee_name;
+	tracking_status = url.get("tracking_status");
+	info "tracking_status=" + tracking_status;
+	site_status = url.get("site_status");
+	info "site_status=" + site_status;
+}
