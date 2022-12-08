@@ -1,0 +1,4 @@
+	// first create connection between wordrive and creator
+  
+  var = zoho.workdrive.createFolder("folder_name","q9gqe2a8281ccf806417d8c2063c011e40a9c","workdrive"); 
+ info var ;
