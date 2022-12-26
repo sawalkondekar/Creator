@@ -1,0 +1,8 @@
+fet = Zoho_Form_1[ID != 0 && Portal_Users_Email == zoho.loginuserid].Zoho_Form_Name.getAll().distinct();
+lis = List();
+for each  rec in fet
+{
+	a = Zoho_Form_1[Zoho_Form_Name.contains(rec)].ID;
+	lis.add(a);
+}
+input.Zoho_Form_1:ui.add(lis);
