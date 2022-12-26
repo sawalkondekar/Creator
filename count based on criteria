@@ -1,0 +1,2 @@
+var = Zoho_Form_1[Zoho_Form_Name== input.Zoho_Form_1.Zoho_Form_Name].count(Zoho_Form_Name);
+input.Total_Forms_Submitted = var;
