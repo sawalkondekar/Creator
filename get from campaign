@@ -1,0 +1,21 @@
+void campaign_get()
+{
+	np = Map();
+	// 	AccessToken = "1000.073f29************************************eef";
+	AccessToken = "1000.b4a34bac7719eae3e4e1f6890955b6d5.af3e4bfa94b76509d9e52bb9442d87d5";
+	info AccessToken;
+	apiHeader = Map();
+	apiHeader.put("Authorization","Zoho-oauthtoken " + AccessToken);
+	info apiHeader;
+	// 	APIEndPoint = "https://campaigns.zoho.com/api/v1.1/campaignreports?resfmt=JSON&campaignkey=3zf6ea0044e****************************3317";
+	APIEndPoint = "https://campaigns.zoho.com/api/v1.1/campaignreports?resfmt=JSON&campaignkey=3zaaeb89d0f88028f738033b14fc3452fee87c84245a998ada7f94cdd2ed33b247";
+	// campaign test 2 - campaign key
+	fetchReport = invokeurl
+	[
+		url :APIEndPoint
+		type :GET
+		headers:apiHeader
+	];
+	info fetchReport;
+	//return "";
+}
