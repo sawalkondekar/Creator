@@ -1,0 +1,8 @@
+1.Authorization Request
+
+https://accounts.zoho.com/oauth/v2/token?grant_type=authorization_code&redirect_uri=https://www.google.com&code=1000.97c545638b28d370396d882b578233db.432aa08b6f5b6a6f69406db1aa2ae671&client_id=1000.UME8GF8U87F4BVPWMIAIUGIWQDJOFJ&client_secret=5755a5a8a03feeda57473d95ccd4260a3680cfd85a
+
+
+2.Acceess Token Request
+
+https://accounts.zoho.com/oauth/v2/token?client_id=1000.UME8GF8U87F4BVPWMIAIUGIWQDJOFJ&client_secret=5755a5a8a03feeda57473d95ccd4260a3680cfd85a&refresh_token=1000.903aa6b2456f743746c291e2858017d1.b5920245a27e7756c648269a44608968&grant_type=refresh_token
