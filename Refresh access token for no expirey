@@ -1,0 +1,34 @@
+
+///Step 1:refreshed refresh access token 
+client_id = "1000.UME8GF8U87F4BVPWMIAIUGIWQDJOFJ";
+client_secret = "5755a5a8a03feeda57473d95ccd4260a3680cfd85a";
+refresh_token = "1000.903aa6b2456f743746c291e2858017d1.b5920245a27e7756c648269a44608968";
+grant_type = "refresh_token";
+url = "https://accounts.zoho.com/oauth/v2/token?client_id=" + client_id + "&client_secret=" + client_secret + "&refresh_token=" + refresh_token + "&grant_type=refresh_token";
+ref = invokeurl
+[
+	url :url
+	type :POST
+];
+access_token = ref.get("access_token");
+/////////////////////////////////////////////////////////
+//Step:2 used refreshed access token in code
+np = Map();
+AccessToken = access_token;
+apiHeader = Map();
+apiHeader.put("Authorization","Zoho-oauthtoken " + AccessToken);
+APIEndPoint = "https://campaigns.zoho.com/api/v1.1/campaignreports?resfmt=JSON&campaignkey=3zaaeb89d0f88028f738033b14fc3452fee87c84245a998ada7f94cdd2ed33b247";
+// campaign test 2 - campaign key
+fetchReport = invokeurl
+[
+	url :APIEndPoint
+	type :GET
+	headers:apiHeader
+];
+campaign_report = fetchReport.getjson("campaign-reports");
+
+emails_sent_count = campaign_report.getjson("emails_sent_count").toLong();
+opens_count = campaign_report.getjson("opens_count").toLong();
+input.Total_Email_Sent = emails_sent_count;
+input.Total_Emails_Open = opens_count;
+//}
