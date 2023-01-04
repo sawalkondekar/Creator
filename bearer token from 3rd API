@@ -1,0 +1,16 @@
+	header_map = Map();
+	header_map.put("Authorization","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI2IiwianRpIjoiNGM1ZDBjYzgwMDVmN2MxOWM1MGQ3MzQzNGQ0MWMyMGU1MTU0YzBlNGM5MjNhMWRkYjI3MDE2YTE1MmRkNGEwMjhlZmVjNDczYTFiNzFhMzEiLCJpYXQiOjE2NzI4MTUxMjUuMzE4NDM5LCJuYmYiOjE2NzI4MTUxMjUuMzE4NDQ0LCJleHAiOjE3MDQzNTExMjUuMzE0ODYsInN1YiI6IjUyMSIsInNjb3BlcyI6W119.HYDytKmHb-z6h7nT5BblWVnKSv7ZA46AXRpq7eoVHEZLGOeicXHuy7jzLZvZzcEr1YEBKx9THWEwJmZKevh02l6N1foabqd4ZE7I5dOS1gyCacx1EypAAdcOOGbChVM9SxI5y44mBdO3zG1BVdYorqy2R0GYKZaU1WSrr-dNz9N2L7mjKkKeNN_OlvkNOtwB1MaE6CocvhUidGSncd5-NeHD37U6blTel3-OhANmu5kWLXYeROQXu5E9OA0JGJ75aEi4zsdCLlAdoZIiFUd2H8H-iLrAjvdDcM_Cbyopqi524tPA935V0juLAMcFRmyPMpxVjSOOZGQOkdxHe_RK1Wtk14PtKwBjXUCn4LFDdmowMgye8kaKGGkRXYFG3ogZ2sliA0DvXo1NZqBU7siOLsXDEP5IHv3Z3jXmGR8_GX1RPR2q1pmAH1r4tGV2KAzTTF_P5wpnKFt1Sn7CgMfiIOz8BNIXjBpKIo4-0jtf9Yk2KEivMqhSu8_dJP8HlkfnxzeQ7MVp_QB-VIr76I4omJ68t0zGnPzz_UuFoU-6k0oSZVR0v9NErtQ3lqCCLj8bCelidJxSjh96a_1kLWMh38ieFE7ctGPRRIW8my35zef6MozgNB4pWJnzcJWWNhKqUfqkPxPfUVUUokGFqhOtRfYlpSTP09x3vnJaMTPzbKs");
+	response = invokeurl
+	[
+		url :"https://asiaparcelservice.com/api/auth/my_orders"
+		type :GET
+		headers:header_map
+	];
+	//	info  response;
+	orders = response.get("orders");
+	//info orders;
+	for each  rec in orders
+	{
+		id = rec.getjson("id");
+		info id;
+	}
