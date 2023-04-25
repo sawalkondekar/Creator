@@ -1,0 +1,36 @@
+	//for site name
+	l = list();
+	for each  rec in input.Customer_Address_Contact_Details
+	{
+		l.add(rec.Site_Name1);
+	}
+	if(l.size() > 1)
+	{
+		last = l.get(l.size() - 2);
+	}
+
+		//for address
+		l1 = list();
+		for each  rec in input.Customer_Address_Contact_Details
+		{
+			l1.add(rec.Address);
+		}
+		if(l1.size() > 1)
+		{
+			last1 = l1.get(l.size() - 2);
+		}
+///////////
+for each  rec1 in input.Customer_Address_Contact_Details
+{
+	if(rec1.Site_Name1 == last)
+	{
+		//alert rec1.Site_Name1;
+// 		alert "A  " + input.Customer_Address_Contact_Details.Site_Name1 = last;
+		// 			row.Customer_Address_Contact_Details.Site_Name1=last;
+		row.Site_Name1 = last;
+		row.Address = last1;
+	}
+}
+//alert l ;
+// alert "l  " + l;
+// alert "last  " + last;
