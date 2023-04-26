@@ -1,0 +1,9 @@
+It is not possible to import the subform data along with the main form data. We have a workaround for it.
+
+
+As a work around, you can create a new form as same as subform's fields and then can have a lookup field which can be set bidirectional to the main form.
+You can import the subform data (from your excel) to this newly created form by also mapping the main form record IDs to the lookup field while importing data. 
+​
+Now you can either write an on success workflow to insert the record in the main form's subform or can use the newly created form as a subform
+in the main form by deleting the inline subform from the main form so that the records can be inserted automatically in the main form's subform 
+by mapping the record ID in the lookup field from the newly created form.
