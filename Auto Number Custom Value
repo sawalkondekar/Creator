@@ -1,3 +1,9 @@
 //On Load of the form
 fet=CustomerGroup_Master[ID !=0];
 input.Code="CG-"+fet.count( );
+
+////////////////////////////////
+// Auto increment value 
+fet=CustomerGroup_Master[ID !=0];
+a=fet.count( ) +1;
+input.Code="CG-"+a;
