@@ -1,0 +1,3 @@
+//On Load of the form
+fet=CustomerGroup_Master[ID !=0];
+input.Code="CG-"+fet.count( );
