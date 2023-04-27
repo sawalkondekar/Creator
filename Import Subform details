@@ -7,3 +7,19 @@ You can import the subform data (from your excel) to this newly created form by 
 Now you can either write an on success workflow to insert the record in the main form's subform or can use the newly created form as a subform
 in the main form by deleting the inline subform from the main form so that the records can be inserted automatically in the main form's subform 
 by mapping the record ID in the lookup field from the newly created form.
+--
+This is the only possible workaround to import the subform records. 
+If the subform added is already an existing subform then you may proceed with the second option in the workaround provided. 
+If the subform is a blank form, you may have to create a new form with same subform fields. 
+
+--------------------------------------------------------------
+// Solution -2 By Vignesh as No need to write code
+Form-1
+- main form - subform
+----
+Create new subform - existing subform
+- Subform - 2 Report
+- Bidirection lookup in form -2
+  based on form -1
+- import -2 -- record ID of form -1, (lookup)
+--------------------------------
