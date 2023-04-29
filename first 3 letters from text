@@ -1,0 +1,3 @@
+a = "Sidhant";
+b = a.subString(0,3);
+info b;
