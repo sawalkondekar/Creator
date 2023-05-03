@@ -1,0 +1,23 @@
+
+// Discount amount calculation
+for each  rec in input.SO_Retrieve_Items
+{
+	rec.Discount_Amount=rec.Item_Rate * rec.Quantity * rec.Dis / 100;
+	dis_amt = rec.Discount_Amount;
+	// 	dis_amt = "9".toLong();
+}
+// total tax value calculation
+calculation = 0;
+for each  rec in input.SO_Retrieve_Items
+{
+	calculation = calculation + ifnull(rec.Quantity,0) * ifnull(rec.Item_Rate,0);
+	discount = ifnull(rec.Discount_Amount,0);
+
+	taxname = ifnull(rec.Tax_Name_Value,0);
+	taxname2 = ifnull(rec.Tax2_Name_Value,0);
+}
+input.Base_Value = calculation;
+input.Total_Tax_Value = (calculation - dis_amt) * (taxname + taxname2) / 100;
+total_tax = (calculation - dis_amt) * (taxname + taxname2) / 100;
+
+input.Total_Order_Value = calculation + total_tax - dis_amt;
