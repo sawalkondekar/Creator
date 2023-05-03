@@ -1,3 +1,6 @@
+// on user input of subform field, auto-populate 
+
+
 //alert input.Item_Name.Item_Code ;
 fet = Item_Master[Item_Code == input.SO_Retrieve_Items.Item_Name.Item_Code];
 // alert fet ;
