@@ -1,0 +1,7 @@
+for each  rec in input.GRN_Retrieve_Items
+{
+	fet = Item_Master[Item_Code == rec.Item_Name.Item_Code];
+// 	rec.Cust_Item_Name=fet.Item_Description;
+// 	rec.Cust_UOM=fet.Unit_Of_Measurement;
+	rec.Item_Rate=fet.Item_Rate.toLong();
+}
