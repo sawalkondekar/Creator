@@ -1,0 +1,150 @@
+//for Address Type
+l2 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l2.add(rec.Address_Type);
+}
+if(l2.size() > 1)
+{
+	last2 = l2.get(l2.size() - 2);
+}
+//for site name
+l = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l.add(rec.Site_Name1);
+}
+if(l.size() > 1)
+{
+	last = l.get(l.size() - 2);
+}
+//for address
+l1 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l1.add(rec.Address);
+}
+if(l1.size() > 1)
+{
+	last1 = l1.get(l1.size() - 2);
+}
+// for city
+l3 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l3.add(rec.City);
+}
+if(l3.size() > 1)
+{
+	last3 = l3.get(l3.size() - 2);
+}
+//for State
+l4 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l4.add(rec.State);
+}
+if(l4.size() > 1)
+{
+	last4 = l4.get(l4.size() - 2);
+}
+//For Country
+l5 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l5.add(rec.Country);
+}
+if(l5.size() > 1)
+{
+	last5 = l5.get(l5.size() - 2);
+}
+// For Zip
+l6 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l6.add(rec.Zip);
+}
+if(l6.size() > 1)
+{
+	last6 = l6.get(l6.size() - 2);
+}
+// For CST_No
+l7 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l7.add(rec.CST_No);
+}
+if(l7.size() > 1)
+{
+	last7 = l7.get(l7.size() - 2);
+}
+// For TIN_No
+l8 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l8.add(rec.TIN_No);
+}
+if(l8.size() > 1)
+{
+	last8 = l8.get(l8.size() - 2);
+}
+// For GST_No
+l9 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l9.add(rec.GST_No);
+}
+if(l9.size() > 1)
+{
+	last9 = l9.get(l9.size() - 2);
+}
+// For Contact_Name
+l10 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l10.add(rec.Contact_Name);
+}
+if(l10.size() > 1)
+{
+	last10 = l10.get(l10.size() - 2);
+}
+// For Contact_Phone
+l11 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l11.add(rec.Contact_Phone);
+}
+if(l11.size() > 1)
+{
+	last11 = l11.get(l11.size() - 2);
+}
+// For Active
+l12 = list();
+for each  rec in input.Customer_Address_Contact_Details
+{
+	l12.add(rec.Active);
+}
+if(l12.size() > 1)
+{
+	last12 = l12.get(l12.size() - 2);
+}
+///////////
+for each  rec1 in input.Customer_Address_Contact_Details
+{
+	if(rec1.Site_Name1 == last)
+	{
+		row.Site_Name1=last;
+		row.Address=last1;
+		row.Address_Type=last2;
+		row.City=last3;
+		row.State=last4;
+		row.Country=last5;
+		row.Zip=last6;
+		row.CST_No=last7;
+		row.TIN_No=last8;
+		row.GST_No=last9;
+		row.Contact_Name=last10;
+		row.Contact_Phone=last11;
+		row.Active=last12;
+	}
+}
