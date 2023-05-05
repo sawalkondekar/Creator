@@ -1,0 +1,4 @@
+1.create seperate form - for subform = so it will easy for import
+2.create existing subform in main form
+3.create other seperate form as C
+4.In B form - create Multi-select lookup field so can create dependency on form B and can allow new entry as well.
