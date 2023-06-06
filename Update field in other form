@@ -1,0 +1,12 @@
+// these are lookup fields so used differetn 
+
+
+
+for each  rec in input.Add_Items
+{
+	
+	fet = Waste_Category[ID == rec.Waste_Category];
+	fet2 = Waste_Category[Waste == rec.Waste_Category.Waste];	
+	fet2.Waste_Quantity = fet2.Waste_Quantity + rec.Weight.Amount;
+	
+}
