@@ -1,0 +1,28 @@
+void BlueEHRAPI()
+{
+	header_map = Map();
+	header_map.put("Authorization","Bearer e050fc403f1b728e68a54c0af8c95dc49d7b4572"); // it is token , which generated from access token
+	start_date = "2022-05-01";
+	end_date = "2022-05-30";
+	response = invokeurl
+	[
+		url :"https://uat-api.blueehr.com/blueehr/public/data-pull-api/appointments?facility=wellqordemo&dataModifiedStartDate="+start_date+"&dataModifiedEndDate="+end_date
+		type :GET
+		headers:header_map
+	];
+	//	info  response;
+	data = response.get("response").get("data");
+	records = data.get("records");
+	size = records.size();
+	//info "Size of appointment IDs: " + size;
+	for each  rec in records
+	{
+		appointmentId = rec.get("appointmentId");
+		// info appointmentId;
+		ins = insert into API_Integration_Form
+		[
+			Added_User = zoho.loginuser
+			Appointment_ID = appointmentId
+		];
+	}
+}
