@@ -1,0 +1,12 @@
+fet = Customer_Master[Customer_Code == input.Customer_Code.Customer_Code];
+input.Contact_Person = fet.Cust_Customer_Address_Contact_Details.get(0);
+input.Contact_Phone = fet.Cust_Customer_Address_Contact_Details.get(0);
+input.Billing_GST_No = fet.Cust_Customer_Address_Contact_Details.get(0);
+input.Billing_Name = fet.Cust_Billing_Name_Details.get(0);
+input.Billing_Address = fet.Cust_Customer_Address_Contact_Details.get(0);
+input.Location_Name = fet.Cust_Customer_Address_Contact_Details.get(0);
+input.Location_Address = fet.Cust_Customer_Address_Contact_Details.get(0);
+input.Ship_To = fet.Cust_Billing_Name_Details.get(0);
+input.GST_No = fet.Cust_Customer_Address_Contact_Details.get(0);
+input.Shipment_Date = zoho.currentdate;
+input.Site_Contact_Person = fet.Cust_Customer_Address_Contact_Details.get(0);
