@@ -1,0 +1,4 @@
+Add single line, (Product Type)
+Lookup of that field(Product Type) in other Form , with other Field  (Product)
+and in Order form - Lookup of Product Type - 2nd form and Product (2nd Form), and then on Product lookup add search criteria to - Product Type ID = input.Prodyct TYpe
+=Done
