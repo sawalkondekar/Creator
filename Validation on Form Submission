@@ -1,0 +1,5 @@
+if(input.Status == "Delivered" && input.Received_By.isEmpty() == true && input.Delivered_By.isEmpty() == true)
+{
+	alert "Please Enter Received By and / or Delivered By Name";
+	cancel submit;
+}
