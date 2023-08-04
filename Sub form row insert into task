@@ -1,0 +1,32 @@
+row1 = Collection();
+for each  rec in input.Payment_Details1
+{
+	rowsss = Invoice.Invoice_Products(); // 2nd form 
+	rowsss.Product_Type=rec.Product_Type;
+	rowsss.Products=rec.Products;
+	rowsss.Rate=rec.Rate;
+	rowsss.Tax=rec.Tax;
+	rowsss.Tax_Amount=rec.Tax_Amount;
+	rowsss.Qty=rec.Qty;
+	rowsss.Amount=rec.Amount;
+	row1.insert(rowsss);
+	//info row1 ;
+}
+
+var = insert into Invoice
+[
+	Added_User=zoho.loginuser
+	Invoice_Number=input.Order_No
+	Date_field=input.Date_field
+	Address=input.Sender_Address
+	Invoice_Number="A001"
+	Invoice_For="Order"
+	ID1=input.Name
+	Name=input.Name.First_Name
+	Billing_Name=input.Name
+	Total=input.Total
+	Payable_Amount=input.Payable_Amount
+	Advance=input.Advance
+	Balance=input.Balance
+    Invoice_Products=row1
+];
