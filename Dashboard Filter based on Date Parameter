@@ -1,0 +1,25 @@
+in Dashboard - based on Date to show Report only those records steps:
+1.Create Stateless form with Date 
+2.Create HTML Snippet and use this code , and as param_date as parameter in the same page
+       <%{
+      	if(param_date == null || param_date.isEmpty())
+      	{
+      		//If Empty then put current date 
+      		param_date = zoho.currentdate;
+      	}
+      	%>
+  //Form of Stateless Form 
+      <div elName='zc-component' formLinkName='Test_Button' params='zc_Header=false&amp;zc_SuccMsg=Data Added Successfully!&amp;zc_SubmitVal=Submit&amp;zc_ResetVal=Reset&amp;Date_field=<%=param_date%>'>Loading Form...</div>
+
+  //Report where we are populating data based on that
+      <div elName='zc-component' viewLinkName='All_Tests' params='zc_Header=true&amp;Date_field=<%=param_date%>'>Loading View...</div>
+      <%
+      
+      }%>
+
+3.On User Input of Stateless form create workflow 
+   // To open url
+  openUrl("#Page:Dashboard?param_date=" + input.Date_field,"same window");
+
+= Test, Done
+
