@@ -1,0 +1,17 @@
+// 1. Added Date-Time field 
+and created a scheduler on Date-time field it will be triggered.
+
+in the code, it will update the time to add 15 Min, and added the criteria - will executed if End date is less that zoho.current date 
+
+code in the scheduler as below:
+//////////////////
+
+updated_time = input.Date_Time;
+input.Date_Time = updated_time.addMinutes(1);
+sendmail
+[
+	from :zoho.loginuserid
+	to :input.Email
+	subject :input.Subject_field
+	message :input.Message + input.Date_Time
+]
