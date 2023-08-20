@@ -10,3 +10,15 @@ row.Cust_Quantity=fet.Re_Order_Qty;
 row.Cust_UOM=fet.Unit_Of_Measurement;
 row.Quantity=fet.Re_Order_Qty;
 row.Item_Rate=fet.Item_Rate;
+----------------------------------------------------------------------------------
+//working code in Sigma Byte for Auto Populate rate based on Item Name
+    for each  rec in input.Item_Details
+    {
+            fet = Items[Item_Name == rec.Items_Name.Item_Name];
+    //         rec.Cust_Item_Name=fet.Item_Description;
+    //         rec.Cust_UOM=fet.Unit_Of_Measurement;
+            rec.Item_Rate=fet.Item_Rate.toLong();
+    }
+--------------------------------------------------------------------------------
+
+
