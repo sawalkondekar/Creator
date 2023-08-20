@@ -1,0 +1,16 @@
+
+
+//Subform Total Calculation based on Quantity
+for each  rec in input.Item_Details
+{
+	rec.Total=rec.Item_Rate * rec.Quantity;
+}
+
+
+//Main Form Total Calculation based on SubForm
+calculation = 0;
+for each rec in input.Item_Details
+{
+	calculation = calculation + ifnull(rec.Quantity,0) * ifnull(rec.Item_Rate,0) + ifnull(rec.Tax,0) * ifnull(rec.Quantity,0);
+}
+input.Total = calculation;
