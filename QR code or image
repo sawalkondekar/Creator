@@ -1,0 +1,5 @@
+// on successfull form submission
+
+input.Link = "https://creatorapp.zohopublic.in/vishnu_cssgroupindia/facility-management/form-perma/Main_Form/ZkDmmu2jVsj4hBHyUnMquP6BNCFPfRJTdgyfXatu3BOwdNVe1VPhr6f7WCu8waXMOkQ8YOnEgXnRvemn5TszUaKGC6jXuMykNnPA?Room_Data=" + input.ID;
+// Input.QR Code= ("https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl="+ input) + "&style-197&type-C1288&width-271&height=506xzes=1&font=3"/>";
+input.QR_Code = "<img src='https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=" + "https://creatorapp.zohopublic.in/vishnu_cssgroupindia/facility-management/form-perma/Main_Form/ZkDmmu2jVsj4hBHyUnMquP6BNCFPfRJTdgyfXatu3BOwdNVe1VPhr6f7WCu8waXMOkQ8YOnEgXnRvemn5TszUaKGC6jXuMykNnPA?Room_Data=" + input.ID + "&style=197&type=C1288&width=271&height=50&xres=1&font=3'/>";
