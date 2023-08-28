@@ -1,0 +1,3 @@
+userdata = zoho.pushNotification(input.Parent_Email_canteen,"New msg received","Click to view the record","Canteen_Access_Parent",input.ID);
+//info userdata;
+// for mobile portal - download portal app , will work for all mob, laptop, 
