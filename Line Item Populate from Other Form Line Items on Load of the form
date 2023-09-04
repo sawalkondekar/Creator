@@ -1,0 +1,13 @@
+// Line Item Populate from Other Form Line Items on Load of the form
+//1.PO  2.Purhcase Receive
+
+fet =Purchase_Order_PO[ID == input.Purchase_Order_PO_No]; //info fet;
+coll = Collection();
+for each x in fet.Purchase_Order_Item_Details
+{
+	rows = Purchase_Receives.Purchase_Receives_Line_Items();
+ 	rows.Item_Name = x.Items;
+	rows.Ordered = x.Quantity;
+	coll.insert(rows);
+}
+input.Purchase_Receives_Line_Items.insert(coll);
