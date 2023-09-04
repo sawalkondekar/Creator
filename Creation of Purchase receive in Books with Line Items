@@ -1,0 +1,38 @@
+
+po_books_id = input.Purchase_Order_PO_No.PO_Books_ID;
+po_order_no = input.Purchase_Order_PO_No.Purchase_Order_No;
+date1 = input.Purchase_Order_PO_No.Date_field.toDate();
+mp = Map();
+//////////////////////////////
+mp.put("purchaseorder_number",po_order_no);
+//mp.put("receive_number","PR-00004");
+mp.put("date","2024-05-28");
+//mp.put("date",date1.toDate());
+mp.put("vendor_id",1443734000000016643);
+mp.put("vendor_name","Test Vendor 1");
+mp.put("contact_persons",4815000000044080);
+mp.put("notes","Sample Note");
+
+////////////
+item_List = List();
+for each  item1 in input.Purchase_Receives_Line_Items
+{
+	mp1 = Map();
+	mp1.put("item_id",item1.Item_Name.Books_Items_ID);
+	mp1.put("name",item1.Item_Name.Item_Name);
+	mp1.put("quantity",item1.Ordered);
+	item_List.add(mp1);
+}
+mp.put("line_items",item_List);
+info mp;
+response = invokeurl
+[
+	url :"https://www.zohoapis.in/inventory/v1/purchasereceives?purchaseorder_id=" + po_books_id + "&organization_id=60023593109"
+	type :POST
+	parameters:mp.toString()
+	connection:"inventory"
+];
+info response;
+// redirect to the report
+openUrl("#Report:Purchase_Receive_Report","same window");
+//}
