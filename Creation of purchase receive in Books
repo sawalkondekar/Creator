@@ -1,0 +1,66 @@
+void Receive_to_Books_1()
+{
+
+	mp = Map();
+	//////////////////////////////
+	//mp.put("purchaseorder_id",1443734000000057029);
+	mp.put("purchaseorder_id","1443734000000057029");
+	mp.put("purchaseorder_number","PO-00008");
+	mp.put("receive_number","PR-00004");
+	mp.put("date","2024-05-28");
+	mp.put("vendor_id",1443734000000016643);
+	mp.put("vendor_name","Test Vendor 1");
+	mp.put("contact_persons",4815000000044080);
+	mp.put("notes","Sample Note");
+	//not needed data
+	// 	mp.put("contact_persons",4815000000044080);
+	// 	mp.put("receive_id", "");
+	///////////////////////////
+	// Item List Map
+	item_List = List();
+	mp1 = Map();
+	//mp1.put("line_item_id",1443734000000069055);
+	mp1.put("item_id",1443734000000033269);
+	mp1.put("name","1 Test");
+	mp1.put("description","1 Test");
+	mp1.put("item_order","0");
+	mp1.put("quantity","1");
+	mp1.put("unit","qty");
+	///////////
+	//	mp1.put("image_document_id",""); 
+	//  	mp1.put("item_type","sales_and_purchases"); 
+	//  	mp1.put("item_type_formatted","Sales and Purchase Items"); 
+	//  	mp1.put("item_order", "1");
+	///
+	item_List.add(mp1);
+	mp.put("line_items",item_List);
+	//Billing Address Map
+	billing_address = List();
+	mp2 = Map();
+	mp2.put("address","No:234,90 Church Street");
+	mp2.put("city","New York City");
+	mp2.put("state","New York");
+	mp2.put("zip",10048);
+	mp2.put("country","U.S.A");
+	mp2.put("fax","324-524242");
+	mp.put("billing_address",billing_address);
+	// Shipping Address Map
+	shipping_address = List();
+	mp3 = Map();
+	mp3.put("address","No:234,90 Church Street");
+	mp3.put("city","New York City");
+	mp3.put("state","New York");
+	mp3.put("zip",10048);
+	mp3.put("country","U.S.A");
+	mp3.put("fax","324-524242");
+	mp.put("shipping_address",shipping_address);
+	response = invokeurl
+	[
+		url :"https://www.zohoapis.in/inventory/v1/purchasereceives?purchaseorder_id=1443734000000074051&organization_id=60023593109"
+		type :POST
+		parameters:mp.toString() 
+		connection:"inventory"
+	];
+	info response;
+
+}
