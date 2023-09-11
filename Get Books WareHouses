@@ -1,0 +1,24 @@
+void Get_WareHouses()
+{
+	// Get warehouse details
+	response = invokeurl
+	[
+		url :"https://books.zoho.in/api/v3/settings/warehouses?organization_id=60023593109"
+		type :GET
+		connection:"zohoboks"
+	];
+	info response;
+	warehouses = response.get("warehouses");
+	// Mapping and inserting into WareHouse Form
+	for each  rec in warehouses
+	{
+		wareHouse_name = rec.get("warehouse_name");
+		email = rec.get("email");
+		var = insert into Warehouse
+		[
+			Warehouse_Name=wareHouse_name
+			Email=email
+			Added_User=zoho.loginuser
+		];
+	}
+}
