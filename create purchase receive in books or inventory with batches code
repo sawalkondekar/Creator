@@ -1,0 +1,74 @@
+// void Batch_Reference_Details()
+// {
+//	fet = Purchase_Receives[ID == 122981000001855415];
+// 	fet = Purchase_Receives[ID == 122981000001858233];
+po_books_id = input.Purchase_Order_PO_No.PO_Books_ID;
+//info po_books_id;
+po_order_no = input.Purchase_Order_PO_No.Purchase_Order_No;
+date1 = input.Purchase_Order_PO_No.Date_field.toDate();
+//vendor id code 
+vendor_id = input.Vendor_Name;
+vendor = Vendor[ID == vendor_id];
+vendor_books_id = vendor.Books_Vendor_ID;
+vendor_name = vendor.Vendor_Name;
+mp = Map();
+mp.put("purchaseorder_number",po_order_no);
+//mp.put("receive_number","PR-00004");
+mp.put("date","2023-11-11");
+mp.put("vendor_id",vendor_books_id);
+mp.put("vendor_name",vendor_name);
+mp.put("notes","Sample Note");
+////////////
+item_List = List();
+for each  item1 in input.Purchase_Receives_Line_Items
+{
+	mp1 = Map();
+	mp1.put("item_id",item1.Item_Name.Books_Items_ID);
+	mp1.put("name",item1.Item_Name.Item_Name);
+	mp1.put("quantity",item1.Quantity_to_Receive);
+	// ***Batch Reference Code starts 
+	//mp1.put("line_item_id",1443734000000124750); // static
+	mp1.put("line_item_id",item1.PO_Line_Item_ID);
+	// From Purchaser Order Only not Purchase Receive Line Item IDs.
+	//line_items = List();
+	//mp1.put("", <OBJECT>)
+	// Batch Reference Code Ends ****
+	//mp1.put("in_quantity",item1.Ordered);
+	// 	mp1.put("quantity",item1.Ordered);
+	//	mp1.put("batch_number",item1.BATCH_REFERENCE);
+	/////****Batches Dynamic Starts
+	batches_List = List();
+	batches = item1.Batch_Reference1;
+	for each  batch in batches
+	{
+		mp2 = Map();
+		mp2.put("batch_number",batch.Batch_Reference);
+		// Unique each time and mandatory
+		mp2.put("manufacturer_date",batch.Manufacturer_Date_Packing_Date);
+		mp2.put("expiry_date",batch.Expiry_Date_Best_Before_Date);
+		mp2.put("in_quantity",batch.Quantity_In);
+		// mandatory and same as Items Quantity to Receive
+		batches_List.add(mp2);
+	}
+	mp1.put("batches",batches_List);
+	///////Batches Dynamic Ends		
+	////////
+	item_List.add(mp1);
+	//info item_List;
+}
+mp.put("line_items",item_List);
+//info mp;
+json = Map();
+json.put("JSONString",mp);
+info json;
+response = invokeurl
+[
+	url :"https://www.zohoapis.in/inventory/v1/purchasereceives?purchaseorder_id=" + po_books_id + "&organization_id=60023593109"
+	type :POST
+	parameters:json
+	connection:"inventory"
+];
+info "response" + response;
+id = response.get("id");
+openUrl("https://inventory.zoho.in/app/60023593109#/purchaseorders/" + po_books_id + "?filter_by=Status.All&per_page=25&sort_column=created_time&sort_order=D","new window");
+// }
