@@ -1,0 +1,19 @@
+// on Form submission of Batches this is the code , trying to add/update quanity based on batches quantity in Subform Quantity
+// and then check the received quantity if greater than ordered , then validation and clear data as well of that batch ref, while submitting.
+for each  rec in input.Purchase_Receives_Line_Items
+{
+	var = 0;
+	for each  batch in rec.Batch_Reference1
+	{
+		var = var + batch.Quantity_In;
+		batch_ref = batch.ID;
+	}
+	rec.Quantity_to_Receive=var.toLong();
+	if(rec.Quantity_to_Receive > rec.Ordered)
+	{
+		alert "Received Quanitity can't be greater that Ordered.";
+		listData = rec.Batch_Reference1;
+		listData.removeElement(rec.Batch_Reference1.get(rec.Batch_Reference1.size() - 1));
+		rec.Batch_Reference1=listData;
+	}
+}
