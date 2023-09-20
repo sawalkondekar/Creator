@@ -1,0 +1,9 @@
+Please try the below workaround.
+
+1. Add an HTML snippet to the page
+
+2. Embed the concerned report in the snippet
+
+3. In the embedded report, pass the parameter 'zc_DuplRec=false'
+
+This will hide the duplicate option when accessing the embedded report
