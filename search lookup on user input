@@ -1,0 +1,2 @@
+fet = Batch_Reference[Item_Name == input.Item_Name].ID.getAll();
+input.Batch_No:ui.add(fet);
