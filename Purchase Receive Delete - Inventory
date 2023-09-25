@@ -1,0 +1,10 @@
+//purchaseReceiveID = "1443734000000185001";
+apiUrl = "https://inventory.zoho.in/api/v1/purchasereceives/" + input.Purchase_Receive_No;
+// Make the HTTP DELETE request to delete the purchase receive
+response = invokeurl
+[
+	url :apiUrl
+	type :DELETE
+	connection:"inventory"
+];
+info response;
