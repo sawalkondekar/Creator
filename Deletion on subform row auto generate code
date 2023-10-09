@@ -1,0 +1,19 @@
+for each r in input.Items
+
+{
+
+  b = (r.Serial_No.toNumber()  -  1);
+
+  r.Serial_No = b;
+
+  if (r.Serial_No.toNumber()  <  row.Serial_No.toNumber())
+
+  {
+
+      b = (b  +  1);
+
+      r.Serial_No = b;
+
+  }
+
+}
