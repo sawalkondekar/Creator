@@ -1,0 +1,11 @@
+i = 0;
+// subform
+for each rec in input.Items
+
+{
+
+  i = (i  +  1);
+
+  row.Serial_No = i;
+
+}
