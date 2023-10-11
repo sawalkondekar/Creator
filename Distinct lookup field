@@ -1,0 +1,17 @@
+// Unique = Parent_Form.distinct(FirstName);
+// // populate lookup field
+// clear LookupField;
+// for each r in Unique
+// {
+//    LookupField:ui.add(Parent_Form [FirstName == r].ID);
+// } 
+
+/////Example
+
+Unique = Item.distinct(Category);
+// populate lookup field
+clear Item_Category;
+for each r in Unique
+{
+   Item_Category:ui.add(Item [Category == r].ID);
+}
