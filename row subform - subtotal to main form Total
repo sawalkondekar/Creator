@@ -1,0 +1,9 @@
+x=0;
+for each rec in input.SubForm 
+{
+	if ( rec.Number_Field != null ) 
+    {
+		x=x+rec. Number_Field;
+    }
+} 
+input.Total=x;
