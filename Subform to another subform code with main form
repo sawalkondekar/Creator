@@ -1,0 +1,23 @@
+itemCollection = Collection();
+for each  items in input.Menu_Items
+{
+	item = Requisition.Items();
+	item.Sr=items.Sr;
+	item.Item=items.Item;
+	item.SKU=items.Item.SKU;
+	item.UOM=items.Item.UOM;
+	item.Quantity=items.Quantity;
+	item.Received_Quantity=0;
+	item.Balance_Quantity=items.Quantity;
+	item.Per_Person_Quantity=items.Per_Person_Quantity;
+	itemCollection.insert(item);
+}
+insert into Requisition
+[
+	Warehouse=input.Warehouse
+	Items=itemCollection
+	Requisition_No=input.Serial_Number
+	Status="Draft"
+	Added_User=zoho.loginuser
+]
+input.Status = "Sent For Requisition";
