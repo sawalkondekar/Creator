@@ -1,0 +1,156 @@
+//////////////////// Code to Calculate Tax ////////////////////
+itemCollection = Collection();
+// Initialize a Set to store unique tax percentages
+for each  rec in input.Menu_Items
+{
+	fet_itesms = Item[Item_Name = rec.Item.Item_Name && Track_Batches = "false"];
+	if(fet_itesms.count() > 0)
+	{
+		item_name_req = rec.Item.Item_Name;
+		quantity = rec.Quantity;
+		// Get Add Batches IDs if Available Quantity is greater than 0
+		batches_id = Add_Batch_Reference[Warehouse_Name == input.Warehouse.Warehouse_Name && Item_Name == rec.Item && Available_Quantity > 0] sort by Added_Time;
+		info "batches_id" + batches_id;
+		if(batches_id.count() >= 0)
+		{
+			first_Id = batches_id.ID;
+			fet_single_batch = Add_Batch_Reference[ID == first_Id];
+			if(fet_single_batch.Available_Quantity >= quantity)
+			{
+				info "Single Batch";
+				batch_item_price = batches_id.Item_Rate;
+				batch_item_tax_name = batches_id.Tax_Name;
+				batch_item_tax_perc = batches_id.Tax_Percentage;
+				//Available Quantity
+				fet_single_batch.Available_Quantity=fet_single_batch.Available_Quantity - quantity;
+				info fet_single_batch.Available_Quantity;
+			}
+			else
+			{
+				info "From Multiple Batch";
+				mult_batch_total = 0;
+				p1_total = 0;
+				tax_perc = 0;
+				count = 1;
+				var1 = 0;
+				tax_perc_list = List();
+				for each  batch_s in batches_id
+				{
+					////
+					batch_quantity = batch_s.Available_Quantity;
+					info "batch_quantity" + batch_quantity;
+					if(mult_batch_total + batch_quantity >= quantity)
+					{
+						info "batches_id 2 =====" + batches_id;
+						// Calculate the cost for the remaining quantity
+						p1 = batch_s.Item_Rate * (quantity - mult_batch_total);
+						info "P1 =======" + p1;
+						p1_total = p1_total + p1;
+						////////***** Starts Available Quantity minus from Multiple Batches
+						batch_s.Available_Quantity=batch_s.Available_Quantity - (quantity - mult_batch_total);
+						////////Available Quantity minus from Multiple Batches Ends ***** 
+						mult_batch_total = quantity;
+						// Set it to the required quantity
+						//////////////
+						
+						count = count + 1;
+						info "Count === " + count;
+						//////////
+						break;
+					}
+					else
+					{
+						// Calculate the cost for the entire batch
+						p1 = batch_s.Item_Rate * batch_quantity;
+						p1_total = p1_total + p1;
+						mult_batch_total = mult_batch_total + batch_quantity;
+						////////***** Starts Available Quantity minus from Multiple Batches
+						////Update available Quantity in this batch
+						batch_s.Available_Quantity=0;
+						////////Available Quantity minus from Multiple Batches Ends ***** 
+					}
+				}
+				///*** For Tax Percentage for Multiple Batches
+				if(count != null)
+				{
+					tax_count_loop = count;
+					tax_name_list = List();
+					for each  tax_ in batches_id
+					{
+						if(tax_count_loop <= 0)
+						{
+							break;
+						}
+						/// ** for tax Percentage Start
+						tax_percentage = tax_.Tax_Percentage;
+						var1 = var1 + tax_percentage;
+						info "Tax Percentage ==== " + var1;
+						batch_item_tax_perc = var1 / count;
+						///  for tax Percentage Ends **
+						/// *** Tax Name Starts
+						tax_name_list.add(tax_.Tax_Name);
+						batch_item_tax_name = tax_name_list.distinct();
+						//// Tax Name Ends ***
+						tax_count_loop = tax_count_loop - 1;
+						///////
+					}
+				}
+				/////////////////////////For Tax Name for Multiple Batches Ends ***
+				info "Var ========== " + var1;
+				if(mult_batch_total >= quantity)
+				{
+					info "Hi";
+					batch_item_price = p1_total / quantity;
+					// Calculate the weighted average price
+					info "batch_item_price" + batch_item_price;
+					////////***** Starts Available Quantity minus from Multiple Batches
+					batch_s.Available_Quantity=batch_s.Available_Quantity - (quantity - mult_batch_total);
+					////////Available Quantity minus from Multiple Batches Ends ***** 
+				}
+			}
+		}
+		else
+		{
+			info "Batches are not available";
+			batch_item_price = "";
+			batch_item_tax_name = "";
+			batch_item_tax_perc = "";
+		}
+	}
+}
+info "Tax Percentage ======" + var1;
+info batch_item_price;
+info "........" + batch_item_tax_name;
+info "======== batch_item_tax_perc ====" + batch_item_tax_perc;
+//////////////////// Code to Calculate Tax ////////////////////
+//itemCollection = Collection();
+for each  items in input.Menu_Items
+{
+	item = Requisition.Items();
+	item.Sr=items.Sr;
+	item.Item=items.Item;
+	track_batch_var = Item[Item_Name == items.Item.Item_Name].Track_Batches;
+	fet_bat = Add_Batch_Reference[Warehouse_Name == input.Warehouse.Warehouse_Name && Item_Name == items.Item && Available_Quantity > 0];
+	if(track_batch_var != "true" && fet_bat.count() > 0)
+	{
+		item.Item_Rate=batch_item_price;
+		item.Tax_Name=batch_item_tax_name;
+		// Use the calculated unique tax percentage here
+		item.Tax_Percentage=batch_item_tax_perc;
+	}
+	item.SKU=items.Item.SKU;
+	item.UOM=items.Item.UOM;
+	item.Quantity=items.Quantity;
+	item.Received_Quantity=0;
+	item.Balance_Quantity=items.Quantity;
+	item.Per_Person_Quantity=items.Per_Person_Quantity;
+	itemCollection.insert(item);
+}
+insert into Requisition
+[
+	Warehouse=input.Warehouse
+	Items=itemCollection
+	Requisition_No=input.Serial_Number
+	Status="Draft"
+	Added_User=zoho.loginuser
+]
