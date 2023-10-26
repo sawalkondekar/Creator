@@ -1,0 +1,74 @@
+void Inventory_Adjustment.inventory_adj(int consumptionID)
+{
+	//info "HI";
+	Consumption = Consumption[ID == consumptionID];
+	mp = Map();
+	mp.put("date",Consumption.Date_field.toDate());
+	mp.put("reason",Consumption.Reason);
+	branch = Consumption.Branch;
+	fet_branch = Branch[Branch_Name == branch.Branch_Name].Books_Branch_ID;
+	mp.put("branch_id",fet_branch);
+	warehouse = Consumption.Warehouse;
+	fet_warehouse = Warehouse[Warehouse_Name == warehouse.Warehouse_Name].Warehouse_ID;
+	mp.put("warehouse_id",fet_warehouse);
+	mp.put("reference_number",Consumption.Reference_Number);
+	mp.put("description",Consumption.Description);
+	mp.put("adjustment_type","quantity");
+	mp.put("status","draft");
+	line_items = List();
+	for each  item in Consumption.Line_Items_Consumption
+	{
+		mp1 = Map();
+		item_books_ID = Item[Item_Name = item.Item.Item_Name].Books_Items_ID;
+		mp1.put("item_id",item_books_ID);
+		mp1.put("out_quantity",item.Quantity);
+		mp1.put("quantity_adjusted","-" + item.Quantity);
+		//	mp1.put("item_total",70);
+		mp1.put("unit",item.UOM);
+		account_name = Consumption.Account_Name;
+		mp1.put("adjustment_account_id",account_name.Books_Account_ID);
+		mp1.put("warehouse_id",fet_warehouse);
+		/* 	Batches Code Start	 */
+		batches_List = List();
+		//consu_subform = Consumption_Batch_Subform[Requisition_ID=input.consumptionID].Select_Batch;
+		//	fet_batch = Add_Batch_Reference[ID = consu_subform.Select_Batch];
+		fet_batch = Consumption_Batch_Subform[Line_Item_ID = item.Req_Line_Item_ID.toLong()];
+		// 		info fet_batch;
+		for each  batch in fet_batch
+		{
+			mp2 = Map();
+			fet_add_batch = Add_Batch_Reference[Batch_Reference = batch.Select_Batch.Batch_Reference];
+			mp2.put("batch_in_id",fet_add_batch.Batch_Inventory_ID);
+			mp2.put("out_quantity",batch.Consume);
+			mp2.put("batch_number",batch.Select_Batch.Batch_Reference);
+			// For + Invent. Adj.
+			// 			mp2.put("external_batch_number","Manufacturing Batch Number");
+			// 			mp2.put("manufacturer_date","2017-01-21");
+			// 			mp2.put("expiry_date","2018-01-21");
+			// 			mp2.put("out_quantity","10");
+			// 			mp2.put("in_quantity",batch.Consume);
+			//	mp2.put("in_quantity","30");
+			// mandatory and same as Items Quantity to Receive
+			batches_List.add(mp2);
+		}
+		//info mp2 ;
+		mp1.put("batches",batches_List);
+		/* 	Batches Code End	 */
+	}
+	line_items.add(mp1);
+	mp.put("line_items",line_items);
+	// 	info mp;
+	json = Map();
+	json.put("JSONString",mp);
+	//info json;
+	response = invokeurl
+	[
+		url :"https://www.zohoapis.in/inventory/v1/inventoryadjustments?organization_id=60023593109"
+		type :POST
+		parameters:json
+		connection:"inventory"
+	];
+	info response;
+	Consumption.Inventory_Adjustment_ID=response.get("inventory_adjustment").getJSON("inventory_adjustment_id");
+	openUrl("https://inventory.zoho.in/app/60023593109#/inventory/adjustments?filter_by=AdjustmentDate.All&per_page=25&sort_column=created_time&sort_order=D","new window");
+}
