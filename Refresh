@@ -1,0 +1,2 @@
+openUrl("#Script:page.refresh","same window");
+// on successfull 
