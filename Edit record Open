@@ -1,0 +1,4 @@
+openUrl("#Form:Consumption?recLinkID=" + input.ID +"&viewLinkName=Consumptions","popup window");
+
+// Consumption - form name
+// Consumptions - Report Name
