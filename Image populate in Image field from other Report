@@ -1,0 +1,14 @@
+fet_vechicle = Vehicle[Vehicle_Number = input.Vehicle_Number];
+input.FSSI_Number = fet_vechicle.Vehicle_FSSI_Number;
+input.Contact_Details = fet_vechicle.Contact_Details;
+input.Driver_Name = fet_vechicle.Driver_Name;
+input.Liecence_No = fet_vechicle.Liecence_No;
+input.Vendor_Name = fet_vechicle.Vendor_Name;
+//input.Liecence_Photo = fet_vechicle.Liecence_Photo;
+///
+input.Remark = fet_vechicle.Liecence_Photo;
+/////
+value1 = fet_vechicle.Liecence_Photo.getsuffix("/image/").getprefix("\"").trim();
+
+input.Liecence_Photo = "<img src='https://creator.zoho.in/file/vishnu_cssgroupindia/branch-report-development/Vehicles/" + fet_vechicle.ID + "/Liecence_Photo/image-download?filepath=" + value1 + "'></img>";
+//info "<img src='https://creator.zoho.in/file/branch-report-development/Vehicles/" + fet_vechicle.ID + "/Liecence_Photo/download?filepath=" + value1 + "'></img>";
