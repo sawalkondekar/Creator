@@ -1,0 +1,26 @@
+/// If This function will return true if the application environment is Production
+//1.function can be create to check
+bool isProduction()
+{
+url = zoho.appuri;
+	dev = url.contains("development");
+	stage = url.contains("stage");
+	if(stage == true || dev == true)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+/////////////////////////////
+//2.in workflow can use below
+if ( thisapp.isProduction() == true ) 
+    {
+		create1 = zoho.creator.createRecord("vishnu_cssgroupindia","catalyst","Consumption",mp,otherParams,"creator");
+    }
+	else 
+    {
+		create1 = zoho.creator.createRecord("vishnu_cssgroupindia","catalyst-development","Consumption",mp,otherParams,"creator");
+    }
