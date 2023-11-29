@@ -1,0 +1,24 @@
+coll = Collection();
+for each  x in fet.Purchase_Order_Item_Details
+{
+	rows = Purchase_Receives_Old.Purchase_Receives_Line_Items();
+	rows.Item_Name=x.Items;
+	rows.Ordered=x.Quantity;
+	rows.Received=x.Received;
+	// 
+	quant = ifnull(x.Quantity,0);
+	receiv = ifnull(x.Received,0);
+	rows.Balance_Quantity=quant - receiv;
+	//
+	rows.SKU=x.Items.SKU;
+	rows.UOM=x.Items.UOM;
+	rows.PO_Line_Item_ID=x.PO_Line_Item_ID;
+	rows.WareHouse_Name=x.WareHouse_Name;
+	rows.WareHouse_ID=x.WareHouse_ID;
+	//coll.insert(rows);
+	/// delete rows
+	if(rows.Ordered != rows.Received)
+	{
+		coll.insert(rows);
+	}
+}
