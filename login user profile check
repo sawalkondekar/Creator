@@ -1,0 +1,8 @@
+if(thisapp.portal.loginUserProfile() == "Unit Manager")
+{
+	if(input.Date_of_Joining < zoho.currentdate.subDay(10))
+	{
+		alert "Joining Date must be within 10 Days";
+		input.Date_of_Joining = null;
+	}
+}
