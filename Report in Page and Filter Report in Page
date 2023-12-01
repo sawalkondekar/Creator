@@ -1,0 +1,8 @@
+
+<%{
+	fet_user = User1[Email == zoho.loginuserid];
+	branches = fet_user.Branch.Branch_Name;
+	%>
+<div elName='zc-component' viewLinkName='Employees1' params='zc_Summary=false&zc_Filter=false&zc_ColMenu=false&Branch_Unit=[<%=branches%>]&Gender=Male'>Loading Report...</div>
+<%
+}%>
