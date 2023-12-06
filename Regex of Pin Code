@@ -1,0 +1,9 @@
+regex = "([1-9]{1}[0-9]{5}|[1-9]{1}[0-9]{3}\\s[0-9]{3})";
+if(input.Pin_Code1.isEmpty())
+{
+	alert "PIN code can not be empty.";
+}
+else if(input.Pin_Code1 != null || input.Pin_Code1.toText() != "" && !matches(input.Pin_Code1.toText(),regex))
+{
+	alert "The PIN Code is not valid. Please enter the Correct PIN Code.";
+}
