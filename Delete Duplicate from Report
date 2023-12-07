@@ -1,0 +1,15 @@
+myList = list();
+duplicateRecordIDList = list();
+for each record in Customer [ID != 0]
+{
+if ( myList.contains (record.Branch_Name) )
+{
+duplicateRecordIDList.add(record.ID);
+}
+else
+{
+myList.add(record.Branch_Name);
+}
+}
+delete from Customer [ID in duplicateRecordIDList ];
+}
