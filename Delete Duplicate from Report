@@ -1,3 +1,4 @@
+// EMPTY also have to check for this condition / else all empty Branch_Name would be deleting.
 myList = list();
 duplicateRecordIDList = list();
 for each record in Customer [ID != 0]
