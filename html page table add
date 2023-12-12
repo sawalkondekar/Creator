@@ -1,0 +1,12 @@
+<tbody>
+	<%for each r in fet_employees.Nominee_Details1
+	{%>
+	<tr>
+	<td class="tg-0lax"><%=r.Name%> </td>
+	<td class="tg-0lax"> <%=r.Relationship_with_Member%></td>
+	<td class="tg-0lax"><%=r.Date_Of_Birth%> </td>
+	<td class="tg-0lax"> <%=r.Benefit%></td>
+	<td class="tg-0lax"> </td>
+	</tr>
+	<%}%>
+	</tbody>
