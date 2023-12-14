@@ -1,0 +1,10 @@
+//Chart of accounts
+// fet_acc = Chart_of_Accounts[ID != 0];
+fet_acc = Chart_of_Accounts[Account_Name.contains("Food Cost") || Account_Name.contains("Fuel Cost") || Books_Account_ID.contains("1366544000000016464")];
+exist_Acc = input.Account;
+clear Account;
+for each  r in fet_acc
+{
+	input.Account:ui.add(r.ID);
+}
+input.Account = exist_Acc;
