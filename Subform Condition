@@ -1,0 +1,8 @@
+// //Form X|||
+for each  rec in input.Upload_Document
+{
+	if(rec.Name_Of_Document == "2 - FORM XIII" && rec.Download == true)
+	{
+		openUrl("#Page:Form_XIII?recID=" + row.Employee,"popup window");
+	}
+}
