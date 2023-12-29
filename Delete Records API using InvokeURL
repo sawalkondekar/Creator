@@ -1,0 +1,19 @@
+// code from books to creator delete reocrd when delete from books ITEM
+/*
+This is a sample function. Uncomment to execute or make changes to this function.  
+itemID = item.get("item_id");
+organizationID = organization.get("organization_id");
+*/
+// Delete Item
+id1 = item.get("custom_field_hash");
+info "id1 = " + id1;
+id = id1.getjson("cf_creator_id");
+info id;
+//	url :"https://creatorapp.zoho.in/api/v2/vishnu_cssgroupindia/catalyst/report/Items/122981000002908459"
+delete1 = invokeurl
+[
+	url :"https://creatorapp.zoho.in/api/v2/vishnu_cssgroupindia/catalyst/report/Items/" + id
+	type :DELETE
+	connection:"zohocreator"
+];
+info delete1;
