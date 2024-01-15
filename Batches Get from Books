@@ -1,0 +1,54 @@
+void updateStocksByAPI.updateStock(int itemID)
+{
+	itemBooksID = Item[ID == input.itemID];
+	if(itemBooksID.Track_Batches == "true")
+	{
+		response1 = invokeurl
+		[
+			url :"https://www.zohoapis.in/inventory/v1/items/batches?page=1&per_page=200&include_empty_batches=false&item_id=" + itemBooksID.Books_Items_ID + "&warehouse_id=1366544000001348507&organization_id=60022277655"
+			type :GET
+			connection:"zohoboks"
+		];
+		info response1;
+		// Extract batch inventory IDs
+		batch_inv_ids = List();
+		for each  batch in response1.get("batches")
+		{
+			addBatchRef = Add_Batch_Reference[Batch_Inventory_ID == batch.get("batch_in_id")];
+			if(addBatchRef.count() > 0)
+			{
+				//Update Record
+				addBatchRef.Batch_Reference=batch.get("batch_number");
+				addBatchRef.Manucturer_Batch=ifNull(batch.get("external_batch_number"),thisapp.purchaseReceive.generateBatchReference());
+				addBatchRef.Quantity_In=batch.get("in_quantity");
+				addBatchRef.Available_Quantity=batch.get("balance_quantity");
+				addBatchRef.Source="Updated via API";
+			}
+			else
+			{
+				//Add Record (Tax Name, Tax Percenrage, Item Name isn't here, Update it manually )
+				if(toNumber(batch.get("balance_quantity")) > 0)
+				{
+					warehouseData = Warehouse[Warehouse_ID == batch.get("warehouse_id")];
+					insert into Add_Batch_Reference
+					[
+						Warehouse_Name=warehouseData.Warehouse_Name
+						Warehouse=warehouseData.ID
+						Item_Name=input.itemID
+						Batch_Reference=batch.get("batch_number")
+						Manucturer_Batch=ifNull(batch.get("external_batch_number"),thisapp.purchaseReceive.generateBatchReference())
+						Manufacturer_Date_Packing_Date=ifNull(batch.get("manufacturer_date"),zoho.currentdate)
+						Use_by_date_Expiry_Date=ifNull(batch.get("expiry_date"),zoho.currentdate.addYear(1))
+						Quantity_In=batch.get("in_quantity")
+						Available_Quantity=batch.get("balance_quantity")
+						Batch_Inventory_ID=batch.get("batch_in_id")
+						Sorted_Quantity=0
+						Previous_Entered_Quantity=0
+						Source="Added via API"
+						Added_User=zoho.loginuser
+					]
+				}
+			}
+		}
+	}
+}
