@@ -1,0 +1,9 @@
+		a = "\"CATALYST \"<" + "system.user@cctindia.in" + ">";
+		sendmail
+		[
+			from :a
+			to :"sidhant.awalkodekar@cctindia.in"
+			subject :"Transfer Order"
+			message :"Transfer Order"
+			Attachments :template:Transfer_Request:Request input.ID as PDF
+		]
