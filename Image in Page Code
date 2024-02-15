@@ -1,3 +1,4 @@
+// A. For Image Upload Field Code 
 //Image Filter 
 // Below is workflow add in workflow of image
 data = Images[ID == input.ID];
@@ -6,3 +7,12 @@ input.Public_Image_Link = "https://creatorapp.zohopublic.in/file" + zoho.appuri 
 
 //then add in Img tag in Image
 <img class="img-responsive cct-img" style="text-align: center;padding-top: 40px;" src=<%=fet_images.Public_Image_Link%> >
+
+
+// B.For E-Sign Field Code
+// add this in wf
+data = Employee[ID == input.ID];
+input.Signature_Main_Public_Image_Link = "https://creatorapp.zohopublic.in/file" + zoho.appuri + "Employees_Admin/" + input.ID + "/Upload/image-download/vhwCmC0mADQku0tffUXaw0trW372K31eVCYbXjAQeWgnabhJpBt0u1qOk5hxmyfnfJv5UPSQ370DYCduNSJZsOTAsGxEyr0SZasQ?filepath=/" + input.Signature;
+
+//then add in Img tag in Image
+<img class="img-responsive cct-img" style="text-align: center;padding-top: 40px;" src=<%=fet_images.Signature_Main_Public_Image_Link%> >
