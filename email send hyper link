@@ -1,0 +1,8 @@
+publish_link_vendor_onboarding = "https://creatorapp.zohopublic.in/vishnu_cssgroupindia/catalyst/form-perma/Vendor_Onboarding/ewpyCk8SGEyk0yAg9EA8nvYSaXOWV99wnGtUUvbWV9qFq9J55MwK4Kxabuq3OqQbnW9h2HBg98bkzhb06fgMrPyyN2t1Te1MOq7E";
+sendmail
+[
+	from :"system.user@cctindia.in"
+	to :input.Email
+	subject :"Invitation Email to Register"
+	message :"Please register using below link - " + "<a href= ' " + publish_link_vendor_onboarding + "' >Click Here </a>"
+]
