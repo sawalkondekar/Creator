@@ -1,0 +1,6 @@
+// display image 
+displayimg = Product[ID == input.Product].Image;
+imgURL = displayimg.replaceFirst("sharedBy",zoho.adminuser).replaceFirst("appLinkName",zoho.appname).replaceFirst("viewLinkName","All_Products/").replaceFirst("fieldName","Image");
+// after that use img src tag and in that use imgURL 
+//above imgURL info will be download popup img when copy in other tab
+input.plain = "<img src='" + imgURL + "' width ='350px' height ='350px' /> 
