@@ -1,0 +1,2 @@
+// in validations on deletion have to return below code 
+delete from  Return_Invent_Adj_Line_Items[Return_Positive_Adj_ID == input.ID];
