@@ -1,0 +1,19 @@
+Hello Sidhant,                                                                                              
+
+Greetings from Zoho Creator Support !
+
+We understand that you wish to integrate the Zoho Creator application with WhatsApp. This can be achieved be achieved using integration with Twilio. For this, you may refer to the steps mentioned in this community post. Also, you can construct a public record template pdf's download URL and use that against the MediaUrl parameter as in the below sample.
+mp = Map();
+mp.put("To","whatsapp:+**************");
+mp.put("From","whatsapp:+*************");
+mp.put("MediaUrl","https://creatorapp.zohopublic.com/app_owner/app-name/record-pdf/Report_name/<record_ID>?privateLink=<publishkey>");
+header = Map();
+username = zoho.encryption.base64Encode("<TWILIO_ACCOUNT_SID>:<TWILIO_AUTH_TOKEN>");
+header.put("Authorization","Basic " + username);
+resp = postUrl("https://api.twilio.com/2010-04-01/Accounts/<TWILIO_ACCOUNT_SID>/Messages.json",mp,header);
+We hope this information helps. Please revert in case of any further queries (or) concerns.
+
+Have a great day !
+
+Sincerely,   
+Zoho Creator Team  
