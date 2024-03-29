@@ -1,0 +1,2 @@
+// Populate Billing and Shipping Address
+input.Billing_Address1 = input.Vendor_Name.Address +  "\n" + input.Vendor_Name.City +  "\n" +input.Vendor_Name.State +  "\n" + input.Vendor_Name.Zip_Code ; 
