@@ -1,0 +1,24 @@
+
+vendor = invokeurl
+	[
+		url :"https://www.zohoapis.in/inventory/v1/contacts/1366544000001291257?organization_id=60022277655"
+		type :GET
+		connection:"inventory"
+	];
+	// 	info vendor ;
+	contact = vendor.get("contact");
+	contact_persons = contact.get("contact_persons");
+	//info contact_persons;
+	clear Email_Communicatioins ;
+	
+	for each  cont_email in contact_persons
+	{
+			if ( cont_email.get("email") != "" ) 
+            {
+				rows = Purchase_Order_PO.Email_Communicatioins();
+				rows.Email =	 cont_email.get("email");
+				rows.Name = cont_email.get("salutation")  + " " + cont_email.get("first_name") + " " + cont_email.get("first_name");
+				input.Email_Communicatioins.insert(rows);
+            }
+		}
+// 	}
