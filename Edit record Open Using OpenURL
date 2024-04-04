@@ -2,3 +2,4 @@ openUrl("#Form:Consumption?recLinkID=" + input.ID +"&viewLinkName=Consumptions",
 
 // Consumption - form name
 // Consumptions - Report Name
+// above code will work only in popup and same window .. not in New Window
