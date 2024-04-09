@@ -1,0 +1,2 @@
+openUrl("#Page:Bills_Details?Bill_ID="+input.ID,"same window");
+// Bill_ID = paramaters in Page
