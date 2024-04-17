@@ -1,0 +1,18 @@
+1. // from main form 
+
+fet_warehouse = Warehouse[ID!=0].ID.getAll();
+source = input.Source_Warehouse ; info source;
+fet_warehouse.removeElement(source); info fet_warehouse;
+input.Destination_Warehouse:ui.add(fet_warehouse);
+
+
+2.// for subform 
+writem = Item[ID != 0].ID.getAll();
+//info writem ;
+for each  evr in SubForm
+{
+	writem.removeelement(evr.Item_Name);
+	//info writem ;
+	//info evr ;
+}
+row.field_name:ui.add(writem);
