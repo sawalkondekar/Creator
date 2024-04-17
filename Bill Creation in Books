@@ -1,0 +1,82 @@
+void billcreationbooks.Billcreation(int ID)
+{
+	bill = Bills[ID == input.ID];
+	mp = Map();
+	// po link
+	// 	mp.put("purchaseorder_ids", bill.Purchase_Order_PO.PO_Books_ID);
+	po_list = List();
+	// 	mp3 = Map();
+	// 	mp3.put("1366544000100910786");
+	// 	po_list.add(mp3);
+	// 			mp.put("purchaseorder_ids",  "[\"1366544000100910786\"]");
+	//
+	// 	mp.put("reference_number", "PO01635");
+	mp.put("vendor_id",bill.Vendor_Name.Books_Vendor_ID);
+	mp.put("bill_number",bill.Bill_No);
+	mp.put("source_of_supply",bill.Source_of_Supply.State_Code);
+	mp.put("destination_of_supply",bill.Destination_of_Supply.State_Code);
+	// 	mp.put("gst_treatment",bill.GST);
+	mp.put("date",bill.Bill_Date);
+	mp.put("cf_vendor_bill_date",bill.Vendor_Bill_Date);
+	mp.put("payment_terms_label",bill.Payment_Term);
+	mp.put("status","draft");
+	mp.put("branch_id",bill.Branch_Name.Books_Branch_ID);
+	mp.put("warehouse_name",bill.Warehouse_Name.Warehouse_ID);
+	mp.put("cf_attachment",bill.Attachment);
+	//info bill.Branch_Name.Books_Branch_ID;
+	lineItems = List();
+	for each  linitems in bill.Bill_Items
+	{
+		mp1 = Map();
+		// po id = 1366544000100910786
+		//Po Ajwain line item id = 1366544000100910788
+		// ajwain books id = 1366544000000312180
+		// 		mp1.put("purchaseorder_item_id","1366544000100910788"); // If PO is not received and wants to Bill PO
+		mp1.put("receive_item_id",linitems.Books_PR_Line_Item_ID1);
+		// 		mp1.put("line_item_id", "1366544000100910788"); // For UPdate Bill Line item id 
+		mp1.put("item_id",linitems.Item.Books_Items_ID);
+		mp1.put("name",linitems.Item.Item_Name);
+		// 		mp1.put("item_id",linitems.Item.Books_Items_ID);
+		mp1.put("rate",linitems.Rate);
+		mp1.put("quantity",linitems.Quantity);
+		mp1.put("warehouse_id",linitems.Warehouse_ID);
+		mp1.put("account_id",linitems.Accounts.Books_Account_ID);
+		// 				mp1.put("account_id","1366544000000016350");
+		mp1.put("tax_id","1366544000000016287");
+		//---------------------------Batches code start (******    No need to Add Batches Code, It will be Linked from PO/PR Batches   ******)
+		batches_List = List();
+		fet_batch = Add_Batch_Reference[Line_Item_ID = linitems.PR_Line_Item];
+		// 		for each  batch in fet_batch
+		// 		{
+		// 			mp2 = Map();
+		// 			mp2.put("batch_number",batch.Batch_Reference);
+		// 			// Unique each time and mandatory
+		// 			mp2.put("external_batch_number",batch.Manucturer_Batch);
+		// 			mp2.put("manufacturer_date",batch.Manufacturer_Date_Packing_Date);
+		// 			mp2.put("expiry_date",batch.Use_by_date_Expiry_Date);
+		// 			mp2.put("in_quantity",batch.Quantity_In);
+		// 			// mandatory and same as Items Quantity to Receive
+		// 			batches_List.add(mp2);
+		// 		}
+		// 		mp1.put("batches",batches_List);
+		//----------------------------Batches code end
+		lineItems.add(mp1);
+	}
+	mp.put("line_items",lineItems);
+	json = Map();
+	json.put("JSONString",mp);
+	//	Invoke Zoho Books API to create the bill
+	response = invokeurl
+	[
+		url :"https://www.zohoapis.in/books/v3/bills?organization_id=60022277655"
+		type :POST
+		parameters:json
+		connection:"zohoboks"
+	];
+	// 	info json;
+	info response;
+	if(response.get("message") == "The bill has been created")
+	{
+		bill.Bill_Book_ID=response.get("bills").get("bill_id");
+	}
+}
