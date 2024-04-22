@@ -1,0 +1,7 @@
+	emptyList = List();
+	a = 122981000006103575;
+	fet_po = Purchase_Order_PO[ID == 122981000006150861];
+	emptyList.addAll(fet_po.Multi_Bills);
+	emptyList.add(a);
+	fet_po.Multi_Bills = emptyList.distinct();
+	info emptyList.distinct() ;
