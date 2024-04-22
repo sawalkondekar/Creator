@@ -1,0 +1,84 @@
+//
+if(input.Bill_ID.isEmpty())
+{
+	rows = Collection();
+	for each  pr_line_items in input.Line_Items
+	{
+		B_line_item = Bills.Bill_Items();
+		B_line_item.PR=input.ID;
+		B_line_item.Item=pr_line_items.Item_Name;
+		B_line_item.SKU=pr_line_items.SKU;
+		B_line_item.Quantity=pr_line_items.Quantity_to_Receive;
+		B_line_item.Rate=pr_line_items.Item_Rate;
+		B_line_item.TAX=pr_line_items.Tax_Name;
+		B_line_item.PR_Line_Item=pr_line_items.ID;
+		B_line_item.PO_Line_Item_ID=pr_line_items.PO_Line_Item_ID;
+		B_line_item.Books_PR_Line_Item_ID1=pr_line_items.Books_PR_Line_Item_ID;
+		rows.insert(B_line_item);
+	}
+	fetch_po = Purchase_Order_PO[ID == input.PO_Creator_ID];
+	bill = insert into Bills
+	[
+		Order_Number=input.PO_Creator_ID.Purchase_Order_No
+		Warehouse_Name=input.Warehouse_Lookup.ID
+		Branch_Name=input.Branch_Lookup
+		Vendor_Name=input.Vendor_Name
+		GST_No=input.Vendor_Name.GSTIN
+		GST=input.Vendor_Name.GST_Treatment
+		Source_of_Supply=fetch_po.Source_Of_Supply
+		Destination_of_Supply=fetch_po.Destination_Of_Supply
+		Bill_Date=zoho.currentdate
+		Due_Date=zoho.currentdate
+		Payment_Term=input.Vendor_Name.Payment_Terms
+		Bill_Items=rows
+		Added_User=zoho.loginuser
+		PR=input.ID
+	];
+	//		Status="Draft"
+	input.Bill_ID = bill;
+	//	Branch_Name=input.Branch
+	//	Warehouse_Name=input.Warehouse
+	// **** Update Bill id in subform start
+	fetch_Bill = Bills[ID == bill];
+	for each  li in fetch_Bill.Bill_Items
+	{
+		li.Bills=bill;
+	}
+	// Update Bill id in subform end ***
+	//--------------------------------------------------  Add Batches from PR to Bills -- Starts *** --------------
+	line_item_id = input.Line_Items;
+	for each  item in line_item_id
+	{
+		fet_pr_bath = Add_Batch_Reference[PR_ID == input.ID && Line_Item_ID == item.ID && Item_Name == item.Item_Name];
+		for each  batches in fet_pr_bath
+		{
+			add = insert into Bill_Add_Batch_Ref
+			[
+				Add_Batch_Reference=batches.ID
+				Batch_Reference=batches.Batch_Reference
+				Manufacturer_Batch=batches.Manucturer_Batch
+				Manufacturering_Date_Packing_Date=batches.Manufacturer_Date_Packing_Date
+				Use_by_Date_Expiry_Date=batches.Use_by_date_Expiry_Date
+				Quantity_In=batches.Quantity_In
+				Branch=input.Branch_Lookup
+				Warehouse=input.Warehouse_Lookup
+				Item=batches.Item_Name
+				Bills=bill
+				PR_Line_Item=fet_pr_bath.Line_Item_ID
+				Added_User=zoho.loginuser
+			];
+			//	Bill_No =fet_pr_bath.count()
+			// batches.Manucturer_Batch
+		}
+	}
+	//--------------------------------------------------  Add Batches from PR to Bills -- Ends *** --------------
+	//// 	Is_Eligable=true
+}
+else
+{
+	bill = input.Bill_ID;
+}
+// openUrl("#Report:All_Bills","Same window");
+// openUrl("#Page:Bills_Details?Bill_ID=" + bill,"Same window"); // Page - redirection 
+// openUrl("#Form:Bills?recLinkID=" + bill + "&viewLinkName=All_Bills","Same window");
+openUrl("#Form:Bills?recLinkID=" + bill + "&viewLinkName=All_Bills","Same window");
