@@ -7,12 +7,11 @@ input.Destination_Warehouse:ui.add(fet_warehouse);
 
 
 2.// for subform 
-writem = Item[ID != 0].ID.getAll();
-//info writem ;
-for each  evr in SubForm
+items = Item[ID != 0].ID.getAll();
+for each  line_items in input.Purchase_Order_Item_Details
 {
-	writem.removeelement(evr.Item_Name);
-	//info writem ;
-	//info evr ;
+	info line_items.ID ;
+	items.removeelement(line_items.Items);
 }
-row.field_name:ui.add(writem);
+row.Items:ui.add(items);
+
