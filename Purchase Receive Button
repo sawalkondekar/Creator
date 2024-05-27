@@ -1,0 +1,222 @@
+
+// 22
+// FETCH CREATOR WAREHOUSE ID TO FILTER DATA FOR USER MANAGEMENT IN ZOHO CREATOR
+// try 
+// {
+warehouse_lookup = purchaseorder.get("delivery_org_address_id");
+//234422436
+criteria = "Warehouse_ID==\"" + warehouse_lookup + "\"";
+// "Warehouse_ID==234422436"
+//DEV
+warehouseID = zoho.creator.getRecords("vishnu_cssgroupindia","catalyst","Warehouses",criteria,1,200,"zohocreator");
+//info warehouseID;
+//PROD - DO NOT DELETE THIS CODE
+// warehouseID = zoho.creator.getRecords("vishnu_cssgroupindia", "catalyst", "Warehouses", "Warehouse_ID==\"1366544000030913146\"", 1,200, "zohocreator");
+// }
+// catch (e)
+// {
+// 	warehouseID = 122981000002107291;
+// }
+// ********** validations for Item Rate Zero Start
+line_items_rec1 = purchaseorder.get("line_items");
+items_rec_List = List();
+for each  items_rec in line_items_rec1
+{
+	item_rate_rec = items_rec.get("rate");
+	items_rec_List.add(item_rate_rec);
+}
+smallest = items_rec_List.smallest();
+// ********** validations for Item Quantity Zero Ends and else if condition applied
+//////////**************** Status Inventory Starts
+//---------------------------------------------------------------------------------------------------------------
+po_id = purchaseorder.get("purchaseorder_id");
+response_inv = invokeurl
+[
+	url :"https://www.zohoapis.in/inventory/v1/purchaseorders/" + po_id + "?organization_id=60022277655"
+	type :GET
+	connection:"catalyst_zohoinventory"
+];
+//info response ;
+purchaseorder_inv = response_inv.get("purchaseorder");
+status_inv = purchaseorder_inv.get("status");
+//info status_inv;
+///////*************** Status Inventory Done ****
+po_id = purchaseorder.get("purchaseorder_id");
+response = invokeurl
+[
+	url :"https://www.zohoapis.in/books/v3/purchaseorders/" + po_id + "?organization_id=60022277655"
+	type :GET
+	connection:"catalystservicesolutions"
+];
+po = response.get("purchaseorder");
+//*** Redirect Draft issue start - 1
+redirect_pr_id = purchaseorder_inv.get("custom_field_hash").getJson("cf_pr_creator_id");
+// **** Redirect Draft Issue end - 1
+//info po;
+resultMap = Map();
+referenceNumber = purchaseorder.get("reference_number");
+if(status_inv == "received")
+{
+	//received
+	resultMap.put("message","Purchase Order has been received already.");
+	resultMap.put("code",2);
+	//alert "Purchase Ordeer has been received already.";
+}
+else if(status_inv == "draft" || status_inv == "pending_approval" || status_inv == "approved")
+{
+	resultMap.put("message","Seems PO is not Issued, Please Issue the PO first.");
+	resultMap.put("code",1);
+	// You can use a different code for failure
+}
+// else if(referenceNumber == "")
+// {
+// 	resultMap.put("message"," Please enter the Reference");
+// 	resultMap.put("code",3);
+// }
+// else if(status_inv == "pending_approval")
+// {
+// 	resultMap.put("message","Seems PO is not Issued, Please Issue the PO first and Waiting for Approval.");
+// 	resultMap.put("code",3);
+// 	// You can use a different code for failure
+// }
+else if(smallest == 0)
+{
+	resultMap.put("message","Item Rate Can't Be Zero.");
+	resultMap.put("code",3);
+}
+//****** Redirect Draft start - 2
+else if(redirect_pr_id != null)
+{
+	resultMap.put("message","Success");
+	resultMap.put("code",0);
+	//portal-----------------------------------------------------------
+	resultMap.put("url","https://vishnucssgroupindia6.zohocreatorportal.in/#Page:PR_Details?PR_ID=" + redirect_pr_id);
+	openUrl(resultMap.get("url"),"same window");
+}
+// **** Redirect Draft End - 2
+else
+{
+	// Create PN N in creator
+	mp = Map();
+	mp.put("PO_No",purchaseorder.get("purchaseorder_number"));
+	mp.put("Branch",po.get("branch_name"));
+	mp.put("WareHouse_Email",zoho.loginuserid);
+	//Warehouse issue 
+	for each  rec_1 in purchaseorder.get("line_items")
+	{
+		warehouse_name = rec_1.get("warehouse_name");
+	}
+	// 	mp.put("Warehouse",purchaseorder.get("attention")); // OLD Warehouse
+	mp.put("Warehouse",warehouse_name);
+	////Warehouse issue end
+	vendor_name = purchaseorder.get("vendor_id");
+	//info vendor_name;
+	vendor_details = zoho.books.getRecordsByID("Contacts","60022277655",vendor_name,"catalystservicesolutions");
+	// 	info vendor_details;
+	vendor_id = vendor_details.get("contact").get("custom_fields").getJSON("value");
+	// 	info "vendor_id ===" + vendor_id;
+	test = vendor_details.get("contact");
+	//info test;
+	vendor_id_1 = test.get("custom_field_hash").getjson("cf_vendor_creator_id");
+	// 	info vendor_id_1;
+	mp.put("Vendor_Name",vendor_id_1);
+	// 	mp.put("Vendor_Name",122981000002841217);
+	mp.put("Reference_No",purchaseorder.get("reference_number"));
+	mp.put("Received_Date",zoho.currentdate.toDate().toString("dd-MM-yyyy"));
+	mp.put("PO_Books_ID",purchaseorder.get("purchaseorder_id"));
+	mp.put("Status","Draft");
+	mp.put("Added_User",zoho.loginuserid);
+	mp.put("User_Warehouse_ID",warehouseID.get("data").get(0).get("ID"));
+	// 	mp.put("Warehouse_Lookup",warehouseID.get("ID"));
+	/////
+	line_items = purchaseorder.get("line_items");
+	//info line_items;
+	item_List = List();
+	for each  item in line_items
+	{
+		items_item_id = item.get("item_id");
+		mp1 = Map();
+		item_details = zoho.books.getRecordsByID("Items","60022277655",items_item_id,"catalystservicesolutions");
+		//info item_details;
+		item_details1 = item_details.get("item");
+		mp1.put("Item_Name",item_details1.get("custom_field_hash").getjson("cf_creator_id"));
+		mp1.put("Item_Rate",item.get("rate"));
+		mp1.put("SKU",item.get("sku"));
+		mp1.put("UOM",item.get("unit"));
+		mp1.put("Ordered",item.get("quantity").toDecimal());
+		mp1.put("Received",item.get("quantity_received"));
+		mp1.put("Balance_Quantity",item.get("quantity") - item.get("quantity_received"));
+		mp1.put("Quantity_to_Receive",item.get("quantity") - item.get("quantity_received"));
+		mp1.put("Rejected_Quantity",0);
+		// PO line item id for PR code
+		mp1.put("PO_Line_Item_ID",item.get("line_item_id"));
+		//WareHouse Details
+		mp1.put("WareHouse_Name",item.getjson("warehouse_name"));
+		mp1.put("WareHouse_ID",item.getjson("warehouse_id"));
+		mp1.put("Tax_Name",item.get("tax_name"));
+		mp1.put("Tax_Percentage",item.get("tax_percentage"));
+		mp.put("Added_User",zoho.loginuserid);
+		//
+		if(item.get("quantity") != item.get("quantity_received"))
+		{
+			item_List.add(mp1);
+		}
+	}
+	mp.put("Line_Items",item_List);
+	otherParams = Map();
+	//Development----------------------------------------------------------------------
+	// 	create1 = zoho.creator.createRecord("vishnu_cssgroupindia","catalyst-development","PR",mp,otherParams,"zohocreator");
+	//Production----------------------------------------------------
+	create1 = zoho.creator.createRecord("vishnu_cssgroupindia","catalyst","PR",mp,otherParams,"zohocreator");
+	info create1;
+	// 	info mp;
+	// 	//////
+	messages = create1.get("message");
+	if(messages == "Data Added Successfully")
+	{
+		creator_pr_id = create1.get("data").getJSON("ID");
+		//info creator_po_id;
+		/// ****** redirection Draft start - 3
+		customfields = List();
+		mp2 = Map();
+		mp2.put("api_name","cf_pr_creator_id");
+		// Update PR ID 
+		mp2.put("value",creator_pr_id);
+		customfields.add(mp2);
+		mp3 = Map();
+		mp3.put("custom_fields",customfields);
+		update = zoho.books.updateRecord("purchaseorders","60022277655",po_id,mp3,"catalystservicesolutions");
+		// 		info update;
+		//**** Redirection Draft End - 3
+		//******* Redirection End
+	}
+	// 	//*************** Create Purchase Receive Line Items N in creator
+	// 	//This is a sample function. It will display the reference number
+	referenceNumber = purchaseorder.get("reference_number");
+	status = purchaseorder.get("status");
+	if(status_inv == "issued" || status_inv == "partially_received" && !creator_pr_id.isEmpty())
+	{
+		resultMap.put("message","Success");
+		resultMap.put("code",0);
+		//portal-----------------------------------------------------------
+		resultMap.put("url","https://vishnucssgroupindia6.zohocreatorportal.in/#Page:PR_Details?PR_ID=" + creator_pr_id);
+		//admin------------------------------------------------------------
+		// 				resultMap.put("url","https://creatorapp.zoho.in/vishnu_cssgroupindia/catalyst#Page:PR_Details?PR_ID=" + creator_pr_id);
+		//dev---------------------------------------------------------------
+		// 		resultMap.put("url","https://creatorapp.zoho.in/vishnu_cssgroupindia/environment/development/catalyst#Page:PR_Details?PR_ID=" + creator_pr_id);
+	}
+	// 	--------------------------------------------------------------------------
+	try 
+	{
+		// Attempt to open the URL
+		openUrl(resultMap.get("url"),"same window");
+	}
+	catch (e)
+	{
+		// Handle any errors that occur during URL opening
+		// 	info "Error while opening URL: " + e.toString();
+		openUrl("https://vishnucssgroupindia6.zohocreatorportal.in/","same window");
+	}
+}
+// return  po;
+return resultMap;
