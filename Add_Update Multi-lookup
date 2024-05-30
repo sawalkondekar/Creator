@@ -1,0 +1,9 @@
+  /// PR_ID is lookup
+        po_list = List();
+				fet_po = Purchase_Order_PO[ID == fet_PR.PO_Creator_ID];
+				if(fet_po.count() > 0)
+				{
+					// 30 May 24 - status update start
+					po_list.addAll(fet_po.PR_ID);
+					po_list.add(fet_PR.ID);
+					fet_po.PR_ID=po_list.distinct(); // Add Multi PR in PO Multi-lookup
