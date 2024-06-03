@@ -1,0 +1,37 @@
+<%{
+	bill = Bills[ID == input.Bill_ID];
+	buttonValue = "Billed";
+	if(bill.Status != "Billed")
+	{
+		%>
+<panel elementName="Billed">
+	  <pr width='fill' height='fill'>
+		<pc padding='0px' bgColor='#FFFFFF' width='100%' hAlign='center' vAlign='middle'>
+		  <pr width='auto' height='auto'>
+			<pc vAlign='middle'>
+			  <button marginLeft='0px' marginRight='0px' marginBottom='0px' marginTop='0px' action='ExecuteFunction' parameters='${Bill_ID},Billed' functionName='Bills.Billcreation' color='#FFFFFF' size='16px' text='<%=buttonValue%>' type='flat' bgColor='#10B292' cornerRadius='3px' successMsg='Bill has been Sent.' /> </pc>
+		  </pr>
+		</pc>
+	  </pr>
+	</panel>
+<%
+	}
+	else
+	{
+		%>
+
+			 <panel elementName="Disabled_Button">
+  <pr width='fill' height='fill'>
+    <pc padding='0px' bgColor='#FFFFFF' width='100%' hAlign='center' vAlign='middle'>
+      <pr width='auto' height='auto'>
+        <pc vAlign='middle'>
+          <button marginLeft='0px' marginRight='0px' marginBottom='0px' marginTop='0px' color='#FFFFFF' size='16px' text='Billed' type='flat' bgColor='#959595' cornerRadius='3px' /> </pc>
+      </pr>
+    </pc>
+  </pr>
+</panel>
+
+<%
+	}
+
+}%>
