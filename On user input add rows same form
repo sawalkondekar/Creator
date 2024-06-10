@@ -1,0 +1,25 @@
+fetch_pr = PR[ID == input.Open_PR];
+clear Bill_Items;
+if(fetch_pr.count() > 0)
+{
+	for each  rec in fetch_pr
+	{
+		for each  line_items in rec.Line_Items
+		{
+			rows_collection = List();
+			row1 = Bills.Bill_Items();
+			row1.Item=line_items.Item_Name;
+			row1.SKU=line_items.SKU;
+			row1.Quantity=line_items.Quantity_to_Receive;
+			row1.Rate=line_items.Item_Rate;
+			row1.Tax_Name=line_items.Tax_Name;
+			row1.TAX=line_items.Tax_Percentage.toLong();
+			row1.Bills=input.ID;
+			row1.PR=fetch_pr.ID;
+			row1.Books_PR_Line_Item_ID1=line_items.Books_PR_Line_Item_ID;
+			row1.PR_Line_Item=line_items.ID;
+			rows_collection.insert(row1);
+			input.Bill_Items.insert(row1);
+		}
+	}
+}
