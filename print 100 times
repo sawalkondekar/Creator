@@ -1,0 +1,6 @@
+num = 1000;
+converedList = "".leftPad(num).toList("");
+for each ele in converedList
+{
+	info "Eknath" ;
+}
