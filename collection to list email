@@ -1,0 +1,13 @@
+//["sawalkondekar@gmail.com"],["sidhant.awalkondekar@cctindia.in"]
+
+a =   email_list;
+				finalData = Collection();
+			mailData = email_list;
+			for each mail in mailData
+			{
+				for each rec in mail
+				{
+					finalData.insert(rec);	
+				}
+			}
+			info finalData;
