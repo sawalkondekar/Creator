@@ -1,0 +1,7 @@
+items = Item[ID != 0].ID.getAll();
+for each  line_items in input.Purchase_Order_Item_Details
+{
+	// 	info line_items.ID ;
+	items.removeelement(line_items.Items);
+}
+row.Items:ui.add(items);
