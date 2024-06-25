@@ -1,0 +1,8 @@
+if(input.Source_Of_Supply != input.Destination_Of_Supply)
+{
+	for each  line_items in input.Purchase_Order_Item_Details
+	{
+		tax = Tax[Tax_Name = {"IGST5","IGST28","IGST18","IGST12","IGST0","IGSTcess"}].ID.getAll();
+	}
+		row.Tax:ui.add(tax);
+}
