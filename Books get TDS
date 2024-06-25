@@ -1,0 +1,7 @@
+ tds = invokeUrl
+     [
+     	url: " https://books.zoho.in/api/v3/settings/taxes?is_tds_request=true&organization_id=60022277655"
+     	type: GET
+     	connection: "zohoboks"
+     ];
+	 info tds ;
