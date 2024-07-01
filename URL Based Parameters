@@ -3,3 +3,14 @@ https://help.zoho.com/portal/en/kb/creator/developer-guide/others/url-patterns/a
 // best feature
 // No need to create multiple reports 
 // just use filter
+
+
+//*******
+ex.
+Branch=${branch}&&Date_of_Joining_op=45
+///op - is must in above line
+// and below line code is for fetch branches... and for string & - it will replace %26, so will work correctly for & scenario in name.
+userDetails = User1[Email == zoho.loginuserid];
+var = userDetails.Branch.Branch_Name.toString();
+a = "[" + var.replaceAll("&","%26") + "]";
+input.branch = a;
