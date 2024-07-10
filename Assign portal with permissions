@@ -1,0 +1,3 @@
+
+var = thisapp.portal.assignUserInProfile(input.Email,input.Role.Role_Name);
+ 
