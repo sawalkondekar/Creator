@@ -1,0 +1,26 @@
+//Date - 15th July
+	custom_field_api_name_of_books = "cf_attachment";
+	//************_________________________________________--_________________________________________________________________________________________________________________________________-
+	fet = Bills[ID == 122981000009885884];
+	url = "https://creator.zoho.in/api/v2.1/vishnu_cssgroupindia/catalyst/report/All_Bills/122981000009974741/Attachment/download";
+	// 	url = "https://creator.zoho.in/vishnu_cssgroupindia/catalyst/All_Bills/" + fet.ID + "/Attachment/download?filepath=" + fet.Attachment;
+	mp = Map();
+	mp.put("environment","development");
+	res = invokeurl
+	[
+		url :url
+		type :GET
+		headers:mp
+		connection:"creator"
+	];
+	res.setParamName("attachment");
+	// 			info res;
+	url = "https://www.zohoapis.in/books/v3/bills/1366544000142212073/attachment?organization_id=60022277655";
+	result = invokeurl
+	[
+		url :url
+		type :POST
+		files:res
+		connection:"zohoboks"
+	];
+	info result;
