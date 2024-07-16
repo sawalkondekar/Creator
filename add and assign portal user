@@ -1,0 +1,9 @@
+try 
+{
+	Var = thisapp.portal.assignUserInProfile(input.Email,input.Role.Role_Name);
+}
+catch (e)
+{
+	alert "The email cannot be added as a Customer because it needs to be added as a User";
+	cancel submit;
+}
