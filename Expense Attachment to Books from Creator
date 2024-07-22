@@ -1,0 +1,37 @@
+/Date - 15th July
+fet = Expense[ID == exp_id];
+url = " https://creator.zoho.in/api/v2.1/vishnu_cssgroupindia/catalyst/report/All_Expenses/" + fet.ID + "/Attachment/download";
+// url = " https://creator.zoho.in/vishnu_cssgroupindia/catalyst/All_expenses/" + fet.ID + "/Attachment/download?filepath=" + fet.Attachment;
+// url = " https://creator.zoho.in/vishnu_cssgroupindia/environment/development/catalyst/All_expenses/" + fet.ID + "/Attachment/download?filepath=" + fet.Attachment;
+if(thisapp.checkPro.isProduction() == false)
+{
+mp = Map();
+mp.put("environment","development");
+res = invokeurl
+[
+url :url
+type :GET
+headers:mp
+connection:"creator"
+];
+}
+else
+{
+res = invokeurl
+[
+url :url
+type :GET
+connection:"creator"
+];
+}
+res.setParamName("attachment");
+url_exp_books = " https://www.zohoapis.in/books/v3/expenses/"+fet.Books_Expense_ID+"/attachment?organization_id=60022277655";
+result = invokeurl
+[
+url :url_exp_books
+type :POST
+files:res
+connection:"zohoboks"
+];
+info result;
+
