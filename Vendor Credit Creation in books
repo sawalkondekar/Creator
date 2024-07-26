@@ -1,0 +1,64 @@
+void Vendor_Credit.VendorCreditCreation(int ID)
+{
+	Vendor_Credit = Vendor_Credit[ID == input.ID];
+	mp = Map();
+	mp.put("vendor_id",Vendor_Credit.Vendor_Name.Books_Vendor_ID);
+	// 	mp.put("vendor_credit_number",Vendor_Credit.Credit_Note);
+	mp.put("source_of_supply","MH");
+	mp.put("destination_of_supply","MH");
+	mp.put("reference_number",Vendor_Credit.Order_Number);
+	// 	mp.put("gst_treatment",Vendor_Credit.GST_Treatment);
+	// 	mp.put("gst_no",Vendor_Credit.GSTIN);
+	mp.put("status","draft");
+	mp.put("date",Vendor_Credit.Vendor_Credit_Date);
+	mp.put("branch_id",Vendor_Credit.Branch.Books_Branch_ID);
+	mp.put("reference_invoice_type",Vendor_Credit.Bill_Type);
+	//b2c_others
+	// Bill Type Dropdown Field
+	//info mp;
+	linetems = List();
+	mp1 = Map();
+	for each  linitems in Vendor_Credit.Vendor_Credit_Lineitems
+	{
+		mp1.put("item_id",linitems.Item.Books_Items_ID);
+		mp1.put("name",linitems.Item.Item_Name);
+		// 		mp1.put("account_name","Inventory Asset");
+		// 		mp1.put("account_id",linitems.Account.Books_Account_ID);
+		mp1.put("quantity",linitems.Quantity);
+		mp1.put("rate",linitems.Rate);
+		mp1.put("tax_id",linitems.Tax.Books_Tax_ID);
+		linetems.add(mp1);
+		// ** batches code start
+		batches_list = List();
+		mp2 = Map();
+		fet_batches = Vend_Credit_Selected_Batch_Subform[Vendor_Credit_Lineitems_ID == linitems];
+		for each  batch in fet_batches
+		{
+			fet_add_batch = Add_Batch_Reference[Batch_Reference = fet_batches.Select_Batch.Batch_Reference];
+			mp2.put("batch_in_id",fet_add_batch.Batch_Inventory_ID);
+			mp2.put("out_quantity",fet_batches.Quantity_Out);
+			// 			mp2.put("batch_out_id", 1366544000145592877);
+			batches_list.add(mp2);
+		}
+		mp1.put("batches",batches_list);
+		// batches code ends ***
+	}
+	mp.put("line_items",linetems);
+	//info mp;
+	json = Map();
+	json.put("JSONString",mp);
+	response = invokeurl
+	[
+		url :"https://www.zohoapis.in/books/v3/vendorcredits?organization_id=60022277655"
+		type :POST
+		parameters:json
+		connection:"zohoboks"
+	];
+	// 	info mp;
+	// 	info "Batches = " + fet_batches ;
+	info response;
+	vendor_credit_resp = response.get("vendor_credit");
+	Vendor_Credit.Books_Vendor_Credit_ID=vendor_credit_resp.get("vendor_credit_id");
+	Vendor_Credit.Credit_Note=vendor_credit_resp.get("vendor_credit_number");
+	// 	update Books data in Creator
+}
