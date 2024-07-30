@@ -1,0 +1,62 @@
+void Bills.Bill_Custom_field_Attachment(int bill_id)
+{
+	//Date 16th July
+	fet = Bills[ID == bill_id];
+	billID = fet.Bill_Book_ID;
+	organizationID = "60022277655";
+	//****
+	url = "https://creator.zoho.in/api/v2.1/vishnu_cssgroupindia/catalyst/report/All_Bills/" + fet.ID + "/Attachment/download";
+	if(thisapp.checkPro.isProduction() == false)
+	{
+		mp = Map();
+		mp.put("environment","development");
+		invPDF = invokeurl
+		[
+			url :url
+			type :GET
+			headers:mp
+			connection:"creator"
+		];
+	}
+	else
+	{
+		invPDF = invokeurl
+		[
+			url :url
+			type :GET
+			connection:"creator"
+		];
+	}
+	// 	invPDF = invokeurl
+	// 	[
+	// 		url :"https://www.zohoapis.in/books/v3/bills/" + billID + "?accept=pdf&type=bill&organization_id=" + organizationID
+	// 		type :GET
+	// 		connection:"zohoboks"
+	// 	];
+	//****
+	invPDF.setParamName("document");
+	info "invPDF = " + invPDF;
+	url = "https://www.zohoapis.in/books/v3/documents?organization_id=" + organizationID;
+	docs = invokeurl
+	[
+		url :url
+		type :POST
+		files:invPDF
+		connection:"zohoboks"
+	];
+	// 	info docs;
+	documentID = docs.get("documents").toMap().get("document_id");
+	// 	info "documentID =" + documentID;
+	imap = Map();
+	imap.put("api_name","cf_attachment");
+	//replace cf_attachment with custom field api name.
+	imap.put("value",documentID);
+	ilist = List();
+	ilist.add(imap);
+	json = Map();
+	json.put("custom_fields",ilist);
+	othermap = Map();
+	update = zoho.books.updateRecord("bills",organizationID,billID,json,"zohoboks");
+	// 	info update.get("message");
+	// 	info json;
+}
