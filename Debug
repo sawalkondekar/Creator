@@ -1,0 +1,12 @@
+// # Issue
+- the attachment/ fun is not working suddenly. because User permissions has been changed
+
+= So, for this - support reply are 
+
+"Once the connection is created and authorized by a particular user, the data which are accesible to that user can be fetched using the connection.
+
+It's possible that the permisson of that concerned developer was changed, which could have caused this problem (Edited)
+It's better to use the super admin's authorization for such connections instead of developer's"
+
+---
+To prevent such instances, you can authorize the connection from the super admin or a administrator login.
