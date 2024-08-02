@@ -1,0 +1,16 @@
+//put initial value as zero in each field and choose decimal field 
+row.Amount=row.Quantity * row.Rate;
+row.Tax_Amount=(row.Amount * row.Tax_Percentage) / 100;
+row.Total_Amount=row.Amount + row.Tax_Amount;
+subtotal = 0;
+total_amt = 0;
+tax_amt = 0;
+for each  rec in input.Vendor_Credit_Lineitems
+{
+	subtotal = subtotal + rec.Amount;
+	total_amt = total_amt + rec.Total_Amount;
+	tax_amt = tax_amt + rec.Tax_Amount;
+}
+input.Tax_Amount = tax_amt;
+input.Subtotal = subtotal;
+input.Total_Amount = total_amt;
