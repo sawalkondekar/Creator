@@ -1,0 +1,5 @@
+// edit view update
+purchase_order.PO_Link="<a href='https://creatorapp.zoho.in" + zoho.appuri + "#Form:Purchase_Order?recLinkID=" + purchase_order.ID + "&viewLinkName=Purchase_Order_PO_Report" + "' target='_blank'>" + purchase_order.Purchase_Order_No + "</a>";
+
+//page link update
+fet_PR.PR_Link="<a href='https://creatorapp.zoho.in" + zoho.appuri + "#Page:PR_Details?PR_ID=" + fet_PR.ID + "' >" + receive_no + "</a>";
