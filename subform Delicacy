@@ -1,0 +1,26 @@
+clear Menu_Item;
+menuData = Plan_Menu[Meal_Type == input.Meal_Type && Date_field == input.Date_Time && Status == "Approved" && Warehouse == input.Warehouse];
+if(menuData.count() > 0)
+{
+	itemName = List();
+	for each  rec in menuData
+	{
+		for each  delicy in menuData.Delicacy
+		{
+			delicacyData = Delicacy[Delicacy == delicy.Delicacy];
+			rows = Pax_Count.Menu_Item();
+			rows.Delicacy=delicy;
+			rows.Meal_Type=rec.Meal_Type;
+			rows.Warehouse=input.Warehouse;
+			rows.Branch=input.Branch;
+			rows.UoM=delicacyData.UoM;
+			input.Menu_Item.insert(rows);
+		}
+	}
+}
+else
+{
+	alert "There is no Menu for Today!!";
+	input.Pax = null;
+	input.Meal_Type = null;
+}
