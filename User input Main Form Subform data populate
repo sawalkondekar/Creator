@@ -1,0 +1,9 @@
+coll = Collection();
+fet_plan_menu = Plan_Menu[Date_field == input.To_Date || Date_field == input.From_Date];
+for each  mealdata in fet_plan_menu
+{
+	row = Pre_Book.Meals();
+	row.Category=fet_plan_menu.Meal_Type;
+	coll.insert(row);	
+}
+input.Meals.insert(coll);
