@@ -1,0 +1,33 @@
+void Price_List.Get_Price_List_Items(int ID)
+{
+	fet_price_list = Price_Lists[ID == input.ID];
+	// check with static data
+	price_list_get = invokeurl
+	[
+		url :"https://www.zohoapis.in/inventory/v1/pricebooks/" + fet_price_list.Books_Price_List_ID + "?organization_id=60022277655"
+		type :GET
+		connection:"inventory"
+	];
+	items = price_list_get.get("pricebook").get("pricebook_items");
+	// 	 info items ;
+	for each  rec in items
+	{
+		item_id = rec.get("item_id");
+		creator_item = Item[Books_Items_ID == item_id];
+		// Check no duplicate - 
+		fet_line_items = Price_List_Items[Price_Lists == fet_price_list && Item_Name == creator_item];
+		info fet_line_items;
+		if(fet_line_items.count() == 0)
+		{
+			insert_items = insert into Price_List_Items
+			[
+				Item_Name=creator_item.ID
+				SKU=creator_item.ID
+				Item_Price=rec.get("pricebook_rate")
+				Added_User=zoho.loginuser
+				Price_Lists=fet_price_list.ID
+				Status="Active"
+			];
+		}
+	}
+}
