@@ -1,0 +1,48 @@
+void Price_List.Get_Price_List_Name()
+{
+	page = {1,2,3,4,5,6,7,8,9,10};
+	for each  pages in page
+	{
+		get_all_price_lists = invokeurl
+		[
+			url :"https://www.zohoapis.in/inventory/v1/pricebooks?status=active&page=" + pages + "&per_page=200&+organization_id=60022277655"
+			type :GET
+			connection:"inventory"
+		];
+		//url :"https://www.zohoapis.in/inventory/v1/pricebooks?status=active&page=" + pages + "&per_page=200&+organization_id=60022277655"
+		all_price_lists = get_all_price_lists.get("pricebooks");
+		if(all_price_lists.size() == 0)
+		{
+			break;
+		}
+		// Insert Into Creator
+		else
+		{
+			for each  rec in all_price_lists
+			{
+				if(rec.get("status") == "active")
+				{
+					// Duplicate Price List Name check 
+					fet_price_list = Price_Lists[Price_List_Name == rec.get("name")];
+					if(fet_price_list.count() == 0)
+					{
+						insert_price_list_names = insert into Price_Lists
+						[
+							Status=rec.get("status").proper()
+							Price_List_Name=rec.get("name")
+							Added_User=zoho.loginuser
+							Description=rec.get("description")
+							Books_Price_List_ID=rec.get("pricebook_id")
+							Sales_or_Purchase_Type=rec.get("sales_or_purchase_type").proper()
+							Through_API="Yes"
+							Currency_Code=rec.get("currency_code")
+							Currency_ID=rec.get("currency_id")
+							PriceBook_Type=rec.get("pricebook_type").proper()
+							Pricing_Scheme=rec.get("pricing_scheme").proper()
+						];
+					}
+				}
+			}
+		}
+	}
+}
