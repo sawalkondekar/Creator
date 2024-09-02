@@ -1,0 +1,25 @@
+list Vendor.fetchVendorPO()
+{
+	// ** If Login User is Administrator or Developer then Show All Data
+	userData = User1[Email == zoho.loginuserid];
+	profile_name = thisapp.portal.profileForUser(zoho.loginuserid);
+	login_profile = thisapp.permissions.loginUserProfile();
+	if(login_profile == "Administrator" || login_profile == "Developer")
+    {
+		poData = Purchase_Order_PO[ID != 0];
+		return poData ;
+    }
+	
+	//**************************** Four Portal User Only
+	// 	userData = User1[Email == zoho.loginuserid];
+	vendorData = Vendor[Vendor_Email == zoho.loginuserid].ID;
+	poData = Purchase_Order_PO[Vendor_Name = vendorData];
+	if(poData.count() > 0)
+	{
+		return poData;
+	}
+	else
+	{
+		return {};
+	}
+}
