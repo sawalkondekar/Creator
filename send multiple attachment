@@ -1,0 +1,29 @@
+attachment_list = List();
+for each  rec in input.Subform_File_upload
+{
+	attachment_list.add(rec.File_upload);
+}
+sz = attachment_list.size();
+get_file_1 = if(sz > 0,attachment_list.get(0),null);
+get_file_2 = if(sz > 1,attachment_list.get(1),null);
+get_file_3 = if(sz > 2,attachment_list.get(2),null);
+get_file_4 = if(sz > 3,attachment_list.get(3),null);
+get_file_5 = if(sz > 4,attachment_list.get(4),null);
+get_file_6 = if(sz > 5,attachment_list.get(5),null);
+get_file_7 = if(sz > 6,attachment_list.get(6),null);
+get_file_8 = if(sz > 7,attachment_list.get(7),null);
+get_file_9 = if(sz > 8,attachment_list.get(8),null);
+get_file_10 = if(sz > 9,attachment_list.get(9),null);
+
+if(sz <= 10 )
+{
+	// send upto 10 attachments ..if you need more then you need to adjust script however consider also email attachment limit Max 15 MB in all files combined as well .
+sendmail
+[
+	from :zoho.adminuserid
+	to :input.Email
+	subject :"Zoho Creator form attachment"
+	message :"PLease see attachments"
+	Attachments :file:get_file_1,file:get_file_2,file:get_file_3,file:get_file_4,file:get_file_5,file:get_file_6,file:get_file_7,file:get_file_8,file:get_file_9,file:get_file_10
+];
+}
