@@ -1,0 +1,233 @@
+<%{
+	%>
+<!--***************** This is a comment in Zoho Creator HTML snippet 
+fet_employees.Employee_Name ;
+
+******************************8 -->
+<%
+	fet_employees = Employee[ID == input.recID];
+	if(thisapp.checkPro.isProduction() == true)
+	{
+		source = "https://creatorapp.zoho.in/vishnu_cssgroupindia/catalyst/report/Employees_Admin/" + fet_employees.ID + "/Upload/image-download?filepath=" + fet_employees.Upload.getsuffix("/image/").getprefix("\"").trim() + "></img>";
+	}
+	if(thisapp.checkPro.isProduction() == false)
+	{
+		source = "https://creatorapp.zoho.in/vishnu_cssgroupindia/catalyst-development/report/Employees_Admin/" + fet_employees.ID + "/Upload/image-download?filepath=" + fet_employees.Upload.getsuffix("/image/").getprefix("\"").trim() + "></img>";
+	}
+	%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <title></title>
+</head>
+<style type="text/css">
+  .container{
+    padding: 20px 80px;
+
+  }
+  body{
+    font-family:Arial;
+  }
+  .top-section{
+    text-align: center;
+
+  }
+  table{
+   width: 100%;
+  }
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-cly1{text-align:left;vertical-align:middle}
+.tg .tg-lboi{border-color:inherit;text-align:left;vertical-align:middle}
+.tg .tg-7zrl{text-align:left;vertical-align:bottom}
+
+
+.spacer{padding: 50px 0px;}
+ul li{
+   list-style-type: numbers;
+   line-height: 1.9;
+}
+ .bottom-sec {
+         display: flex;
+         justify-content: space-between;
+      }
+.bottom-sec .p-left .p-right {
+         width: 48%; /* Adjust the width as needed */
+         margin: 0;
+         box-sizing: border-box;
+      }
+</style>
+
+<body>
+<div class="container">
+   <div class="row">
+      <div class="top-section">
+         <h3>Payment of Gratuity Act, 1972</h3>
+         <h3>FORM ‘F’</h3>
+         <p>[See sub-rule(1) of rule 6]</p>
+         <h3>Nomination</h3>
+      </div>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <p style="font-weight: 600;">To,<br/>Comprehensive Support Services Pvt. Ltd.,<br/> 401/402, Yash Tower, D. P. Road, Aundh, <br/>Pune(MH) - 411007</p>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <ul>
+         <li>Shri/ Shrimati/ Kumari <b><%=fet_employees.Name_as_per_Aadhar%></b>.whose particulars are given in the statement below,
+            hereby nominate the person(s) mentioned below to receive the gratuity payable after my death as also the gratuity standing to my credit in the event of my death before that amount has become payable, or having become payable has not been paid and direct that the said amount of gratuity shall be paid in proportion indicated against the name(s) of the nominee(s).
+         </li>
+         <li>I   hereby certify that the person(s) mentioned is a / are member(s) of myfamily with in the meaning of clause (h) of section (2) of the Payment of Gratuity Act, 1972.</li>
+         <li>I hereby declare that I have no family with in the meaning of clause (h) of section (2) of the said Act.</li>
+         <li>(a)  My father/ mother/ parents is / are not dependant on me.<br/>
+            (b) my   husband’s father/ mother/ parents is/ are not dependant on my husband.
+         </li>
+         <li>I have excluded my husband from my family by a notice date the …… to the controlling authority in term s of the provision to clause (h) of section 2 of the said Act.</li>
+         <li>Nomination made herein in validates my previous nomination.</li>
+      </ul>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <h3 style="text-align:center;">Nominee(S)</h3>
+      <table class="tg">
+         <thead>
+            <tr>
+               <th class="tg-0lax">Name in full with full <br>address. of nominee(s)</th>
+               <th class="tg-0lax">Relationship with <br>the employee</th>
+               <th class="tg-0lax">Age of<br>nominee</th>
+               <th class="tg-0lax">Proportion by which the <br>gratuity will be shared</th>
+            </tr>
+         </thead>
+         <tbody>
+<%
+	serial_number = 1;
+	for each  rec in fet_employees.Nominee_Details1
+	{
+		%>
+<tr>
+               <td class="tg-0lax"><%=rec.Name%> <br> <%=rec.Address%></td>
+               <td class="tg-0lax"><%=rec.Relationship_with_Member%></td>
+<%
+		a = zoho.currentdate.getYear();
+		b = rec.Date_Of_Birth.getYear();
+		c = a - b;
+		%>
+<td class="tg-0lax"><%=c%>  </td>
+               <td class="tg-0lax"> <%=rec.Benefit%></td>
+            </tr>
+<%
+		serial_number = serial_number + 1;
+	}
+	%>
+</tbody>
+      </table>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <h3 style="text-align: center;">Statement</h3>
+      <ul>
+         <li>Name of employee in full: <b><%=fet_employees.Name_as_per_Aadhar%></b></li>
+         <li>Sex.: <b> <%=fet_employees.Gender%></b></li>
+         <li>Religion.: <b><%=fet_employees.Religion%></b></li>
+		 <li>Whether unmarried/married/ widow/widower.:<b> <%=fet_employees.Marital_Status%></b></li>
+         <li>Department/Branch/Section where employed.:<b> <%=fet_employees.Department.Department%>  <%=fet_employees.Branch.Branch_Name%></b> </li>
+         <li>Post held with Ticket or Serial No., if any.:</li>
+         <li>Date of appointment.:</li>
+         <li>Permanent address.:<b> <%=fet_employees.Street1%> <%=fet_employees.Landmark1%> <%=fet_employees.City1%> <%=fet_employees.State1.State%> <%=fet_employees.Country1.Country%> <%=fet_employees.Pin_Code1%></b></li>
+      </ul>
+      <div class="bottom-sec">
+<%
+	Public_Image_Link_e_sign = "https://creatorapp.zohopublic.in/file" + zoho.appuri + "Employees_Admin/" + fet_employees.ID + "/Signature/image-download/vhwCmC0mADQku0tffUXaw0trW372K31eVCYbXjAQeWgnabhJpBt0u1qOk5hxmyfnfJv5UPSQ370DYCduNSJZsOTAsGxEyr0SZasQ?filepath=/" + fet_employees.Signature;
+	%>
+<p class="p-left">Date: <b><%=zoho.currentdate%></b><br/>Place: <b><%=fet_employees.Place%></b></p>
+		
+         <span style="margin-right: -120px;"> <img src=<%=Public_Image_Link_e_sign%> </span><br/>Signature/Thumb impression of the employee</p> 
+      </div>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <div class="col-md-12 col-xs-12">
+         <h3 style="text-align: center;">Declaration by witnesses</h3>
+         <br/>
+         <div class="col-md-6">
+            <p style="text-align:left;">Nomination signed/thumb impressed before me.</p>
+            <p  style="text-align:left;">Name in full and full</p>
+            <p  style="text-align:left;">1. <%=fet_employees.Full_Name%></p>
+            <p  style="text-align:left;">2. <%=fet_employees.Full_Name1%></p>
+         </div>
+<%
+	Public_Image_Link_e_sign_1 = "https://creatorapp.zohopublic.in/file" + zoho.appuri + "Employees_Admin/" + fet_employees.ID + "/Signature_1/image-download/vhwCmC0mADQku0tffUXaw0trW372K31eVCYbXjAQeWgnabhJpBt0u1qOk5hxmyfnfJv5UPSQ370DYCduNSJZsOTAsGxEyr0SZasQ?filepath=/" + fet_employees.Signature_1;
+	Public_Image_Link_e_sign_2 = "https://creatorapp.zohopublic.in/file" + zoho.appuri + "Employees_Admin/" + fet_employees.ID + "/Signature_2/image-download/vhwCmC0mADQku0tffUXaw0trW372K31eVCYbXjAQeWgnabhJpBt0u1qOk5hxmyfnfJv5UPSQ370DYCduNSJZsOTAsGxEyr0SZasQ?filepath=/" + fet_employees.Signature_2;
+	%>
+<div class="col-md-6">
+            <p  style="text-align:right;">Signature of witnesses.</p>
+            <p  style="text-align:right;">  1.<span style="margin-right: -120px;"> <img src=<%=Public_Image_Link_e_sign_1%> </span></p>
+            <p  style="text-align:right;">   2.<span style="margin-right: -120px;"> <img src=<%=Public_Image_Link_e_sign_2%> </span></p>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <div class="bottom-sec">
+         <p class="p-left">Date: <b><%=zoho.currentdate%></b><br/>Place: <b><%=fet_employees.Place%></b></p>
+         <p class="p-right">Signature/Thumb impression of the employee</p>
+      </div>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <div class="col-md-12 col-xs-12">
+         <h3 style="text-align: center;">Certificate by the employer</h3><br/>
+           <p style="text-align:center;">Certified that the particulars of the above nomination have been verified and recorded in this establishment.</p>
+         <br/><br/><br/>
+         <div class="col-md-6">
+          <p style="text-align:left;"> Employer's Reference No., if any</p><br/><br/>
+            <p style="text-align:left;">Date: <b><%=zoho.currentdate%></b></p>
+         </div>
+         <div class="col-md-6">
+         <p style="float:right;padding-top: 5px;">Signature of the employer/ Officer authorized
+               Designation<br/><br/><br/>
+               Name and address of the Establishment or rubber stamp thereof.
+            </p>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container">
+   <div class="row">
+      <div class="col-md-12 col-xs-12">
+         <h3 style="text-align: center;">Acknowledgement by the employee</h3><br/>
+           <p style="text-align:center;">Received the duplicate copy of nomination in Form 'F' filed by me and duly certified by the employer.</p>
+         <br/><br/><br/>
+         <div class="col-md-6">
+            <p style="text-align:left;">Date: <b><%=zoho.currentdate%></b></p>
+         </div>
+         <div class="col-md-6">
+         <p style="float:right;padding-top: 5px;">	
+		 <span style="margin-right: -120px;"> <img src=<%=Public_Image_Link_e_sign%> </span>
+		 <br/>Signature of the employee<br/><br/><br/>
+              Date: <b> <%=zoho.currentdate%></b>
+            </p>
+         </div>
+      </div>
+   </div>
+</div>
+</body>
+</html>
+<%
+
+}%>
