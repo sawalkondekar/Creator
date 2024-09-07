@@ -1,0 +1,22 @@
+URL to Nofify - https://api.interakt.ai/v1/public/track/users/
+Authorization - Basic cDVMLWRjMl8weUlzc3dZS1h6Qm44NGU4aWJfajIwMG9qTzZzbDhlNXVCUTo=
+Content-Type - application/json
+
+Body - Raw - Json
+
+{
+    
+
+    "phoneNumber": "${Leads.Mobile}",
+    "countryCode": "+91",
+    "traits": {
+        "name": "${Leads.Lead Name}",
+        "email": "${Leads.Email}",
+        "whatsapp_opted_in":true
+    },
+"tags": ["CRM Lead"]
+}
+
+
+Preview URL - 
+https://api.interakt.ai/v1/public/track/users/
