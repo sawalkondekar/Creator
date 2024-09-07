@@ -1,0 +1,19 @@
+URL to Notify - https://api.interakt.ai/v1/public/message/
+Authorization - Basic cDVMLWRjMl8weUlzc3dZS1h6Qm44NGU4aWJfajIwMG9qTzZzbDhlNXVCUTo=
+{"countryCode":"+91",
+"phoneNumber":"${Leads.Mobile}",
+"type":"Template",
+"template":{
+"name":"message_to_new_lead",
+"languageCode":"en",
+"bodyValues":[
+"${Leads.Student Name}"
+]
+}
+}
+URl to Notify
+https://api.interakt.ai/v1/public/message/
+
+
+
+// Documentation link - https://documenter.getpostman.com/view/14760594/2sA2r7zibM
