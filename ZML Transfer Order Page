@@ -1,0 +1,60 @@
+<%{
+	fet_to = Transfer_Order[ID = input.Transfer_Order_ID];
+	if(fet_to.Status.isEmpty())
+	{
+		%>	
+<panel elementName="Panel">
+  <pr width='fill' height='fill'>
+    <pc padding='20px' bgColor='#FFFFFF' width='100%' vAlign='middle'>
+      <pr width='auto' height='auto'>
+        <pc vAlign='middle'>
+          <button marginLeft='0px' marginRight='0px' marginBottom='0px' marginTop='0px' action='ExecuteFunction' executeWorkflow='afterConfirmation' parameters='${Transfer_Order_ID}' functionName='Transfer_Order.Transfer_Order' color='#FFFFFF' size='16px' text='Initiate Transfer' type='rounded' bgColor='#0072F4' cornerRadius='45.5664px' successMsg='Transfer Order Has Been Initiated.' /> </pc>
+      </pr>
+    </pc>
+  </pr>
+</panel>
+<%
+}
+
+
+ if(fet_to.Status == "In Transit")
+	{
+		%>	
+<panel elementName="Panel1">
+  <pr width='fill' height='fill'>
+    <pc padding='20px' bgColor='#FFFFFF' width='100%' vAlign='middle'>
+      <pr width='auto' height='auto'>
+        <pc vAlign='middle'>
+          <button marginLeft='0px' marginRight='0px' marginBottom='0px' marginTop='0px' action='OpenReport' componentLinkName='Transfer_Orders' color='#FFFFFF' size='16px' text='Back' type='rounded' bgColor='Black' cornerRadius='45.5664px' successMsg='Back' /> </pc>
+      </pr>
+    </pc>
+  </pr>
+</panel>
+<%
+}
+
+
+if (fet_to.Status == "Transferred")
+	{
+		%>	
+<panel elementName="Panel1">
+  <pr width='fill' height='fill'>
+    <pc padding='20px' bgColor='#FFFFFF' width='100%' vAlign='middle'>
+      <pr width='auto' height='auto'>
+        <pc vAlign='middle'>
+         <button marginLeft='0px' marginRight='0px' marginBottom='0px' marginTop='0px' action='OpenReport' componentLinkName='Transfer_Orders' color='#FFFFFF' size='16px' text='Back' type='rounded' bgColor='Black' cornerRadius='45.5664px' successMsg='Back' /> </pc>
+      </pr>
+    </pc>
+  </pr>
+</panel>
+<%
+}
+
+
+%>
+
+
+
+	
+<%
+}%>
