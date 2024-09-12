@@ -1,3 +1,5 @@
+//Note: 1st add html button - then from that button get zml button code
+// then add zml snippet there, and add above button here and then add conditions like below.
 <%{
 	bill = Bills[ID == input.Bill_ID];
 	buttonValue = "Billed";
