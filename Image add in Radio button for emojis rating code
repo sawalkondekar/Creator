@@ -1,0 +1,13 @@
+Try use a Radio Button field, as Damien suggested.
+
+Let's call the field: "Rate_Our_Service".
+
+Then create a workflow according to your logic: 
+
+i.e. Deluge Script - On Load:
+happy = "<img src='https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/smiling-face-with-open-mouth_1f603.png' height='20'' width='20'>";
+neutral = "<img src='https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/neutral-face_1f610.png' height='20'' width='20'>";
+sad = "<img src='https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/disappointed-face_1f61e.png' height='20'' width='20'>";
+input.Rate_Our_Service:ui.add(happy);
+input.Rate_Our_Service:ui.add(neutral);
+input.Rate_Our_Service:ui.add(sad);
