@@ -1,0 +1,16 @@
+"incident = Incident[ID == input.Incident_Number];
+coll = Collection();
+for each  items in incident.Upload_Images
+{
+        rows = Investigation.Incident_Images();
+        image_name = items.Image.getSuffix(""/image/"").getPrefix(""\"""");
+        //         url = ""https://creatorapp.zoho.in/file"" + zoho.appuri + ""Incidents_Admin/"" + items.ID + ""/Upload_Images.Image/image-download?filepath=/"" + image_name;
+        url = ""https://creatorapp.zoho.in/file"" + zoho.appuri + ""Incidents_Admin/"" + incident.ID + ""/Upload_Images.Image/image-download?filepath=/"" + image_name;
+        img_value = ""<img src =\"""" + url + ""\""></img>"";
+        rows.Image=img_value;
+        coll.insert(rows);
+//         info url;
+//         alert img_value;
+}
+input.Incident_Images.insert(coll);
+"
