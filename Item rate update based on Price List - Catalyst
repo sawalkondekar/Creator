@@ -1,0 +1,15 @@
+// Date - 18th Sept - 
+//Item Rate Fetch From Price List, Based on Vendor
+rate = 0;
+// Default rate
+priceListData = Price_Lists[Vendor == input.Vendor_Name && ID == input.Price_Lists && Status == "Active"];
+// Branch || State = in Discussion
+for each  rec in priceListData.Items
+{
+	if(row.Item == rec.Item_Name)
+	{		
+			row.Rate=rec.Item_Price;
+			// Set the rate if the po_date is greater than or equal to from_date
+		
+	}
+}
