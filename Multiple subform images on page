@@ -1,0 +1,222 @@
+<%{
+	incidentData = Incident[ID == input.rec_id];
+	rootCauseAnalysisData = Root_Cause_Analysis[Incident_Number == incidentData];
+	capaData = CAPA[Incident_Number == incidentData];
+	%>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:5px 10px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:5px 10px;word-break:normal;}
+.tg .tg-ssw7{background-color:#ffffff;border-color:inherit;font-size:12px;text-align:left;vertical-align:top}
+.tg .tg-y9qa{background-color:#ffffff;border-color:inherit;color:#333;font-size:12px;text-align:left;vertical-align:top}
+.tg .tg-47as{background-color:#ffffff;border-color:inherit;font-size:14px;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-b0xf{background-color:#ffffff;border-color:inherit;color:#333;font-size:12px;font-weight:bold;text-align:left;
+  vertical-align:top}
+.tg .tg-kfnw{background-color:#FFF;border-color:inherit;font-size:14px;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-axly{background-color:#ffffff;border-color:inherit;font-size:14px;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-bwr3{background-color:#FFF;border-color:inherit;color:#333;font-size:14px;font-weight:bold;text-align:center;
+  vertical-align:top}
+.tg .tg-d0xc{background-color:#FFF;border-color:inherit;color:#333;font-size:12px;text-align:left;vertical-align:top}
+.tg .tg-dlu9{background-color:#FFF;border-color:inherit;color:#333;font-size:12px;font-weight:bold;text-align:center;
+  vertical-align:top}
+.tg .tg-i8xi{background-color:#ffffff;border-color:inherit;font-size:12px;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-oiwm{background-color:#ffffff;border-color:inherit;font-size:20px;text-align:left;vertical-align:top}
+.tg .tg-l8qj{background-color:#ffffff;border-color:inherit;font-size:14px;text-align:left;vertical-align:top}
+.tg .tg-cp41{background-color:#FFF;border-color:inherit;color:#333;font-size:12px;font-weight:bold;text-align:left;
+  vertical-align:top}
+.tg .tg-ugig{background-color:#ffffff;border-color:inherit;font-size:12px;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-6qiv{background-color:#ffffff;border-color:inherit;font-size:12px;text-align:center;vertical-align:top}
+.tg .tg-xguj{background-color:#ffffff;border-color:inherit;color:#333;font-size:14px;font-weight:bold;text-align:left;
+  vertical-align:top}
+.tg .tg-acl2{background-color:#FFF;border-color:inherit;font-size:12px;font-weight:bold;text-align:left;vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 1040px"><colgroup>
+<col style="width: 185px">
+<col style="width: 306px">
+<col style="width: 225px">
+<col style="width: 324px">
+</colgroup>
+<thead>
+  <tr>
+    <th class="tg-oiwm" colspan="4"><span style="font-weight:bold">  </span><img src="https://creatorapp.zohopublic.in/file/vishnu_cssgroupindia/catalyst/All_Images/122981000006175273/Image/image-download/beZ7b7U1jy4O54qtUA3jt3RYOd889Gg8kD3Xj9gAmG8jvUykCqEnOsAYO4bCHASHf4DnAq25KkaOFObwkzykXpp37MzgZtx9Ou2E?filepath=/1713784596303_Catalyst_Logo_Final_12-01-2023.jpg" alt="Image" width="400" height="89">                     <span style="font-weight:bold">Catalyst Service Solutions</span></th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-l8qj" colspan="4"><span style="font-weight:bold">Incident &amp; Accident Report</span></td>
+  </tr>
+  <tr>
+    <td class="tg-b0xf" colspan="2"><span style="font-weight:bold">Site Name : </span><%=incidentData.Site_Name.Branch_Name%></td>
+    <td class="tg-b0xf"><span style="font-weight:bold">Location</span></td>
+    <td class="tg-y9qa"><%=incidentData.Location.Building_Name%></td>
+  </tr>
+  <tr>
+    <td class="tg-b0xf"><span style="font-weight:bold">Dates &amp; Time Of Incident</span></td>
+    <td class="tg-y9qa"><%=incidentData.Date_Time_Of_Incident1%></td>
+    <td class="tg-b0xf"><span style="font-weight:bold">Sub Location</span></td>
+    <td class="tg-y9qa"><%=incidentData.Sub_location%></td>
+  </tr>
+  <tr>
+    <td class="tg-b0xf"><span style="font-weight:bold">Incident Number</span></td>
+    <td class="tg-y9qa"><%=incidentData.Incident_Number%></td>
+    <td class="tg-b0xf"><span style="font-weight:bold">Reported By</span></td>
+    <td class="tg-y9qa"><%=incidentData.Reported_By%></td>
+  </tr>
+  <tr>
+    <td class="tg-b0xf"><span style="font-weight:bold">Category</span></td>
+    <td class="tg-y9qa"><%=incidentData.Category%></td>
+    <td class="tg-b0xf"><span style="font-weight:bold">Incident Type</span></td>
+    <td class="tg-y9qa"><%=incidentData.Incident_Type_Food%></td>
+  </tr>
+  <tr>
+    <td class="tg-b0xf"><span style="font-weight:bold">Place of Occurrence</span></td>
+    <td class="tg-y9qa"><%=incidentData.Place_of_Occurrence2%></td>
+    <td class="tg-b0xf"><span style="font-weight:bold">Initial Evaluation</span></td>
+    <td class="tg-y9qa"><%=incidentData.Initial_Evaluation%></td>
+  </tr>
+  <tr>
+    <td class="tg-47as" colspan="4"> Investigation &amp; RCA (Root Cause Analysis)</td>
+  </tr>
+  <tr>
+    <td class="tg-cp41"><span style="font-weight:bold">Date of Investigation &amp; RCA</span></td>
+    <td class="tg-d0xc"><%=rootCauseAnalysisData.Date_of_Report%></td>
+    <td class="tg-cp41"><span style="font-weight:bold">Investigation Description Summary</span></td>
+    <td class="tg-d0xc"><%=rootCauseAnalysisData.Investigation_Description_Summary%></td>
+  </tr>
+  <tr>
+    <td class="tg-cp41"><span style="font-weight:bold">Possible Causes of Entry</span></td>
+    <td class="tg-d0xc"><%=rootCauseAnalysisData.Possible_Causes_of_Entry%></td>
+    <td class="tg-cp41"><span style="font-weight:bold">Summary Root Cause (5 Whys)</span></td>
+    <td class="tg-d0xc"><%=rootCauseAnalysisData.Summary_Root_Cause_5_Whys%></td>
+  </tr>
+  <tr>
+    <td class="tg-cp41"><span style="font-weight:bold">RCA Reference Number</span></td>
+    <td class="tg-ssw7"><%=rootCauseAnalysisData.RCA_Reference_Number%></td>
+    <td class="tg-cp41">Source</td>
+    <td class="tg-ssw7"><%=rootCauseAnalysisData.Source%></td>
+  </tr>
+  <tr>
+    <td class="tg-ugig" colspan="2">Root Cause Analysis - 5 Why's?</td>
+    <td class="tg-6qiv" colspan="2" rowspan="4" >Pictures</td>
+   </tr>
+<%
+	serialnumber_12 = 1;
+	for each  rec12 in incidentData.Incident_Upload_Images
+	{
+		%>
+<tr>
+<%
+		data = Incident_Upload_Images[Incident == incidentData];
+		filepath = data.Image.getSuffix("/image/").getPrefix("\"");
+		Public_Image_Link = data.Public_Image_Link;
+		%>
+<td class="tg-0pky"><%=rec12.ID%></span></td>
+<td >
+<img class="img-responsive cct-img" style="text-align: center;padding-top: 40px;" src=<%=rec12.Public_Image_Link%> >
+</td>
+               </tr>
+<%
+		serialnumber_12 = serialnumber_12 + 1;
+	}
+	%>
+<tr>
+    <td class="tg-i8xi">Why?</td>
+    <td class="tg-i8xi">Due To</td>
+  </tr>
+<%
+	serialnumber = 1;
+	for each  rec in rootCauseAnalysisData.Root_Cause_Analysis_5_Why_s1
+	{
+		%>
+<tr>
+                  <td class="tg-0pky"><%=rec.Sr_No%>.<%=rec.Why%></td>
+                  <td class="tg-0pky" ><%=rec.Due_To%></span></td>
+               </tr>
+<%
+		serialnumber = serialnumber + 1;
+	}
+	%>
+<tr>
+    <td class="tg-xguj" colspan="4">CAPA (Corrective and Preventive Actions)</td>
+  </tr>
+  <tr>
+    <td class="tg-i8xi">Date Of CAPA</td>
+    <td class="tg-d0xc" colspan="3"><%=capaData.Date_Of_CAPA%></td>
+  </tr>
+  <tr>
+    <td class="tg-47as" colspan="4">Corrective Action Planned</td>
+  </tr>
+  <tr>
+    <td class="tg-i8xi">Corrective Action</td>
+    <td class="tg-i8xi">Responsibility</td>
+    <td class="tg-i8xi">Timeline</td>
+    <td class="tg-i8xi">Remark</td>
+  </tr>
+<%
+	serialnumber1 = 1;
+	for each  rec1 in capaData.Corrective_Action_Planned
+	{
+		%>
+<tr>
+                  <td class="tg-0pky"><%=rec1.Sr_No%>.<%=rec1.Corrective_Action%></td>
+                  <td class="tg-0pky"><%=rec1.Responsibility%></span></td>
+				  <td class="tg-0pky"><%=rec1.Timeline%></span></td>
+				  <td class="tg-0pky"><%=rec1.Remark%></span></td>
+         </tr>
+<%
+		serialnumber1 = serialnumber1 + 1;
+	}
+	%>
+<tr>
+    <td class="tg-kfnw" colspan="4">Preventive Measures Planned</td>
+  </tr>
+  <tr>
+    <td class="tg-i8xi">Preventive Measures</td>
+    <td class="tg-acl2">Timeline</td>
+    <td class="tg-i8xi">Responsibility</td>
+    <td class="tg-i8xi">Remark</td>
+  </tr>
+<%
+	serialnumber2 = 1;
+	for each  rec2 in capaData.Preventive_Measures_Planned
+	{
+		%>
+<tr>
+                  <td class="tg-0pky"><%=rec2.Sr_No%>.<%=rec2.Preventive_Measures%></td>
+                  <td class="tg-0pky" ><%=rec2.Responsibility%></span></td>
+				  <td class="tg-0pky" ><%=rec2.Timeline%></span></td>
+				  <td class="tg-0pky" ><%=rec2.Remark%></span></td>
+               </tr>
+<%
+		serialnumber2 = serialnumber2 + 1;
+	}
+	%>
+<tr>
+    <td class="tg-axly" colspan="2">Verified By</td>
+    <td class="tg-bwr3" colspan="2"><span style="font-weight:bold">Compiled By</span></td>
+  </tr>
+  <tr>
+    <td class="tg-6qiv">Name</td>
+    <td class="tg-l8qj"></td>
+    <td class="tg-6qiv">Name</td>
+    <td class="tg-l8qj"></td>
+  </tr>
+  <tr>
+    <td class="tg-dlu9" rowspan="5"><span style="font-weight:bold">Name &amp; Signature</span></td>
+    <td class="tg-l8qj" rowspan="5"></td>
+    <td class="tg-dlu9" rowspan="5"><span style="font-weight:bold">Name &amp; Signature</span></td>
+    <td class="tg-l8qj" rowspan="5"></td>
+  </tr>
+  <tr>
+  </tr>
+  <tr>
+  </tr>
+  <tr>
+  </tr>
+  <tr>
+  </tr>
+</tbody></table>
+<%
+
+}%>
