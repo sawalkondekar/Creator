@@ -1,0 +1,11 @@
+input.Subtotal = ifnull(input.Subtotal,0.0) - ifnull(row.Amount,0.0);
+input.Total_Amount = ifnull(input.Total_Amount,0.0) - ifnull(row.Amount,0.0);
+input.Total_Amount = ifnull(input.Total_Amount,0.0) - ifnull(row.Tax_Amount,0.0);
+input.Tax_Amount = ifnull(input.Tax_Amount,0.0) - ifnull(row.Tax_Amount,0.0);
+if(input.Vendor_Credit_Lineitems = null)
+{
+	input.Subtotal = 0.00;
+	input.Total_Tax_Amount = 0.00;
+	input.Total_Quantity = 0.00;
+	input.Total = 0.00;
+}
