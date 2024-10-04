@@ -1,0 +1,10 @@
+//--- fetch WareHouses
+fet_warehouse = Warehouse[Branch == input.Branch.Branch_Name].ID.getAll();
+input.Warehouse = fet_warehouse;
+/////--------------------Company fetch
+// fet_customer = Customer[Branch_Name == input.Branch.Branch_Name].ID.getAll();
+fet_customer = Employee_Company_Unit[Branch == input.Branch].ID.getAll();
+input.Customer = fet_customer;
+//----------Dining Hall Populate
+fet_dining_hall = Dining_Hall[Branch == input.Branch].ID.getAll();
+input.Dining_Hall = fet_dining_hall;
