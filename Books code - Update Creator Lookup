@@ -1,0 +1,8 @@
+// Books code - 
+// get creator id and update in creators looklup
+
+criteria = "Books_ID==" + vendor.get("tds_tax_id");
+TDS_ID = zoho.creator.getRecords("vishnu_cssgroupindia","catalyst","TDS_taxes_Report",criteria,1,200,"zohocreator");
+info TDS_ID ;
+tds_id = TDS_ID.get("data").getjson("ID");
+info tds_id ;
