@@ -14,4 +14,5 @@ input.File_Multiline="http://docs.google.com/viewer?url=https://creatorexport.zo
 //then add in Img tag in Image
 <img class="img-responsive cct-img" style="text-align: center;padding-top: 40px;" src=<%=fet_images.File_Multiline%> >
 
-or if above not working - then give in hyperlink, so can download
+using hyperlink - 
+<a href="my-file.pdf">My file</a> 
