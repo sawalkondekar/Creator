@@ -9,3 +9,6 @@ input.File_Multiline="http://docs.google.com/viewer?url=https://creatorexport.zo
 // need to publish same report
 // till here working finel
 // then show this in image tag in page?
+
+//then add in Img tag in Image
+<img class="img-responsive cct-img" style="text-align: center;padding-top: 40px;" src=<%=fet_images.File_Multiline%> >
