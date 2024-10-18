@@ -1,0 +1,11 @@
+syntax
+variable_name= form_name[ID == input.ID];
+openUrl("http://docs.google.com/viewer?url=https://creatorexport.zoho.com/<account_owner>/<application_name>/<report_link_name>/" + variable_name.ID + "/File_upload/download/" + variable_name.File_upload_field_name + "/<publish_key_of_the_report>","Popup window");
+
+//WF
+file= Image_File[ID == input.ID];
+input.File_Multiline="http://docs.google.com/viewer?url=https://creatorexport.zoho.in/vishnu_cssgroupindia/internal/All_Images/" + file.ID + "/File_upload/download/" + file.File_upload + "/ABa2rA0AKkne3K1e9R5QVJNpmWVBupvr1xPGUffbCD4yU2naZdtnqmCS9yvvW00V0rjadRupPQf2T0hKbERKWwjCSffzKjQwA3bz";
+
+// need to publish same report
+// till here working finel
+// then show this in image tag in page?
