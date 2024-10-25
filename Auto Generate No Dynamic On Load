@@ -1,0 +1,27 @@
+// Generate TRN ID\
+
+// if 1st record condition 
+
+fet_New_Travel =  New_Travel_Request[ID != 0]; 
+
+if ( fet_New_Travel.count() == 0 ) 
+
+{
+
+	input.TRN_ID = "TRN - 000" + 1 ; 
+
+}
+
+//TRN ID auto Generate + 1 
+
+else 
+
+{
+
+	fet_New_Travel_auto = New_Travel_Request[ID != 0].count() + 1;
+
+	input.TRN_ID = "TRN - 000" + fet_New_Travel_auto ; 
+
+}
+
+ 
