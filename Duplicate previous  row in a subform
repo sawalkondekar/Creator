@@ -1,0 +1,14 @@
+"On Add Row" of the workflow you could try something like:
+//remember to change field/form names accordingly
+counter = 0;
+for each line in Subform_Field_Name
+{
+      counter = counter + 1;
+      if counter > 0
+      {
+            row.Field_Name = line.Field_Name;
+            row.Field_Name1 = line.Field_Name1;
+            row.Field_Name2 = line.Field_Name2;
+      }
+}
+This should update the new row with data from the previous row entered.
