@@ -1,0 +1,234 @@
+//1.ZML Snippet
+<%{
+	if(input.reportName == "" || input.reportName == null)
+	{
+		%>
+<panel elementName="Panel">
+  <pr width='fill' height='fill'>
+    <pc padding='20px' bgColor='#FFFFFF' width='100%' hAlign='center' vAlign='middle'>
+      <pr width='auto' height='auto'>
+        <pc>
+          <text color='#333333' size='16px' bold='true' type='Text' bgColor='rgba(0, 0, 0, 0)' value='Reports'> </text>
+        </pc>
+      </pr>
+    </pc>
+  </pr>
+</panel>
+<%
+	}
+	else
+	{
+		%>
+<panel elementName="Panel1">
+  <pr width='fill' height='fill'>
+    <pc padding='0px' bgColor='#FFFFFF' width='100%' hAlign='left' vAlign='middle'>
+      <pr width='auto' height='auto'>
+        <pc>
+          <image action='OpenPage' componentLinkName='Reports' target='same-window' color='#2A70E7' bgColor='#FFFFFF' width='52px' height='52px' type='icon' value='arrows-1-triangle-left-63' size='32px' cornerRadius='26px' iconType='outline' /> </pc>
+        <pc>
+          <text action='OpenPage' componentLinkName='Reports' target='same-window' marginLeft='0px' marginBottom='0px' marginTop='0px' color='#2A70E7' size='16px' bold='true' type='Text' bgColor='rgba(0, 0, 0, 0)' value='Back'> </text>
+        </pc>
+      </pr>
+    </pc>
+  </pr>
+</panel>
+<%
+	}
+
+}%>
+
+//2.HTML Snippet
+<%{
+	loginDetails = User1[Email == zoho.loginuserid];
+	%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report List</title>
+    <style>
+        .report-list-body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .report-list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .report-list-category {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .report-list-category h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            color: #333;
+            font-size: 20px;
+        }
+        .report-list-category ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .report-list-category ul li {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .report-list-category ul li::before {
+            content: "*";
+            margin-right: 10px;
+            color: #ff6600;
+        }
+    </style>
+</head>
+<body class="report-list-body">
+<%
+	if(input.reportName == "" || input.reportName == null)
+	{
+		%>
+<div class="report-list-container">
+            <div class="report-list-category">
+                <h2>Stock Reports</h2>
+                <ul>
+                    <li><a href="#Page:Reports?reportName=Stock Availability">Stock Availability</a></li>
+                </ul>
+				<ul>
+                    <li><a href="#Page:Reports?reportName=DFC Cost">DFC Cost</a></li>
+                </ul>
+            </div>
+            <div class="report-list-category">
+                <h2>Consumption Reports</h2>
+                <ul>
+                    <li><a href="#Page:Reports?reportName=Branch Wise-Consumption_Cost_Report">Branch Wise-Consumption Cost Report</a></li>
+                </ul>
+            </div>
+            <div class="report-list-category">
+                <h2>Reports</h2>
+                <ul>
+				<li><a href="#Page:Reports?reportName=Grooming">Grooming</a></li>
+				<li><a href="#Page:Reports?reportName=Briefings">Briefings</a></li>
+				<li><a href="#Page:Reports?reportName=Food Taste">Food Taste</a></li>
+				<li><a href="#Page:Reports?reportName=Food Dispatch">Food Dispatch</a></li>
+				<li><a href="#Page:Reports?reportName=Food Waste">Food Waste</a></li>
+
+                </ul>
+            </div>
+        </div>
+<%
+	}
+	else if(input.reportName != "")
+	{
+		if(input.reportName == "Branch Wise-Consumption_Cost_Report")
+		{
+			if(thisapp.permissions.isUserInProfile("General manager") || thisapp.permissions.isUserInProfile("Unit Manager"))
+			{
+				branch = list();
+				link = "";
+				branch = loginDetails.Warehouse.Warehouse_Name;
+				for each  rec in branch
+				{
+					filter = "%22Branch%20Wise%20Consumption-Q%22.%22Branch%20Name%22%3D'" + rec + "'or";
+					link = link + filter;
+				}
+				finalLink = link.removeLastOccurence("or");
+				%>
+<iframe frameborder=0 width="1300" height="600" src="https://analytics.zoho.in/open-view/214524000005858642/ce1663ff7c155f7d4b625e65ba6e610b?ZOHO_CRITERIA=<%=finalLink%>"></iframe>
+<%
+			}
+			else
+			{
+				%>
+<iframe frameborder=0 width="1300" height="600" src="https://analytics.zoho.in/open-view/214524000005858642/ce1663ff7c155f7d4b625e65ba6e610b"></iframe>
+<%
+			}
+		}
+		//-----------------------------------------------------------------------------Grooming
+		else if(input.reportName == "Grooming")
+		{
+			if(thisapp.permissions.isUserInProfile("General manager") || thisapp.permissions.isUserInProfile("Unit Manager"))
+			{
+				branch = list();
+				link = "";
+				branch = loginDetails.Warehouse.Warehouse_Name;
+				for each  rec in branch
+				{
+					filter = "%22Grooming%20Report%20QT%22.%22Branch%22%3D'" + rec + "'or";
+					link = link + filter;
+				}
+				finalLink = link.removeLastOccurence("or");
+				%>
+<iframe frameborder=0 width="1300" height="600" src="https://analytics.zoho.in/open-view/339663000000974080/2527eb1f05ab36b053d6856cb18a1ba2?ZOHO_CRITERIA=<%=finalLink%>"></iframe>
+<%
+			}
+			//-----------------------------------------------------------------------------
+			else
+			{
+				%>
+<iframe frameborder=0 width="1300" height="600" src="https://analytics.zoho.in/open-view/339663000000974080/2527eb1f05ab36b053d6856cb18a1ba2"></iframe>
+<%
+			}
+		}
+		//-----------------------------------------------------------------------------Stock Availability
+		else if(input.reportName == "Stock Availability")
+		{
+			branch = loginDetails.Warehouse.Warehouse_Name;
+			branch1 = loginDetails.Warehouse;
+			%>
+<div elName='zc-component' reportLinkName='Warehouse_Stock_Availability_Report' params='zc_Summary=false&zc_Filter=true&zc_ColMenu=false'>Loading Report...</div>
+<%
+		}
+		///---------------------------------------------------- DFC Report
+		else if(input.reportName == "DFC Cost")
+		{
+			branch = loginDetails.Warehouse.Warehouse_Name;
+			branch1 = loginDetails.Warehouse;
+			%>
+<div elName='zc-component' reportLinkName='DFC_Cost' params='zc_Summary=false&zc_Filter=true&zc_ColMenu=false'>Loading Report...</div>
+<%
+		}
+		//-----------------------------------------------------------------------------Briefings
+		else if(input.reportName == "Briefings")
+		{
+			branch = loginDetails.Warehouse.Warehouse_Name;
+			%>
+<div elName='zc-component' reportLinkName='Briefings' params='zc_Summary=false&zc_Filter=true&zc_ColMenu=false&zc_OpenUrlIn=&Warehouse=[<%=branch%>]'>Loading Report...</div>
+<%
+		}
+		//-----------------------------------------------------------------------------Food Taste
+		else if(input.reportName == "Food Taste")
+		{
+			branch = loginDetails.Warehouse.Warehouse_Name;
+			%>
+<div elName='zc-component' reportLinkName='All_Food_Testings' params='zc_Summary=false&zc_Filter=true&zc_ColMenu=false&zc_OpenUrlIn=&Warehouse=[<%=branch%>]'>Loading Report...</div>
+<%
+		}
+		//-----------------------------------------------------------------------------Food Dispatch
+		else if(input.reportName == "Food Dispatch")
+		{
+			branch = loginDetails.Warehouse.Warehouse_Name;
+			%>
+<div elName='zc-component' reportLinkName='All_Dispatch_Line_Items' params='zc_Summary=false&zc_Filter=true&zc_ColMenu=false&zc_OpenUrlIn=&Warehouse=[<%=branch%>]'>Loading Report...</div>
+<%
+		}
+		//-----------------------------------------------------------------------------Food Waste
+		else if(input.reportName == "Food Waste")
+		{
+			branch = loginDetails.Warehouse.Warehouse_Name;
+			%>
+<div elName='zc-component' reportLinkName='All_Food_Wastes' params='zc_Summary=false&zc_Filter=true&zc_ColMenu=false&zc_OpenUrlIn=&Warehouse=[<%=branch%>]'>Loading Report...</div>
+<%
+		}
+	}
+	%>
+</body>
+</html>
+<%
+
+}%>
+
+//3.Parameter = reportName --- text
