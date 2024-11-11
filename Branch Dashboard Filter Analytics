@@ -1,0 +1,37 @@
+1. HTML Snippet code
+//*** 
+<%{
+	loginDetails = User1[Email == zoho.loginuserid];
+	//----------------------------------------General Manager------------------------------------------------------------
+	if(thisapp.permissions.isUserInProfile("General manager") || thisapp.permissions.isUserInProfile("Unit Manager"))
+	{
+		branch = list();
+		link = "";
+		branch = loginDetails.Warehouse.Warehouse_Name;
+		for each  rec in branch
+		{
+			filter = "%22Consumption%20QT%22.%22Warehouse%22%3D'" + rec + "'or";
+			link = link + filter;
+		}
+		finalLink = link.removeLastOccurence("or");
+		%>
+<iframe frameborder=0 width="1300" height="600" src="https://analytics.zoho.in/open-view/339663000000124290/a48c02f5e8e7be205f2b858eccf18502?ZOHO_CRITERIA=<%=finalLink%>"></iframe>
+<%
+	}
+	else
+	{
+		%>
+<iframe frameborder=0 width="1300" height="600" src="https://analytics.zoho.in/open-view/339663000000124290/a48c02f5e8e7be205f2b858eccf18502"></iframe>
+<%
+	}
+
+}%>
+
+//2.HTML SNippet 2 code
+// here add - analytics report embeded url
+<%{
+	%>
+<iframe frameborder=0 width="1300" height="600" src="https://analytics.zoho.in/open-view/339663000000124290/a48c02f5e8e7be205f2b858eccf18502"></iframe>
+<%
+
+}%>
