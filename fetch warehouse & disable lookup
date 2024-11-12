@@ -1,0 +1,14 @@
+user1 = User1[Email == zoho.loginuserid].Branch.getAll();
+if(user1.size() == 1)
+{
+	input.Branch = user1;
+	disable Branch;
+}
+else
+{
+	user = User1[Email == zoho.loginuserid];
+	ware = user.Branch.ID.getall();
+	clear Branch;
+	input.Branch:ui.add(ware);
+	enable Branch;
+}
