@@ -16,3 +16,11 @@ input.Signature_Main_Public_Image_Link = "https://creatorapp.zohopublic.in/file"
 
 //then add in Img tag in Image
 <img class="img-responsive cct-img" style="text-align: center;padding-top: 40px;" src=<%=fet_images.Signature_Main_Public_Image_Link%> >
+
+
+///3.For Dynamic Image - use A
+data = Images[ID == input.ID];
+filepath = data.Image.getSuffix("/image/").getPrefix("\"");
+input.Public_Image_Link = "https://creatorapp.zohopublic.in/file" + zoho.appuri + "All_Images/" + input.ID + "/Image/image-download/beZ7b7U1jy4O54qtUA3jt3RYOd889Gg8kD3Xj9gAmG8jvUykCqEnOsAYO4bCHASHf4DnAq25KkaOFObwkzykXpp37MzgZtx9Ou2E?filepath=/" + filepath;
+on success use above code - then linke will generate.
+and use that in 
