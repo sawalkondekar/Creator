@@ -1,5 +1,6 @@
 //Note: 1st add html button - then from that button get zml button code
 // then add zml snippet there, and add above button here and then add conditions like below.
+// For else condition change panel elementName & can use same code from if code in else condition. and disable or use other text there. = Done
 <%{
 	bill = Bills[ID == input.Bill_ID];
 	buttonValue = "Billed";
