@@ -1,0 +1,3 @@
+openUrl("#Report:Purchase_Order_PO_Report","same window");
+// Report Link Name
+openUrl("#Page:Alert_Page?alertMsg=" + msg,"popup window");
