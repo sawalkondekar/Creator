@@ -1,0 +1,109 @@
+void Purchase_Order.PO_Update(int ID1)
+{
+	//id = 122981000010086711
+	purchase_order = Purchase_Order_PO[ID = input.ID1];
+	mp = Map();
+	// Main Form Fields
+	mp.put("vendor_id",purchase_order.Vendor_Name.Books_Vendor_ID);
+	mp.put("source_of_supply",purchase_order.Source_Of_Supply.State_Code);
+	mp.put("destination_of_supply",purchase_order.Source_Of_Supply.State_Code);
+	mp.put("branch_name",purchase_order.Branch);
+	mp.put("branch_id",purchase_order.Branch.Books_Branch_ID);
+	//Updated by Eknath
+	mp.put("address_id",purchase_order.Warehouse_Name.Warehouse_ID);
+	mp.put("reference_number",purchase_order.Reference_No);
+	mp.put("date",purchase_order.PO_Date.toString("yyyy-MM-dd"));
+	mp.put("delivery_date",purchase_order.Expected_Delivery_Date.toString("yyyy-MM-dd"));
+	// 	mp.put("date",purchase_order.PO_Date.toDate("yyyy-MM-dd"));
+	// 	mp.put("delivery_date",purchase_order.Expected_Delivery_Date.toDate("yyyy-MM-dd"));
+	mp.put("payment_terms_label",purchase_order.Payment_Terms);
+	//delivery_date_formatted
+	//expected_delivery_date
+	mp.put("terms",purchase_order.Terms_Conditions);
+	// Custom Fields in Main Form
+	custom_fields = List();
+	mp4 = Map();
+	mp4.put("value",purchase_order.Delivery_Date.toString("yyyy-MM-dd"));
+	mp4.put("api_name","cf_delivery_date");
+	custom_fields.add(mp4);
+	mp5 = Map();
+	mp5.put("value",ifnull(purchase_order.Po_Type,""));
+	mp5.put("api_name","cf_po_type");
+	custom_fields.add(mp5);
+	mp2 = Map();
+	mp2.put("value",purchase_order.ID);
+	mp2.put("api_name","cf_po_creator_id");
+	custom_fields.add(mp2);
+	// Delivery Time extra space at last in Books issue 
+	if(purchase_order.Delivery_time == "6 am to 9 am" || purchase_order.Delivery_time == "9 am to 12 pm")
+	{
+		po_del_time = purchase_order.Delivery_time + " ";
+	}
+	else
+	{
+		po_del_time = purchase_order.Delivery_time;
+	}
+	mp3 = Map();
+	mp3.put("value",po_del_time);
+	mp3.put("api_name","cf_delivery_time");
+	custom_fields.add(mp3);
+	mp.put("custom_fields",custom_fields);
+	// *** Line Items Starts
+	line_items = List();
+	newMap = Map();
+	for each  items in purchase_order.Purchase_Order_Item_Details
+	{
+		mp1 = Map();
+		info items.Items.Item_Name;
+		mp1.put("PO_Line_Item_ID",items.PO_Line_Item_ID);
+		mp1.put("item_id",items.Items.Books_Items_ID);
+		mp1.put("name",items.Items.Item_Name);
+		mp1.put("description",items.Description);
+		mp1.put("unit",items.Items.UOM);
+		mp1.put("quantity",items.Quantity);
+		mp1.put("rate",items.Rate);
+		//mp1.put("tax_id", "1366544000000016291"); //  Based on Item and Based on Source of Supply and Destination of Supply
+		mp1.put("tax_id",items.Tax.Books_Tax_ID);
+		line_items.add(mp1);
+	}
+	mp.put("line_items",line_items);
+	mp.put("status","draft");
+	mp.put("adjustment",purchase_order.Adjustment);
+	// 	mp.put("discount", purchase_order.); // NOt using now in Books 
+	// 	mp.put("discount_account_id", purchase_order);
+	json = Map();
+	json.put("JSONString",mp);
+	// 	info json;
+	headerMap = Map();
+	headerMap.put("Content-Type","application/json");
+	po_create = invokeurl
+	[
+		url :"https://www.zohoapis.in/books/v3/purchaseorders/" + purchase_order.PO_Books_ID + "?organization_id=60022277655"
+		type :PUT
+		parameters:mp.toString()
+		headers:headerMap
+		connection:"zohoboks"
+	];
+	info po_create;
+	if(po_create.get("code") == "0")
+	{
+		purchaseorder_resp = po_create.get("purchaseorder");
+		purchase_order.PO_Books_ID=purchaseorder_resp.get("purchaseorder_id");
+		purchase_order.Purchase_Order_No=purchaseorder_resp.get("purchaseorder_number");
+		purchase_order.Status="Issued";
+		// 		purchase_order.Status="Issued";
+		// --- PO Books Line Item ID update in Creator Start
+		for each  books_li in purchaseorder_resp.get("line_items")
+		{
+			books_line_id = books_li.get("line_item_id");
+			fetch_line_items = Purchase_Order_Item_Details[Items.Books_Items_ID = books_li.get("item_id") && Purchase_Order_PO_No == input.ID1];
+			fetch_line_items.PO_Line_Item_ID=books_line_id;
+		}
+		// ---  PO Books LIne Item Update in Creator Ends ---
+		//*************  === For Service Items PO Received status = Received start - Date 5th June
+		thisapp.Purchase_Order.PO_Service_Item_Check(input.ID1);
+		// === For Service Items PO Received status = Received end  **************
+	}
+	//
+	//thisapp.Purchase_Order.PO_Issued(input.ID1);
+}
