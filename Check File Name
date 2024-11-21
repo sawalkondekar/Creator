@@ -1,0 +1,19 @@
+// Attachment File format -  Upload Control to allow only PDF and JPG file formats  
+
+allowed_file_types = {"pdf","jpg", "PDF", "JPG"};
+// Perform validation only if the input field isn't empty
+if(input.Attach_Document != "")
+{
+// Find the extension of the uploaded input file
+ext = input.Attach_Document.toList(".").get(input.Attach_Document.toList(".").size() - 1);
+// Display an alert message if the extension of the uploaded file doesn't match with any of the values of the allowed_file_types.
+if(!allowed_file_types.contains(ext))
+{
+  info "The attached document is not in the approved format." + "<br>Please attach only PDF or JPG format.";
+ 
+}
+else if(allowed_file_types.contains(ext))
+{
+  info "File tyope ok";
+}
+}
