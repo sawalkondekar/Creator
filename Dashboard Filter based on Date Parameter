@@ -13,6 +13,12 @@ in Dashboard - based on Date to show Report only those records steps:
 
   //Report where we are populating data based on that
       <div elName='zc-component' viewLinkName='All_Tests' params='zc_Header=true&amp;Date_field=<%=param_date%>'>Loading View...</div>
+////
+//2.Report
+       	branch = loginDetails.Warehouse.Warehouse_Name;
+<div elName='zc-component' reportLinkName='All_Dispatch_Line_Items' params='zc_Summary=true&zc_Filter=true&zc_ColMenu=false&zc_OpenUrlIn=&Warehouse=[<%=branch%>]'>Loading Report...</div>
+// in above line - if zc_summary = true , then detail view will be shown, if false, then not.
+////
       <%
       
       }%>
