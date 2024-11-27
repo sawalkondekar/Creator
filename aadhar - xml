@@ -1,0 +1,8 @@
+	void maxtest()
+	{
+	    var = "<PrintLetterBarcodeData uid=\"492901127203\" name=\"Sidhant Ashokrao Awalkondekar\" gender=\"M\" yob=\"1993\" co=\"S/O Ashokrao Awalkondekar\" loc=\"At. Post. Awalkonda, Tq. Udgir\" vtc=\"Awalkonda\" dist=\"Latur\" state=\"Maharashtra\" pc=\"413517\"/>";
+	    testnow = var.getprefix("gender");
+	    //info testnow;
+	    final_test = testnow.getsuffix("name=");
+	    info "name="+final_test;
+	}
