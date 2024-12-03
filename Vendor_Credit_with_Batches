@@ -34,13 +34,13 @@ void Vendor_Credit.VendorCreditCreation(int ID)
 		linetems.add(mp1);
 		// ** batches code start
 		batches_list = List();
-		mp2 = Map();
-		fet_batches = Vend_Credit_Selected_Batch_Subform[Vendor_Credit_Lineitems_ID == linitems];
+		fet_batches = Vend_Credit_Selected_Batch_Subform[Vendor_Credit_Lineitems_ID = linitems];
 		for each  batch in fet_batches
 		{
-			fet_add_batch = Add_Batch_Reference[Batch_Reference = fet_batches.Select_Batch.Batch_Reference];
+			mp2 = Map();
+			fet_add_batch = Add_Batch_Reference[ID = batch.Add_Batch_Reference];
 			mp2.put("batch_in_id",fet_add_batch.Batch_Inventory_ID);
-			mp2.put("out_quantity",fet_batches.Quantity_Out);
+			mp2.put("out_quantity",batch.Quantity_Out);
 			// 			mp2.put("batch_out_id", 1366544000145592877);
 			batches_list.add(mp2);
 		}
@@ -59,6 +59,7 @@ void Vendor_Credit.VendorCreditCreation(int ID)
 	//info mp;
 	json = Map();
 	json.put("JSONString",mp);
+	info json;
 	response = invokeurl
 	[
 		url :"https://www.zohoapis.in/books/v3/vendorcredits?organization_id=60022277655"
