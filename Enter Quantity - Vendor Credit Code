@@ -1,0 +1,45 @@
+//1. after create, minus Q from Add Batch Ref Code & insert those batches in subform (New subform, not existing)
+//------------------------------------------------------------------------------------------------------------------------
+batches = Add_Batch_Reference[Warehouse == input.Vendor_Credit_ID.Warehouse && Item_Name == input.Item_Name && Item_Name.Track_Batches == "false" && Available_Quantity > 0.00 && Item_Rate > 0.00000 || Item_Rate != null] sort by Use_by_date_Expiry_Date;
+tempColleection = Collection();
+consume = input.Required_Quantity;
+for each  rec in batches
+{
+	balance = rec.Available_Quantity - consume;
+	temp = rec.Available_Quantity - consume;
+	if(temp <= 0)
+	{
+		temp = rec.Available_Quantity;
+		rec.Available_Quantity=0;
+	}
+	else
+	{
+		rec.Available_Quantity=temp;
+		temp = consume;
+		balance = 0;
+	}
+	rows = Enter_Quantity_Vend_Credit.Select_Batches1();
+	rows.Add_Batch_Reference=rec.ID;
+	rows.Consumed=temp.abs();
+	tempColleection.insert(rows);
+	//-------------------------------------------------------------------------
+	//-------------------------------------------------------------------------
+	consume = balance.abs();
+	if(balance.abs() <= 0)
+	{
+		break;
+	}
+}
+input.Select_Batches1 = null;
+input.Select_Batches1.insert(tempColleection);
+
+//2. on delete - validatoins - Plus Q in Add Batch ref - from which batch already has been added in Subform
+for each  val3 in input.Select_Batches1
+	{
+		addBatchRef = Add_Batch_Reference[ID == val3.Add_Batch_Reference];
+		if(addBatchRef.count() > 0)
+		{
+			addBatchRef.Available_Quantity=addBatchRef.Available_Quantity + ifNull(val3.Consumed,0);
+		}
+	}
+
