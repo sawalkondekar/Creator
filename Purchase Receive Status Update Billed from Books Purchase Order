@@ -1,0 +1,37 @@
+//Purchase Receive Status Update Billed from Books Purchase Order
+
+po_id = purchaseorder.get("purchaseorder_id");
+response = invokeurl
+[
+	url :"https://www.zohoapis.in/inventory/v1/purchaseorders/" + po_id + "?organization_id=60022277655"
+	type :GET
+	connection:"catalyst_zohoinventory"
+];
+po = response.get("purchaseorder");
+pr = po.get("purchasereceives");
+for each  rec in pr
+{
+	receive_id = rec.get("receive_id");
+	//info receive_id;
+	for each  purchase_receive_id in receive_id
+	{
+		// 		  info purchase_receive_id ;
+		get_pr = zoho.books.getRecordsByID("purchasereceives","60022277655",purchase_receive_id,"catalystservicesolutions");
+		// info get_pr;
+		purchase_rec = get_pr.get("purchasereceive");
+		order_status = purchase_rec.get("status").Proper();
+		info order_status;
+		cf_pr_creator_id = purchase_rec.get("custom_field_hash").get("cf_pr_creator_id");
+		//info cf_pr_creator_id;
+		mp = Map();
+		mp.put("Billed_Status",order_status);
+		otherParams = Map();
+		update1 = zoho.creator.updateRecord("vishnu_cssgroupindia","catalyst","PR_Admin",cf_pr_creator_id,mp,otherParams,"zohocreator");
+		if(update1.get("code") == 3100)
+		{
+			update1 = zoho.creator.updateRecord("vishnu_cssgroupindia","catalyst-development","PR_Admin",cf_pr_creator_id,mp,otherParams,"zohocreator");
+		}
+		info update1;
+	}
+	// 
+}
