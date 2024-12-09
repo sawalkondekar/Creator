@@ -1,0 +1,19 @@
+// transfer order rate update from Books to Creator
+	//*** Item Rate from Books - update in Line Items Rate Field
+	fet_to = Transfer_Order[ID == input.ID];
+	to_resp = invokeurl
+	[
+		url :"https://www.zohoapis.in/inventory/v1/transferorders/" + fet_to.Books_Transfer_Order_ID + "?organization_id=60022277655"
+		type :GET
+		connection:"inventory"
+	];
+	transfer_order = to_resp.get("transfer_order");
+	//info transfer_order;
+	line_items = transfer_order.get("line_items");
+	//info line_items;
+	for each  line_item in line_items
+	{
+		//update rate in line items from books
+		fet_transfer_items = Line_Items_Transfer_Order[Transfer_Order_ID == input.ID && Item_Name.Books_Items_ID == line_item.get("item_id")];
+		fet_transfer_items.Item_Rate=line_item.get("price");
+	}
