@@ -1,0 +1,41 @@
+void Transfer_Order.Attachment(int TO_ID)
+{
+	//Date - 15th July
+	fet = Transfer_Order[ID == TO_ID.toLong()];
+	url = "https://creator.zoho.in/api/v2.1/vishnu_cssgroupindia/catalyst/report/Transfer_Orders/" + fet.ID + "/Attach_File_s_to_Transfer_Order/download";
+	if(thisapp.checkPro.isProduction() == false)
+	{
+		info "Development";
+		mp = Map();
+		mp.put("environment","development");
+		res = invokeurl
+		[
+			url :url
+			type :GET
+			headers:mp
+			connection:"creator"
+		];
+	}
+	else
+	{
+		info "Production";
+		res = invokeurl
+		[
+			url :url
+			type :GET
+			connection:"creator"
+		];
+	}
+	res.setParamName("attachment");
+	info "res = " + res;
+	url = "https://www.zohoapis.in/books/v3/transferorders/" + fet.Books_Transfer_Order_ID + "/attachment?organization_id=60022277655";
+	result = invokeurl
+	[
+		url :url
+		type :POST
+		files:res
+		connection:"zohoboks"
+	];
+	info "result = " + result;
+
+}
