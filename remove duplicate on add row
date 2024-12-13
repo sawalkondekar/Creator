@@ -1,0 +1,38 @@
+//**** When we used .ID.getAll() , then not able to used count function , instead we have to used size function ** Remember ... at line no 11
+//**** Date - 13-12-24
+//***1.If Bill enters, then enter Bill batches and duplciate those batches code
+vend_credit = Vendor_Credit[ID == input.Vendor_Credit_ID];
+//** Get Bills from selected Bills under Vendor Credit
+list1 = Bill_Add_Batch_Ref[Item == input.Item && Warehouse == input.Warehouse && Bills == vend_credit.Bill && PR_Line_Item.Billed_Status == "Billed"];
+fet_add = List();
+// fet_add_batch = List();
+fet_add_batch = Add_Batch_Reference[Batch_Reference == list1.Add_Batch_Reference.Batch_Reference && Item_Name == input.Item && Warehouse == input.Warehouse && Available_Quantity > 0.00].ID.getAll();
+// fet_add_batch = Add_Batch_Reference[Batch_Reference == list1.Add_Batch_Reference.Batch_Reference && Item_Name == input.Item && Warehouse == input.Warehouse && Available_Quantity > 0.00];
+if(fet_add_batch.size() > 0 && !vend_credit.Bill.isEmpty())
+{
+	for each  rec in input.Batch_References
+	{
+			fet_add_batch.removeElement(rec.Add_Batch_Reference);
+	}
+		row.Add_Batch_Reference:ui.add(fet_add_batch);
+}
+//***** 2.If Bill doesn't exists, then Show all Batches
+// // **** Remove Duplicate Billed Batches ****
+// && SHOW ONLY - warehouse , Item &  $$$$$ Respective BILL BATCHES $$$$ ****
+//**************
+//*** If Bill not selected then show All Batches
+else if(vend_credit.Bill.isEmpty())
+{
+	// show all Batches
+	fet_add = Add_Batch_Reference[ID != 0 && Item_Name = input.Item && Warehouse == input.Warehouse && Available_Quantity > 0 && PR_ID.Billed_Status == "Billed" || Billed_Status == "Billed"].ID.getAll();
+	for each  rec1 in input.Batch_References
+	{
+		fet_add.removeElement(rec1.Add_Batch_Reference);
+	}
+	row.Add_Batch_Reference:ui.add(fet_add);
+}
+else
+{
+	clear row.Add_Batch_Reference;
+}
+//********************************************************
