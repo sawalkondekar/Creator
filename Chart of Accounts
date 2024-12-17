@@ -1,0 +1,41 @@
+void Chart_Of_Accounts.All_Chart_Of_Accounts()
+{
+	//url :"https://www.zohoapis.in/books/v3/chartofaccounts?organization_id=60022277655"
+	page = {1,2,3,4,5,6,7,8,9,10};
+	for each  pages in page
+	{
+		get_chart_of_accounts = invokeurl
+		[
+			url :"https://www.zohoapis.in/books/v3/chartofaccounts?status=active&page=" + pages + "&per_page=200&+organization_id=60022277655"
+			type :GET
+			connection:"zohoboks"
+		];
+		// 	info get_chart_of_accounts ;
+		chartofaccounts = get_chart_of_accounts.get("chartofaccounts");
+		info chartofaccounts;
+		for each  accounts in chartofaccounts
+		{
+			Books_account_id = accounts.get("account_id");
+			fet_acc = Chart_of_Accounts[Books_Account_ID == Books_account_id];
+			if(fet_acc.count() == 0)
+			{
+				Chart_Of_acc = insert into Chart_of_Accounts
+				[
+					Added_User=zoho.loginuser
+					Books_Account_ID=Books_account_id
+					Account_Name=accounts.get("account_name")
+					Account_Code=accounts.get("account_code")
+					Account_Type=accounts.get("account_type")
+					Description=accounts.get("description")
+					Parent_Account_Name=accounts.get("parent_account_name")
+				];
+			}
+			// 			else
+			// 			{
+			// 				// Date - 17-12-24			
+			// 				// for updatde existing Parent Account Name - after prod will comment Else condition Code
+			// 				fet_acc.Parent_Account_Name=accounts.get("parent_account_name");
+			// 			}
+		}
+	}
+}
