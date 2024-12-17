@@ -1,0 +1,100 @@
+//**** Scheduler in Books
+/*
+This is a sample function. Uncomment to execute or make changes to this function.
+organizationID = organization.get("organization_id");
+*/
+/*
+This is a sample function. Uncomment to execute or make changes to this function.  
+itemID = item.get("item_id");
+organizationID = organization.get("organization_id");
+*/
+/*
+This is a sample function. Uncomment to execute or make changes to this function.  
+itemID = item.get("item_id");
+organizationID = organization.get("organization_id");
+*/
+// Scheduler to get records and searach based on custom fields and create records in creator code 
+// get_rec = zoho.books.getRecords("items", "60022277655","catalyst_zohoinventory");
+// info get_rec ;
+//
+searchParam = {"cf_item_import":"true"};
+get_rec = zoho.inventory.getRecords("items","60022277655",searchParam,"catalyst_zohoinventory");
+for each  rec in get_rec.get("items")
+{
+	item_id = rec.get("item_id");
+	info item_id;
+	//**************************************************************   
+	// item_id = item.get("item_id");
+	response = invokeurl
+	[
+		url :"https://www.zohoapis.in/books/v3/items/" + item_id + "?organization_id=60022277655"
+		type :GET
+		connection:"catalystservicesolutions"
+	];
+	//Item Import == Yes then only
+	category_name = response.get("item").get("category_name");
+	hsn = response.get("item").get("hsn_or_sac");
+	track_batch = response.get("item").get("track_batch_number");
+	inventory_acc_name = response.get("item").get("inventory_account_name");
+	tax_type = response.get("item").getjson("taxability_type");
+	/////////////////////
+	if(rec.get("item_type") == "inventory")
+	{
+		auto_generate_id = rec.get("custom_field_hash");
+		if(auto_generate_id != null)
+		{
+			auto_id = auto_generate_id.getjson("cf_auto_generate_id");
+			sorting_enabled = auto_generate_id.getJSON("cf_sorting_enable");
+			item_of = auto_generate_id.getJSON("cf_item_of");
+		}
+		// if above null, if null condition not working ..
+		sorting_enabled = 'false';
+		item_of = "";
+		// cf_sorting_enable
+		//get items data
+		itemID = rec.get("item_id");
+		contact_name = rec.get("name");
+		// Mapping the data
+		mp = Map();
+		mp.put("Auto_Generate_ID",auto_id);
+		mp.put("Type_field","Goods");
+		mp.put("Books_Items_ID",itemID);
+		mp.put("Item_Name",contact_name);
+		mp.put("SKU",rec.get("sku"));
+		mp.put("HSN",hsn);
+		// Not getting updated
+		mp.put("UOM",rec.get("unit"));
+		mp.put("Item_Rate",rec.get("rate"));
+		//Other Fields map on date 23-Sept.
+		mp.put("Status",rec.get("status"));
+		mp.put("Sales_Account",rec.get("account_name"));
+		mp.put("Purchase_Account",rec.get("purchase_account_name"));
+		mp.put("Category",category_name);
+		// not getting api name
+		mp.put("Inventory_Account",inventory_acc_name);
+		mp.put("Track_Batches",track_batch);
+		mp.put("Tax_Preference",tax_type);
+		// 	mp.put("taxability_type",tax_type);
+		//production Item_Of
+		mp.put("Item_Of",item_of);
+		mp.put("Sorting_Enable",sorting_enabled);
+		otherparam = Map();
+		// createion of items in creator
+		create1 = zoho.creator.createRecord("vishnu_cssgroupindia","catalyst","Item",mp,otherparam,"zohocreator");
+		//Update created item id in zoho books
+		messages = create1.get("message");
+		if(messages == "Data Added Successfully")
+		{
+			creator_item_id = create1.get("data").getJSON("ID");
+		}
+		customfields = List();
+		custom1 = Map();
+		custom1.put("api_name","cf_creator_id");
+		//Replace "cf_custom_field" with the actual Custom Field's Api Name from Zoho Books
+		custom1.put("value",creator_item_id);
+		customfields.add(custom1);
+		json = Map();
+		json.put("custom_fields",customfields);
+		update = zoho.books.updateRecord("items","60022277655",itemID,json,"catalystservicesolutions");
+	}
+}
