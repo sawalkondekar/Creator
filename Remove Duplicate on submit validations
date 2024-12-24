@@ -1,0 +1,15 @@
+//*** Remove Duplicate from Line Items and Give Alert
+item_list = List();
+for each rec in input.Purchase_Order_Item_Details
+{
+	item_list.add(rec.Items.Item_Name);
+}
+	if ( item_list.distinct() != item_list ) 
+    {
+	  alert "Please Remove Duplicate Items from Line Items";
+	  cancel submit;
+    }
+	else 
+    {
+		//alert "Hello" ;
+    }
