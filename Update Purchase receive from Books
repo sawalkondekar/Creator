@@ -1,0 +1,81 @@
+void purchaseReceive.update_PR(int PR_ID)
+{
+	unableToUpdate = List();
+	fet_PR = PR[ID == PR_ID];
+	po_books_id = fet_PR.PO_Books_ID;
+	vendor_id = fet_PR.Vendor_Name;
+	vendor = Vendor[ID == vendor_id];
+	vendor_books_id = vendor.Books_Vendor_ID;
+	vendor_name = vendor.Vendor_Name;
+	mp = Map();
+	mp.put("date",fet_PR.Received_Date.toString("yyyy-MM-dd"));
+	mp.put("receive_number",fet_PR.Purchase_Receive_No);
+	item_List = List();
+	for each  item1 in fet_PR.Line_Items
+	{
+		receivedQty = 0;
+		if(item1.Visual_Check != "Not Accepted")
+		{
+			batches_List = List();
+			fet_batch = Add_Batch_Reference[Line_Item_ID = item1.ID];
+			item_fetch = Item[Item_Name == item1.Item_Name.Item_Name];
+			if(item_fetch.Track_Batches != "false")
+			{
+				for each  batch in fet_batch
+				{
+					if(batch.Quantity_In == batch.Available_Quantity)
+					{
+						mp2 = Map();
+						mp2.put("batch_number",batch.Batch_Reference);
+						// Unique each time and mandatory
+						mp2.put("external_batch_number",batch.Manucturer_Batch);
+						mp2.put("manufacturer_date",batch.Manufacturer_Date_Packing_Date.toString("yyyy-MM-dd"));
+						mp2.put("expiry_date",batch.Use_by_date_Expiry_Date.toString("yyyy-MM-dd"));
+						mp2.put("in_quantity",batch.Quantity_In);
+						batches_List.add(mp2);
+						receivedQty = batch.Quantity_In + receivedQty;
+					}
+					else
+					{
+						unableToUpdate.add(batch.Batch_Reference);
+					}
+				}
+			}
+			else
+			{
+				receivedQty = fet_batch.Available_Quantity;
+			}
+			mp1 = Map();
+			mp1.put("line_item_id",item1.PO_Line_Item_ID);
+			mp1.put("item_id",item1.Item_Name.Books_Items_ID);
+			mp1.put("name",item1.Item_Name.Item_Name);
+			mp1.put("quantity",receivedQty);
+			if(batches_List.size() > 0)
+			{
+				mp1.put("batches",batches_List);
+			}
+			item_List.add(mp1);
+		}
+		mp.put("line_items",item_List);
+	}
+	json = Map();
+	json.put("JSONString",mp);
+	// 	info mp;
+	response = invokeurl
+	[
+		url :"https://www.zohoapis.in/inventory/v1/purchasereceives/" + fet_PR.Purchase_Receive_ID + "?organization_id=60022277655"
+		type :PUT
+		parameters:json
+		connection:"zohoboks"
+	];
+	if(response.containKey("message"))
+	{
+		msg = response.get("message");
+		openUrl("#Page:Alert_Page?alertMsg=" + msg,"popup window");
+	}
+	else
+	{
+		msg = response;
+		openUrl("#Page:Alert_Page?alertMsg=" + msg,"popup window");
+	}
+}
