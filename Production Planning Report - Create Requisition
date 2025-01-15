@@ -1,0 +1,111 @@
+<%{
+	fet = Create_Requisition[Warehouse = input.warehouse && Date_Time == input.create_req_date];
+	//fet = Create_Requisition[Warehouse = 122981000019792328];
+	del_dist = List();
+	total_q = Map();
+	for each  dining_hall_1 in fet.Dining_Hall
+	{
+		del_dist.add(dining_hall_1.Delicacy.Delicacy);
+		del_dist_final = del_dist.distinct();
+		delicay_name = dining_hall_1.Delicacy.Delicacy;
+		total_z = dining_hall_1.Delicacy.Per_Person_Prepared_Item * dining_hall_1.Required_Qty;
+		if(total_q.contains(delicay_name))
+		{
+			total_q.put(delicay_name,total_q.get(delicay_name) + ifnull(total_z,0));
+		}
+		else
+		{
+			total_q.put(delicay_name,ifnull(total_z,0));
+		}
+	}
+	%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<style type="text/css">
+	.container{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 40px;
+	}
+	.tg  {border-collapse:collapse;border-spacing:0;}
+	.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:20px;
+		overflow:hidden;padding:3px 5px;word-break:normal;}
+	.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:20px;
+		font-weight:normal;overflow:hidden;padding:3px 5px;word-break:normal;}
+	.tg .tg-7zrl{text-align:left;vertical-align:bottom;font-weight: 600}
+</style>
+<body>
+	<div class="container">
+		<table class="tg">
+			<thead>
+				<tr>
+  <th class="tg-7zrl">Meal</th>
+   <th class="tg-7zrl"><%=fet.Meal_Types.Meal_Type%></th>
+   <th class="tg-7zrl">Date</th>
+    <th class="tg-7zrl"><%=fet.Date_Time%></th>
+   <th class="tg-7zrl">Warehouse</th>
+    <th class="tg-7zrl"><%=fet.Warehouse.Warehouse_Name%></th>
+  </tr></thead>
+<tbody>
+  <tr>
+   <td class="tg-7zrl">Delicacy Name</td>
+   <td class="tg-7zrl">Dinnig Hall Name</td>
+   <td class="tg-7zrl">Delicacy Per Person</td>
+   <td class="tg-7zrl">Pax Count</td>
+  <td class="tg-7zrl">Total</td>
+  <td class="tg-7zrl">Remarks</td>
+  </tr>
+  <tr>
+<%
+	total = 0;
+	for each  dining_hall in fet.Dining_Hall
+	{
+		total = total + dining_hall.Delicacy.Per_Person_Prepared_Item * dining_hall.Required_Qty;
+		%>
+<td class="tg-cly1"><%=dining_hall.Delicacy.Delicacy%></td>
+    <td class="tg-cly1"><%=dining_hall.Dining_Hall.Dining_Hall%></td>
+	<td class="tg-cly1"><%=dining_hall.Delicacy.Per_Person_Prepared_Item%></td>
+    <td class="tg-cly1"><%=dining_hall.Required_Qty%></td>
+	<td class="tg-cly1"><%=dining_hall.Delicacy.Per_Person_Prepared_Item * dining_hall.Required_Qty%></td>
+	<td class="tg-7zrl"></td>
+  </tr>
+<%
+	}
+	%>
+</table>
+	</div>
+	<body>
+	<div class="container">
+		<table class="tg">
+			<thead>
+				<tr>
+<tbody>
+  <tr>
+   <td class="tg-7zrl">Delicacy Name</td>
+  <td class="tg-7zrl">Total</td>
+  </tr>
+   <tr>
+<%
+	for each  del_2 in del_dist_final
+	{
+		delicacy_total = total_q.get(del_2);
+		%>
+<td><%=del_2%></td>
+			
+		<td ><%=delicacy_total%></td>
+
+  </tr>
+<%
+	}
+	%>
+</body>
+</html>
+<%
+
+}%>
