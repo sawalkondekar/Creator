@@ -55,7 +55,13 @@ void Purchase_Order.PO_Update(int ID1)
 	{
 		mp1 = Map();
 		info items.Items.Item_Name;
-		mp1.put("PO_Line_Item_ID",items.PO_Line_Item_ID);
+		// 		mp1.put("PO_Line_Item_ID",items.PO_Line_Item_ID); // this is while creattion
+		if(items.PO_Line_Item_ID != null)
+		{
+			mp1.put("line_item_id",items.PO_Line_Item_ID);
+		}
+		//this is while edition
+		// this is while Edition
 		mp1.put("item_id",items.Items.Books_Items_ID);
 		mp1.put("name",items.Items.Item_Name);
 		mp1.put("description",items.Description);
@@ -84,6 +90,7 @@ void Purchase_Order.PO_Update(int ID1)
 		headers:headerMap
 		connection:"zohoboks"
 	];
+	// 	info mp;
 	info po_create;
 	if(po_create.get("code") == "0")
 	{
