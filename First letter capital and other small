@@ -1,0 +1,5 @@
+// Type Here
+a = "billed";
+ formatted_status = a.toLowerCase().subString(0,1).toUpperCase() + a.toLowerCase().subString(1);
+info formatted_status;
+// Output would be Billed
