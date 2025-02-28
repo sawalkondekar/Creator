@@ -1,0 +1,10 @@
+// balance = qty - row.qty; // simple this has done using below
+
+total1 = 0;
+for each  rec in input.Transfer_Order_Add_Batches
+{
+	total1 = total1 + rec.Quantity_Out;
+}
+a = ifnull(input.Total_Quantity,0.0) + ifnull(row.Quantity_Out,0.0) - total1;
+input.Balance_Quantity = "Balance Qty : <b>" + a + "</b>";
+alert input.Balance_Quantity;
