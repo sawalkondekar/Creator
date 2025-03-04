@@ -1,0 +1,8 @@
+// from report button, download subform images code
+// publish main form report and use the code
+for each  rec in input.Image
+{
+	x = rec.Image.getsuffix("image/").getprefix("lowqual").replaceall("\"","");
+	urll = "https://creatorapp.zohopublic.in/file/vishnu_cssgroupindia/content-review-and-release-tracking-1/Approved_Content/" + input.ID + "/Image.Image/image-download/feNjwzaHsFP0ukHgB5t2eBWRZ7HFmHfWMakPf6rbh8jmA4merSgEWsGVQ0T1wfBE8WSMMnxD6DwK6DeqagpRYkRa3Eb4fvzbu9AJ?filepath=/" + x.trim();
+	openURL(urll,"new window","successive=true");
+}
