@@ -1,0 +1,10 @@
+//*** file field added as pdf in send mail task//***
+/// ** resume is file upload field here 
+sendmail  
+ [  
+    from: zoho.adminuserid  
+    to: input.hr_email  
+    subject: "New application received"  
+    message: "Please find the resume attached."
+    Attachments :file: resume  
+ ]
