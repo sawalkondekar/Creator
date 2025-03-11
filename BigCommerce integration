@@ -1,0 +1,14 @@
+pages = {1,2,3};
+	for each  page in pages
+	{
+		orderurl = "https://api.bigcommerce.com/stores/964anr/v2/orders/" + 1142459.trim() + "/products?limit=250&page=" + page;
+		headermap = Map();
+		headermap.put("X-Auth-Client","kyucfhrozr3azrb7nooj108jncj4obg");
+		headermap.put("X-Auth-Token","8wr23qfqnyzm93hb0gbjrigo6gamo27");
+		headermap.put("Content-Type","application/json");
+		headermap.put("Accept","application/json");
+
+			productdata = getUrl(orderurl,headermap);
+			productslist = productdata.tojsonlist();
+			info productdata ;
+}
