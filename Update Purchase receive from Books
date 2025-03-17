@@ -1,3 +1,5 @@
+// update purchase receive from creator to books
+
 void purchaseReceive.update_PR(int PR_ID)
 {
 	unableToUpdate = List();
