@@ -1,0 +1,23 @@
+orderurl_value = "https://api.bigcommerce.com/stores/964anr/v3/pricelists/7/records?sku=" + varint.Variant_SKU;
+		headermap_value = Map();
+		headermap_value.put("X-Auth-Client","kyucfhrozr3azrb7nooj108jncj4obg");
+		headermap_value.put("X-Auth-Token","8wr23qfqnyzm93hb0gbjrigo6gamo27");
+		headermap_value.put("Content-Type","application/json");
+		headermap_value.put("Accept","application/json");
+		try 
+		{
+			orderdatas_value = getUrl(orderurl_value,headermap_value);
+			ordermap_value = orderdatas_value.tomap();
+			item_list_value = ordermap_value.get("data").toList();
+			info item_list_value;
+			for each  item_value in item_list_value
+			{
+				get_variant = Big_Commerce_Variants[Variant_ID == item_value.get("variant_id")];
+				get_variant.Valued_Price=item_value.get("calculated_price");
+			}
+		}
+		catch (e)
+		{
+			info e;
+		}
+	}
