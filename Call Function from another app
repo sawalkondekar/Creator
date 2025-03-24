@@ -1,0 +1,13 @@
+// get data from other application or call function from other app
+stpe - 1
+
+string test.updates(string email)
+{
+rec = Contact [EmailId == input.email];
+return rec.Name;
+}
+
+stpe - 2
+input.Contact_Name = app1.test.updates(input.Contact_Email);
+
+// in 2nd appln , you can call in fun or in wf directly
