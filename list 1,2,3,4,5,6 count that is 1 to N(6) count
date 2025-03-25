@@ -1,0 +1,11 @@
+ count_list = List();
+order = Add_Orders[ID != 0] range from 1 to 6;
+count = 0;
+for each c in order
+{
+	count_list.add(count);
+	count = count + 1;
+}
+// alert count_list ; // 0,1,2,3,4,5
+input.Picked_Quantity:ui.add(count_list); 
+ 
