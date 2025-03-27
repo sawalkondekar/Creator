@@ -1,0 +1,14 @@
+ccList = List();
+for each  ccRecords in input.Mail_ID_of_consenting_person
+{
+	ccList.add(ccRecords.CC_Mail_Id);
+}
+publish_link_vendor_onboarding = "https://creatorapp.zohopublic.in/vishnu_cssgroupindia/catalyst/form-perma/Vendor_Onboarding/PFHKrPxwzBt67FXj4YnxyVqNvMVvKprtY3KAeU4vRO46Y1dB8ye49H8HDxqJ4gQdf87P1DAnAfvGsgYBhGpN3wXsCxuwDYB5Hq6P?Vendor_Email=" + input.Email + "&Phone_Number=" + input.Phone_Number;
+sendmail
+[
+	from :zoho.loginuserid
+	to :input.Email
+	cc:"kirtikumar.desai@catalystsolutions.eco","baliram.survase@catalystsolutions.eco","kanhaiya.chavhan@catalystsolutions.eco","vinayak.desai@catalystsolutions.eco","someshwar.biradar@catalystsolutions.eco",ccList.tostring()
+	subject :"Vendor Invitation Email to Register"
+	message :"<h4>Dear " + input.Primary_Contact + "</h4><h4>I hope this message finds you proceed with your vendor registration, please complete the onboarding process by using or clicking the following link:</h4>" + "<h4><a href= ' " + publish_link_vendor_onboarding + "' >Click Here </a><h4>" + "<h4>Should you have any questions or require assistance, feel free to reach out.<br> <br> Thank you for your cooperation, and we look forward to working with you.</h4>" + "<br><br><br><h4>Thanks and Regards</h4>"
+]
