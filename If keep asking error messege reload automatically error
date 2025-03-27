@@ -1,0 +1,17 @@
+//*** add else if condition also , add input = ""; like this , will solve that error 
+//** check correct sku
+if(input.Scan_SKU == input.SKU.SKU_ID)
+{
+	// correct sku
+	focus Picked_Quantity;
+}
+else if(input.Scan_SKU.isEmpty())
+{
+	focus Scan_SKU;
+}
+else
+{
+	alert "Please scan correct SKU";
+	input.Scan_SKU = "";
+	focus Scan_SKU ;
+}
