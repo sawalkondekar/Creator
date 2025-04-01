@@ -1,0 +1,11 @@
+// Define the input text
+input_text = "UBT-1001-0035,B-1001-0600,B-1001-0600";
+
+// Split the text into a list
+item_list = input_text.toList(",");
+
+// Get unique values using distinct
+unique_items = item_list.distinct();
+
+// Display or use the unique list
+info unique_items;
