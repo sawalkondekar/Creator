@@ -1,0 +1,40 @@
+//** Update
+fet_picking_bin_for_pack = Picking_Bins_For_Pack[Picking_Bins_with_Report = input.Picking_Bins_with_Report && Scan_Bin == input.Scan_Bin];
+if(fet_picking_bin_for_pack.count() > 0)
+{
+coll1 = collection();
+// 		fet_subform = fet_rec_sub.SubForm();
+// 		{
+		row3 = Picking_Bins_For_Pack.SubForm();
+		row3.SKU=input.Scan_SKU;
+		row3.Weight=input.SKU.Weight;
+		row3.Quantity=input.Picked_Quantity;
+		row3.Picking_Bins_with_Report=input.Picking_Bins_with_Report;
+		coll1.insert(row3);
+// 		fet_picking_bin_for_pack.insert(coll1);
+		fet_picking_bin_for_pack.SubForm.insert(coll1);
+}
+//******************************************************************************************************
+//** Create 
+else
+{
+
+	coll = Collection();
+// 	for each  bin_sub in Picking_Bin_For_Pack_Subform
+// 	{
+		row2 = Picking_Bins_For_Pack.SubForm();
+		row2.SKU=input.Scan_SKU;
+		row2.Weight=input.SKU.Weight;
+		row2.Quantity=input.Picked_Quantity;
+		row2.Picking_Bins_with_Report=input.Picking_Bins_with_Report;
+		coll.insert(row2);
+// 	}
+	bin = insert into Picking_Bins_For_Pack
+	[
+		Added_User=zoho.loginuser
+		Picking_Bins_with_Report=input.Picking_Bins_with_Report
+		Scan_Bin=input.Scan_Bin
+		Picking_Bins_Subform=input.Picking_Bins_Subform
+		SubForm=coll
+	];
+}
