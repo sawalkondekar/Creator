@@ -1,0 +1,20 @@
+// 1.https://accounts.zoho.in/oauth/v2/token?grant_type=authorization_code&client_id=1000.DJZ5TUUNMZ8L4H0O9IA9KSY8UTZ9HS&client_secret=e09eb3672cbd596142465ab921c419bf6bd3f85b93&redirect_uri=test.com&code=1000.5415f1c7ad07442a04f512f522650ee3.53b95797ba12f095f991ef3fd5761a5b
+//2.https://accounts.zoho.in/oauth/v2/token?refresh_token=1000.95c123cad9f76adfdf1d9ea1f296d944.81654defebf75c4f5e8cf62d7138302f&client_id=1000.DJZ5TUUNMZ8L4H0O9IA9KSY8UTZ9HS&client_secret=e09eb3672cbd596142465ab921c419bf6bd3f85b93&grant_type=refresh_token
+//"scope": "ZohoCreator.form.CREATE",
+//access token used from step 1 to step 2 
+
+mp = Map();
+	mp.put("First_Name","First_1");
+	jsonData = Map();
+	jsonData.put("data", mp);
+	head = Map();
+	head.put("Authorization"," Zoho-oauthtoken 1000.943c8fc39373a8b436a184d6a4aa0200.447410361321d82bcd98f7ca82bc145d");
+	head.put("Content-Type","application/json");
+	send = invokeurl
+	[
+		url :"https://www.zohoapis.in/creator/v2.1/data/vishnu_cssgroupindia/internal/form/Test_Form"
+		type :POST
+		parameters:jsonData.toString()
+		headers:head
+	];
+	info send;
